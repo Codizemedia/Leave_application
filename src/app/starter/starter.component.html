@@ -22,13 +22,11 @@
                       <input matInput placeholder="Last name:">
                     </mat-form-field>
                   </div>
-                  <!-- column -->
                   <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
                     <mat-form-field appearance="outline">
                       <input matInput placeholder="First name:">
                     </mat-form-field>
                   </div>
-                  <!-- column -->
                   <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
                     <mat-form-field appearance="outline">
                       <input matInput placeholder="Middle name:">
@@ -79,28 +77,161 @@
                       <mat-label>B. DETAILS OF LEAVE </mat-label><br><br>
                       <form action="">
                         <div class="col-md-2" fxLayout="column" fxLayoutAlign="center">
-                            <i>In case of VAcation/Special Privelege Leave:</i>
-                            <div fxLayout="row"  style="background-color: red; ">
+                              <i>In case of VAcation/Special Privelege Leave:</i>
                               <div 
                               fxFlex.gt-sm="40" 
                               fxFlex="100" 
-                              class="p-10" 
-                              style="background-color: green;  justify-content: center; align-items: center;">
-                                
-                                <!-- <mat-form-field> -->
-                                    <label>
-                                        <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                                        Within the Philippines
-                                        <!-- <input matInput  > -->
-                                    </label>
-                                  <!-- </mat-form-field> -->
+                              fxLayout="row"
+                              fxLayout.gt-sm="row"
+                              fxLayout.gt-xs="column"
+                              fxLayout.gt-md="row"
+                              fxLayout.gt-lg="row"
+                              fxLayout.lt-sm="column"
+                              fxLayoutAlign="left"
+                              class="full-width">
+                                <label style="white-space: nowrap">
+                                    <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                                    Within the Philippines
+                                </label>
+                                <input class="input full-width" type="text">
                               </div>
-                              <div fxFlex.gt-sm="70" fxFlex="100" class="p-10" style="background-color: blue;">
-                                <mat-form-field>
-                                  <input matInput>
-                                </mat-form-field>
+                              <div 
+                              fxFlex.gt-sm="40" 
+                              fxFlex="100" 
+                              fxLayout="row"
+                              fxLayout.gt-sm="row"
+                              fxLayout.gt-xs="column"
+                              fxLayout.gt-md="row"
+                              fxLayout.gt-lg="row"
+                              fxLayout.lt-sm="column"
+                              fxLayoutAlign="left"
+                              class="full-width">
+                                <label style="white-space: nowrap">
+                                    <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                                    Abroad (Specify)
+                                </label>
+                                <input class="input full-width" type="text">
                               </div>
-                            </div>
+                               <i>In case of Sick Leave:</i>
+                                <div 
+                              fxFlex.gt-sm="40" 
+                              fxFlex="100" 
+                              fxLayout="row"
+                              fxLayout.gt-sm="row"
+                              fxLayout.gt-xs="column"
+                              fxLayout.gt-md="row"
+                              fxLayout.gt-lg="row"
+                              fxLayout.lt-sm="column"
+                              fxLayoutAlign="left"
+                              class="full-width">
+                                <label style="white-space: nowrap">
+                                    <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                                    In Hospital (Specify Illness)
+                                </label>
+                                <input class="input full-width" type="text">
+                              </div>
+                              <div 
+                              fxFlex.gt-sm="40" 
+                              fxFlex="100" 
+                              fxLayout="row"
+                              fxLayout.gt-sm="row"
+                              fxLayout.gt-xs="column"
+                              fxLayout.gt-md="row"
+                              fxLayout.gt-lg="row"
+                              fxLayout.lt-sm="column"
+                              fxLayoutAlign="left"
+                              class="full-width">
+                                <label style="white-space: nowrap">
+                                    <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                                    Out Patient (Specify Illness)
+                                </label>
+                                <input class="input full-width" type="text">
+                              </div>
+                              <i>In case of Special Leave Benefits for Women:</i>
+                               <div 
+                              fxFlex.gt-sm="40" 
+                              fxFlex="100" 
+                              fxLayout="row"
+                              fxLayout.gt-sm="row"
+                              fxLayout.gt-xs="column"
+                              fxLayout.gt-md="row"
+                              fxLayout.gt-lg="row"
+                              fxLayout.lt-sm="column"
+                              fxLayoutAlign="left"
+                              class="full-width">
+                                <i>(Specify Illnes)</i>
+                                <input class="input full-width" type="text">
+                              </div>
+                              <i>Incase of Study Leave:</i>
+                              <div 
+                              fxFlex.gt-sm="40" 
+                              fxFlex="100" 
+                              fxLayout="row"
+                              fxLayout.gt-sm="row"
+                              fxLayout.gt-xs="column"
+                              fxLayout.gt-md="row"
+                              fxLayout.gt-lg="row"
+                              fxLayout.lt-sm="column"
+                              fxLayoutAlign="left"
+                              class="full-width">
+                                <label style="white-space: nowrap">
+                                    <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                                    Completion of Master's Degree
+                                </label>
+                                <input class="input full-width" type="text">
+                              </div>
+                              <div 
+                              fxFlex.gt-sm="40" 
+                              fxFlex="100" 
+                              fxLayout="row"
+                              fxLayout.gt-sm="row"
+                              fxLayout.gt-xs="column"
+                              fxLayout.gt-md="row"
+                              fxLayout.gt-lg="row"
+                              fxLayout.lt-sm="column"
+                              fxLayoutAlign="left"
+                              class="full-width">
+                                <label style="white-space: nowrap">
+                                    <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                                    Bar/Board Examination Review
+                                </label>
+                                <input class="input full-width" type="text">
+                              </div>
+                              <div>Other Purpose</div>
+                                    <div 
+                              fxFlex.gt-sm="40" 
+                              fxFlex="100" 
+                              fxLayout="row"
+                              fxLayout.gt-sm="row"
+                              fxLayout.gt-xs="column"
+                              fxLayout.gt-md="row"
+                              fxLayout.gt-lg="row"
+                              fxLayout.lt-sm="column"
+                              fxLayoutAlign="left"
+                              class="full-width">
+                                <label style="white-space: nowrap">
+                                    <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                                    Monetization of Leave Credits
+                                </label>
+                                <input class="input full-width" type="text">
+                              </div>
+                                    <div 
+                              fxFlex.gt-sm="40" 
+                              fxFlex="100" 
+                              fxLayout="row"
+                              fxLayout.gt-sm="row"
+                              fxLayout.gt-xs="column"
+                              fxLayout.gt-md="row"
+                              fxLayout.gt-lg="row"
+                              fxLayout.lt-sm="column"
+                              fxLayoutAlign="left"
+                              class="full-width">
+                                <label style="white-space: nowrap">
+                                    <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                                    Terminal Leave
+                                </label>
+                                <input class="input full-width" type="text">
+                              </div>
                         </div>
                       </form>
                     </div>

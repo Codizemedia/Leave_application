@@ -10,31 +10,24 @@ export const AppRoutes: Routes = [
         component: FullComponent,
         canActivate: [AuthGuard],
         children: [
-            {
-                path: 'material',
-                loadChildren: () => import('./material-component/material.module').then(m => m.MaterialComponentsModule)
+             {
+                path: '',
+                redirectTo: '/dashboard',
+                pathMatch: 'full',
             },
             {
                 path: 'starter',
                 loadChildren: () => import('./starter/starter.module').then(m => m.StarterModule)
             },
-
         ]
     },
     {
-        path: '',
-        component: AppBlankComponent,
-        children: [
-            {
-                path: 'authentication',
-                loadChildren:
-                    () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
-            }
-        ]
+        path: 'authentication',
+        loadChildren:
+            () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
     },
     {
         path: '**',
         component: ErrorComponent,
     }
-
 ];
