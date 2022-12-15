@@ -14,12 +14,12 @@
         </span>
       </a>
     </div>
-    <button mat-icon-button (click)="snav.toggle() && clickEvent()" value="sidebarclosed">
+    <!-- <button mat-icon-button (click)="snav.toggle() && clickEvent()" value="sidebarclosed">
       <mat-icon>menu</mat-icon>
-    </button>
-    <button mat-icon-button class="srh-btn" (click)="showSearch = !showSearch">
+    </button> -->
+    <!-- <button mat-icon-button class="srh-btn" (click)="showSearch = !showSearch">
       <mat-icon>search</mat-icon>
-    </button>
+    </button> -->
     <form class="app-search" [ngClass]="{'show-search': showSearch}">
       <input type="text" class="form-control" placeholder="Search &amp; enter">
       <a class="cl-srh-btn" (click)="showSearch = !showSearch">
@@ -28,18 +28,18 @@
     </form>
     <span fxFlex></span>
     <app-header></app-header>
-    <button (click)="end.toggle()" mat-icon-button class="ml-xs overflow-visible">
+    <!-- <button (click)="end.toggle()" mat-icon-button class="ml-xs overflow-visible">
       <mat-icon>settings</mat-icon>
-    </button>
+    </button> -->
   </mat-toolbar>
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0"
     [ngClass]="{'minisidebar': minisidebar}">
-    <mat-sidenav #snav id="snav" class="pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'" fixedTopGap="0"
+    <!-- <mat-sidenav #snav id="snav" class="pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'" fixedTopGap="0"
       [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches" (open)="sidebarOpened = true"
       (close)="sidebarOpened = false" [perfectScrollbar]="config">
       <app-sidebar class="app-sidebar"></app-sidebar>
-    </mat-sidenav>
-    <mat-sidenav #end position="end" class="chat-panel" mode="over" opened="false">
+    </mat-sidenav> -->
+    <!-- <mat-sidenav #end position="end" class="chat-panel" mode="over" opened="false">
       <div class="scroll">
         <mat-nav-list>
           <h3 mat-subheader class="text-uppercase font-weight-bold">Settings</h3>
@@ -68,7 +68,7 @@
           </mat-list-item>
         </mat-nav-list>
       </div>
-    </mat-sidenav>
+    </mat-sidenav> -->
     <mat-sidenav-content class="page-wrapper" [ngClass]="status ? 'minitoggle' : ''">
       <app-breadcrumb></app-breadcrumb>
       <div class="page-content">
