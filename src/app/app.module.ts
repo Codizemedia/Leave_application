@@ -17,7 +17,6 @@ import { DemoMaterialModule } from './demo-material-module';
 
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
-import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -26,6 +25,8 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { AppBlankComponent } from './layouts/blank/blank.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -46,8 +47,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppHeaderComponent,
     SpinnerComponent,
     AppSidebarComponent,
-    LoginComponent,
-    AppBreadcrumbComponent
+    AppBreadcrumbComponent,
+    AppBlankComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +58,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FlexLayoutModule,
     PerfectScrollbarModule,
     HttpClientModule,
+    AuthenticationModule,
     SharedModule,
     RouterModule.forRoot(AppRoutes),
 
