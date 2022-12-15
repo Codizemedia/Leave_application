@@ -1,15 +1,127 @@
 
-<!-- <div fxLayout="row" fxLayoutWrap="wrap" style="background-image:url(assets/images/background/login-register.jpg);">
+<div fxLayout="row" fxLayoutWrap="wrap">
     <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
         <mat-card>
-            <mat-card-content>
-                <div fxLayout="row" fxLayoutWrap="wrap">
-                    <div fxFlex.gt-sm="50" fxFlex.gt-xs="50">
-                        Starter Page
+            <mat-card-content >
+                <mat-card-title>APPLICATION FOR LEAVE</mat-card-title>
+        <!-- <button mat-raised-button (click)="isLinear = true" id="toggle-linear">Enable linear mode</button> -->
+        <mat-horizontal-stepper [linear]="isLinear">
+          <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+              <ng-template matStepLabel>First step</ng-template>
+              <div>
+                <mat-label>1. OFFICE/DEPARTMENT MSU-LNAC</mat-label>
+                <mat-form-field>
+                  <input matInput placeholder="" formControlName="firstCtrl" required>
+                </mat-form-field>
+              </div>
+              <mat-label>2. NAME:</mat-label>
+              <div>
+                <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
+                    <mat-form-field appearance="outline">
+                      <input matInput placeholder="Last name:">
+                    </mat-form-field>
+                  </div>
+                  <!-- column -->
+                  <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
+                    <mat-form-field appearance="outline">
+                      <input matInput placeholder="First name:">
+                    </mat-form-field>
+                  </div>
+                  <!-- column -->
+                  <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
+                    <mat-form-field appearance="outline">
+                      <input matInput placeholder="Middle name:">
+                    </mat-form-field>
+                  </div>
+              </div>
+              <div>
+                <mat-label>3. DATE OF FILLING</mat-label>
+                <mat-form-field>
+                  <input matInput placeholder="" formControlName="firstCtrl" required>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-label>4. POSITION</mat-label>
+                <mat-form-field>
+                  <input matInput placeholder="" formControlName="firstCtrl" required>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-label>5. SALARY</mat-label>
+                <mat-form-field>
+                  <input matInput placeholder="" formControlName="firstCtrl" required>
+                </mat-form-field>
+              </div>
+              <div>
+                <button mat-raised-button color="warn" matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Second step</ng-template>
+              <div style="text-align:center;">
+                <mat-label>6. OFFICE/DEPARTMENT MSU-LNAC</mat-label>
+                <br><br>
+                <div fxLayout="row" style="text-align:left;">
+                
+                    <div fxFlex="100">
+                      <mat-label>A. TYPE OF LEAVE TO BE AVAILED OF</mat-label><br><br>
+                      <div *ngFor="let choice of choices; let i=index" class="col-md-2">
+                          <label>
+                            <input type="checkbox" [value]="choice.value" (change)="onCheckChange($event)">
+                            {{choice.description}}
+                          </label>
+                      </div>
+                    </div>
+                    <div fxFlex="100">
+                      <mat-label>B. DETAILS OF LEAVE </mat-label><br><br>
+                      <form action="">
+                        <div class="col-md-2" fxLayout="column" fxLayoutAlign="center">
+                            <i>In case of VAcation/Special Privelege Leave:</i>
+                            <div fxLayout="row"  style="background-color: red; ">
+                              <div 
+                              fxFlex.gt-sm="40" 
+                              fxFlex="100" 
+                              class="p-10" 
+                              style="background-color: green;  justify-content: center; align-items: center;">
+                                
+                                <!-- <mat-form-field> -->
+                                    <label>
+                                        <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                                        Within the Philippines
+                                        <!-- <input matInput  > -->
+                                    </label>
+                                  <!-- </mat-form-field> -->
+                              </div>
+                              <div fxFlex.gt-sm="70" fxFlex="100" class="p-10" style="background-color: blue;">
+                                <mat-form-field>
+                                  <input matInput>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                        </div>
+                      </form>
                     </div>
                 </div>
+              </div>
+              <br><br>
+              <div>
+                <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+                <button mat-raised-button color="warn" matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            You are now done.
+            <div>
+              <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
             </mat-card-content>
         </mat-card>
     </div>
-</div> -->
-<p>Something</p>
+</div>
