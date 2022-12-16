@@ -74,71 +74,28 @@
                 
                     <div fxFlex="100" class="p-10">
                       <mat-label>A. TYPE OF LEAVE TO BE AVAILED OF</mat-label><br><br>
-                      <div fxLayout="column">
-                          <label>
+                      <div  
+                      *ngFor="let choice of choices1; 
+                      let i=index"
+                      [ngSwitch]="choice.type" 
+                      fxLayout="column">
+                          <label *ngSwitchCase="'checkbox'">
                             <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                            Vacation Leave
+                            {{choice.description}}
                           </label>
-                          <label>
-                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                            Mandatory/Force Leave
-                          </label>
-                          <label>
-                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                            Sick Leave
-                          </label>
-                          <label>
-                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                            Maternity Leave
-                          </label>
-                          <label>
-                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                            Paternity Leave
-                          </label>
-                          <label>
-                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                            Special Privilege Leave
-                          </label>
-                          <label>
-                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                            Solo Parent Leave
-                          </label>
-                          <label>
-                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                            Study Leave
-                          </label>
-                          <label>
-                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                            10-Day VAWC Leave
-                          </label>
-                          <label>
-                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                            Rehabilitation Privilege
-                          </label>
-                          <label>
-                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                            Special Leave Benefits for Women
-                          </label>
-                          <label>
-                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                            Special Emergency
-                          </label>
-                          <label>
-                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                            Adoption Leave
-                          </label>
-                      </div><br>
-                      <mat-label>Others:</mat-label><br>
-                      <mat-label><u>TLB (Termianl Leave Benefits)</u></mat-label><br>
-                      <mat-label>C. NUMBER OF WORKING DAYS APPLIED FOR</mat-label><br>
-                      <input class="input full-width" type="text"><br>
-                      <mat-label>INCLUSIVE DATES</mat-label><br>
-                      <input class="input full-width" type="text">
+                          <br *ngSwitchCase="'space'">
+                          <mat-label *ngSwitchCase="'label'">{{choice.description}}</mat-label>
+                          <mat-label *ngSwitchCase="'underline-label'"><u>TLB (Termianl Leave Benefits)</u></mat-label>
+                          <input  *ngSwitchCase="'input'" class="input full-width" type="text">
+                      </div>
                     </div>
                     <div fxFlex="100" class="p-10">
                       <mat-label>B. DETAILS OF LEAVE </mat-label><br><br>
                       <form action="">
-                        <div class="col-md-2" fxLayout="column" fxLayoutAlign="center">
+                        <div 
+                        class="col-md-2" 
+                        fxLayout="column" 
+                        fxLayoutAlign="center">
                               <i>In case of VAcation/Special Privelege Leave:</i>
                               <div 
                               fxFlex.gt-sm="40" 
