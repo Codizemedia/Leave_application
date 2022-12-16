@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-starter',
-  templateUrl: './starter.component.html',
-  styleUrls: ['./starter.component.scss']
+  selector: 'app-application-form',
+  templateUrl: './application-form.component.html',
+  styleUrls: ['./application-form.component.scss']
 })
-export class StarterComponent implements OnInit {
+export class ApplicationFormComponent implements OnInit {
   isLinear = false;
   firstFormGroup: FormGroup = Object.create(null);
   secondFormGroup: FormGroup = Object.create(null);

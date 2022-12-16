@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 
-import { StarterComponent } from './starter.component';
+import { ApplicationFormComponent } from './application-form.component';
 
 export const StarterRoutes: Routes = [
   {
     path: '',
-    component: StarterComponent,
+    component: ApplicationFormComponent,
 	data: {
       title: 'Starter Page',
       urls: [

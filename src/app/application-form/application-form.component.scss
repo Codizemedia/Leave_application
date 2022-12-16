@@ -1,0 +1,41 @@
+@import '../../assets//styles/variable.scss';
+::ng-deep .mat-form-field-label-wrapper { top: -1.5em; }
+
+.input{
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid black;
+}
+
+.align-right{
+  justify-content: right;
+  display: flex;
+}
+
+.button-layout{
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 150px;
+}
+
+.button-style{
+  background-color: $success;
+  color: black;
+  font-size: large;
+}
+
+// Layout
+
+.full-width{    
+  width: 100%;
+}
+
+.m-l-10{
+  margin-left: 10px;
+}
+
+.p-10{
+  padding: 10px;
+}
+

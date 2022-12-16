@@ -17,7 +17,7 @@ export const AppRoutes: Routes = [
             },
             {
                 path: 'starter',
-                loadChildren: () => import('./starter/starter.module').then(m => m.StarterModule)
+                loadChildren: () => import('./application-form/starter.module').then(m => m.StarterModule)
             },
         ]
     },

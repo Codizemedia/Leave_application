@@ -3,9 +3,10 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DemoMaterialModule } from '../demo-material-module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { StarterComponent } from './starter.component';
+import { ApplicationFormComponent } from './application-form.component';
 import { StarterRoutes } from './starter.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FilledFormComponent } from './components/filled-form/filled-form.component';
 // import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
@@ -18,6 +19,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     RouterModule.forChild(StarterRoutes)
   ],
-  declarations: [StarterComponent]
+  declarations: [ApplicationFormComponent, FilledFormComponent]
 })
 export class StarterModule {}

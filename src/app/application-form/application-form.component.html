@@ -1,58 +1,66 @@
 
-<div fxLayout="row" fxLayoutWrap="wrap">
+<div fxLayout="row" fxLayoutWrap="wrap" >
     <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-        <mat-card>
+        <mat-card >
             <mat-card-content >
                 <mat-card-title>APPLICATION FOR LEAVE</mat-card-title>
-        <!-- <button mat-raised-button (click)="isLinear = true" id="toggle-linear">Enable linear mode</button> -->
         <mat-horizontal-stepper [linear]="isLinear">
           <mat-step [stepControl]="firstFormGroup">
             <form [formGroup]="firstFormGroup">
               <ng-template matStepLabel>First step</ng-template>
-              <div>
-                <mat-label>1. OFFICE/DEPARTMENT MSU-LNAC</mat-label>
-                <mat-form-field>
-                  <input matInput placeholder="" formControlName="firstCtrl" required>
-                </mat-form-field>
-              </div>
-              <mat-label>2. NAME:</mat-label>
-              <div>
-                <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
-                    <mat-form-field appearance="outline">
-                      <input matInput placeholder="Last name:">
-                    </mat-form-field>
-                  </div>
+              <div class="p-10">
+                <div >
+                  <mat-label>1. OFFICE/DEPARTMENT MSU-LNAC</mat-label>
+                  <mat-form-field>
+                    <input matInput placeholder="" formControlName="firstCtrl" required>
+                  </mat-form-field>
+                </div>
+                <mat-label>2. NAME:</mat-label>
+                <div>
                   <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
-                    <mat-form-field appearance="outline">
-                      <input matInput placeholder="First name:">
-                    </mat-form-field>
-                  </div>
-                  <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
-                    <mat-form-field appearance="outline">
-                      <input matInput placeholder="Middle name:">
-                    </mat-form-field>
-                  </div>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Last name:</mat-label>
+                        <input matInput>
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
+                      <mat-form-field appearance="outline">
+                        <mat-label>First name:</mat-label>
+                        <input matInput>
+                      </mat-form-field>
+                    </div>
+                    <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Middle name:</mat-label>
+                        <input matInput>
+                      </mat-form-field>
+                    </div>
+                </div>
+                <div>
+                  <mat-label>3. DATE OF FILLING</mat-label>
+                  <mat-form-field>
+                    <input matInput placeholder="" formControlName="firstCtrl" required>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-label>4. POSITION</mat-label>
+                  <mat-form-field>
+                    <input matInput placeholder="" formControlName="firstCtrl" required>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-label>5. SALARY</mat-label>
+                  <mat-form-field>
+                    <input matInput placeholder="" formControlName="firstCtrl" required>
+                  </mat-form-field>
+                </div>
               </div>
-              <div>
-                <mat-label>3. DATE OF FILLING</mat-label>
-                <mat-form-field>
-                  <input matInput placeholder="" formControlName="firstCtrl" required>
-                </mat-form-field>
-              </div>
-              <div>
-                <mat-label>4. POSITION</mat-label>
-                <mat-form-field>
-                  <input matInput placeholder="" formControlName="firstCtrl" required>
-                </mat-form-field>
-              </div>
-              <div>
-                <mat-label>5. SALARY</mat-label>
-                <mat-form-field>
-                  <input matInput placeholder="" formControlName="firstCtrl" required>
-                </mat-form-field>
-              </div>
-              <div>
-                <button mat-raised-button color="warn" matStepperNext>Next</button>
+              <div class="align-right">
+                <button 
+                mat-raised-button
+                matStepperNext
+                class="button-layout button-style">
+                Next</button>
               </div>
             </form>
           </mat-step>
@@ -62,18 +70,24 @@
               <div style="text-align:center;">
                 <mat-label>6. OFFICE/DEPARTMENT MSU-LNAC</mat-label>
                 <br><br>
-                <div fxLayout="row" style="text-align:left;">
+                <div fxLayout="row" style="text-align:left;" >
                 
-                    <div fxFlex="100">
+                    <div fxFlex="100" class="p-10">
                       <mat-label>A. TYPE OF LEAVE TO BE AVAILED OF</mat-label><br><br>
                       <div *ngFor="let choice of choices; let i=index" class="col-md-2">
                           <label>
                             <input type="checkbox" [value]="choice.value" (change)="onCheckChange($event)">
                             {{choice.description}}
                           </label>
-                      </div>
+                      </div><br>
+                      <mat-label>Others:</mat-label><br>
+                      <mat-label><u>TLB (Termianl Leave Benefits)</u></mat-label><br>
+                      <mat-label>C. NUMBER OF WORKING DAYS APPLIED FOR</mat-label><br>
+                      <input class="input full-width" type="text"><br>
+                      <mat-label>INCLUSIVE DATES</mat-label><br>
+                      <input class="input full-width" type="text">
                     </div>
-                    <div fxFlex="100">
+                    <div fxFlex="100" class="p-10">
                       <mat-label>B. DETAILS OF LEAVE </mat-label><br><br>
                       <form action="">
                         <div class="col-md-2" fxLayout="column" fxLayoutAlign="center">
@@ -93,7 +107,7 @@
                                     <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
                                     Within the Philippines
                                 </label>
-                                <input class="input full-width" type="text">
+                                <input class="input full-width m-l-10" type="text">
                               </div>
                               <div 
                               fxFlex.gt-sm="40" 
@@ -110,7 +124,7 @@
                                     <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
                                     Abroad (Specify)
                                 </label>
-                                <input class="input full-width" type="text">
+                                <input class="input full-width m-l-10" type="text">
                               </div>
                                <i>In case of Sick Leave:</i>
                                 <div 
@@ -128,7 +142,7 @@
                                     <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
                                     In Hospital (Specify Illness)
                                 </label>
-                                <input class="input full-width" type="text">
+                                <input class="input full-width m-l-10" type="text">
                               </div>
                               <div 
                               fxFlex.gt-sm="40" 
@@ -145,7 +159,7 @@
                                     <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
                                     Out Patient (Specify Illness)
                                 </label>
-                                <input class="input full-width" type="text">
+                                <input class="input full-width m-l-10" type="text">
                               </div>
                               <i>In case of Special Leave Benefits for Women:</i>
                                <div 
@@ -159,8 +173,10 @@
                               fxLayout.lt-sm="column"
                               fxLayoutAlign="left"
                               class="full-width">
-                                <i>(Specify Illnes)</i>
-                                <input class="input full-width" type="text">
+                                <label style="white-space: nowrap">
+                                  <i>(Specify Illnes)</i>
+                                </label>
+                                <input class="input full-width m-l-10" type="text">
                               </div>
                               <i>Incase of Study Leave:</i>
                               <div 
@@ -178,7 +194,7 @@
                                     <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
                                     Completion of Master's Degree
                                 </label>
-                                <input class="input full-width" type="text">
+                                <input class="input full-width m-l-10" type="text">
                               </div>
                               <div 
                               fxFlex.gt-sm="40" 
@@ -195,10 +211,10 @@
                                     <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
                                     Bar/Board Examination Review
                                 </label>
-                                <input class="input full-width" type="text">
+                                <input class="input full-width m-l-10" type="text">
                               </div>
-                              <div>Other Purpose</div>
-                                    <div 
+                              <div>Other Purpose:</div>
+                              <div 
                               fxFlex.gt-sm="40" 
                               fxFlex="100" 
                               fxLayout="row"
@@ -213,9 +229,9 @@
                                     <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
                                     Monetization of Leave Credits
                                 </label>
-                                <input class="input full-width" type="text">
+                                <input class="input full-width m-l-10" type="text">
                               </div>
-                                    <div 
+                              <div 
                               fxFlex.gt-sm="40" 
                               fxFlex="100" 
                               fxLayout="row"
@@ -230,7 +246,39 @@
                                     <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
                                     Terminal Leave
                                 </label>
-                                <input class="input full-width" type="text">
+                              </div><br>
+                              <mat-label>D COMMUTATION</mat-label>
+                              <div 
+                              fxFlex.gt-sm="40" 
+                              fxFlex="100" 
+                              fxLayout="row"
+                              fxLayout.gt-sm="row"
+                              fxLayout.gt-xs="column"
+                              fxLayout.gt-md="row"
+                              fxLayout.gt-lg="row"
+                              fxLayout.lt-sm="column"
+                              fxLayoutAlign="left"
+                              class="full-width">
+                                <label style="white-space: nowrap">
+                                    <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                                    Not Requested
+                                </label>
+                              </div>
+                              <div 
+                              fxFlex.gt-sm="40" 
+                              fxFlex="100" 
+                              fxLayout="row"
+                              fxLayout.gt-sm="row"
+                              fxLayout.gt-xs="column"
+                              fxLayout.gt-md="row"
+                              fxLayout.gt-lg="row"
+                              fxLayout.lt-sm="column"
+                              fxLayoutAlign="left"
+                              class="full-width">
+                                <label style="white-space: nowrap">
+                                    <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                                    Requested
+                                </label>
                               </div>
                         </div>
                       </form>
@@ -238,17 +286,29 @@
                 </div>
               </div>
               <br><br>
-              <div>
-                <button mat-raised-button color="accent" matStepperPrevious>Back</button>
-                <button mat-raised-button color="warn" matStepperNext>Next</button>
+              <div class="align-right">
+                <button 
+                mat-raised-button 
+                matStepperPrevious
+                class="button-layout button-style">
+                  Back</button>
+                <button 
+                mat-raised-button 
+                matStepperNext
+                class="button-layout button-style">
+                Next</button>
               </div>
             </form>
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>Done</ng-template>
-            You are now done.
-            <div>
-              <button mat-raised-button color="accent" matStepperPrevious>Back</button>
+            <app-filled-form></app-filled-form>
+            <div class="align-right">
+              <button 
+              mat-raised-button 
+              matStepperPrevious
+              class="button-layout button-style">
+              Back</button>
             </div>
           </mat-step>
         </mat-horizontal-stepper>
