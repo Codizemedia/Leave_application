@@ -74,10 +74,58 @@
                 
                     <div fxFlex="100" class="p-10">
                       <mat-label>A. TYPE OF LEAVE TO BE AVAILED OF</mat-label><br><br>
-                      <div *ngFor="let choice of choices; let i=index" class="col-md-2">
+                      <div fxLayout="column">
                           <label>
-                            <input type="checkbox" [value]="choice.value" (change)="onCheckChange($event)">
-                            {{choice.description}}
+                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                            Vacation Leave
+                          </label>
+                          <label>
+                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                            Mandatory/Force Leave
+                          </label>
+                          <label>
+                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                            Sick Leave
+                          </label>
+                          <label>
+                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                            Maternity Leave
+                          </label>
+                          <label>
+                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                            Paternity Leave
+                          </label>
+                          <label>
+                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                            Special Privilege Leave
+                          </label>
+                          <label>
+                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                            Solo Parent Leave
+                          </label>
+                          <label>
+                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                            Study Leave
+                          </label>
+                          <label>
+                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                            10-Day VAWC Leave
+                          </label>
+                          <label>
+                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                            Rehabilitation Privilege
+                          </label>
+                          <label>
+                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                            Special Leave Benefits for Women
+                          </label>
+                          <label>
+                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                            Special Emergency
+                          </label>
+                          <label>
+                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                            Adoption Leave
                           </label>
                       </div><br>
                       <mat-label>Others:</mat-label><br>
