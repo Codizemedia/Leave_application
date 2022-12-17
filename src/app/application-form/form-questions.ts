@@ -140,7 +140,7 @@ export const choicesB: Array<any> = [
   },
   {
     type: 'italic-label-input', 
-    description: '(Specify Illnes)', 
+    description: '(Specify Illnes)',
     value: null
   },
   {

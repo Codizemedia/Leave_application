@@ -93,10 +93,55 @@
                       <mat-label>B. DETAILS OF LEAVE </mat-label><br><br>
                       <form action="">
                         <div 
-                        class="col-md-2" 
-                        fxLayout="column" 
-                        fxLayoutAlign="center">
-                              <i>In case of VAcation/Special Privelege Leave:</i>
+                         *ngFor="let choice of choices2; 
+                         let i=index"
+                         [ngSwitch]="choice.type" 
+                         class="col-md-2" 
+                         fxLayout="column" 
+                         fxLayoutAlign="center">
+                          <i *ngSwitchCase="'italic-label'">{{choice.description}}</i>
+                          <div 
+                          fxFlex.gt-sm="40" 
+                          fxFlex="100" 
+                          fxLayout="row"
+                          fxLayout.gt-sm="row"
+                          fxLayout.gt-xs="column"
+                          fxLayout.gt-md="row"
+                          fxLayout.gt-lg="row"
+                          fxLayout.lt-sm="column"
+                          fxLayoutAlign="left"
+                          class="full-width"
+                          *ngSwitchCase="'checkbox-input'">
+                            <label style="white-space: nowrap">
+                                <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                                {{choice.description}}
+                            </label>
+                            <input class="input full-width m-l-10" type="text">
+                          </div>
+                          <div 
+                            fxFlex.gt-sm="40" 
+                            fxFlex="100" 
+                            fxLayout="row"
+                            fxLayout.gt-sm="row"
+                            fxLayout.gt-xs="column"
+                            fxLayout.gt-md="row"
+                            fxLayout.gt-lg="row"
+                            fxLayout.lt-sm="column"
+                            fxLayoutAlign="left"
+                            class="full-width"
+                            *ngSwitchCase="'italic-label-input'">
+                              <label style="white-space: nowrap">
+                                <i>{{choice.description}}</i>
+                              </label>
+                              <input class="input full-width m-l-10" type="text">
+                            </div>
+                            <br *ngSwitchCase="'space'"/>
+                            <label *ngSwitchCase="'checkbox'">
+                            <mat-label *ngSwitchCase="'label'">{{choice.description}}</mat-label>
+                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                              {{choice.description}}
+                            </label>
+                              <!-- <i>In case of VAcation/Special Privelege Leave:</i>
                               <div 
                               fxFlex.gt-sm="40" 
                               fxFlex="100" 
@@ -284,7 +329,7 @@
                                     <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
                                     Requested
                                 </label>
-                              </div>
+                              </div> -->
                         </div>
                       </form>
                     </div>
