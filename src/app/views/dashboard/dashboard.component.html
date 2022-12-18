@@ -1,1 +1,281 @@
-<p>dashboard works!</p>
+<mat-toolbar 
+color="primary" 
+class="topbar telative"
+style="position: sticky; top:0; z-index: 1000;">
+  <div class="navbar-header"
+  style="background-color: white; 
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 35px;
+  padding-right:5px; 
+  border-radius: 5px;
+  margin: 10px;" >
+    <a class="navbar-brand" href="/dashboard">
+      <b>
+        <!-- <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo"> -->
+        <!-- <img src="assets/images/logo-light-icon.png" alt="homepage" class="light-logo"> -->
+      </b>
+      <span fxShow="false" fxShow.gt-xs>
+        <!-- <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo"> -->
+        <img src="assets/images/leave-logo.png" class="light-logo" alt="homepage" style="height: 30px; width:150px">
+      </span>
+    </a>
+  </div>
+   
+  <div [align]="'right'" style="width: 100vw;">
+    
+    <app-header></app-header>
+  </div>
+</mat-toolbar>
+<div 
+class="dashboard-layout"
+style="
+  background-image:url(assets/images/background/dashboard-bg.jpg); 
+  background-attachment: fixed;
+  margin: 0px;
+  height: 130vh;
+  display: flex;
+  background-size: cover;
+  justify-content: center;
+  ">
+  <div 
+  *ngIf="!isShowForm" 
+  class="login-register-box"
+  style="margin-top: 15vh;">
+    <mat-card class="m-t-10">
+      <mat-card-content>
+        <div style="width:450px; height: 600px;">
+          <div [align]="'center'">
+            <h3> Leave Application Status</h3>
+          </div>
+          <mat-vertical-stepper [linear]="isLinear" #stepper selectedIndex="5">
+            <mat-step>
+                <ng-template matStepLabel>Request for Leave Application Form</ng-template><br>
+                <div [align]="'left'">
+                  <button mat-raised-button color="primary" >Send Request</button>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Fillup Leave Application Form</ng-template>
+                <ng-template matStepLabel>Request Approval to sir Ma'am Redondo</ng-template><br>
+              
+                <div [align]="'left'">
+                  <button mat-raised-button color="primary" (click)="formAction()">{{applicationFormAction}}</button>
+                </div>
+            </mat-step>
+            <mat-step >
+              <ng-template matStepLabel>Request Approval to sir Taha</ng-template><br>
+              <div [align]="'left'">
+                <button mat-raised-button color="primary" >Send Request</button>
+              </div>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Request Approval to sir Ma'am Redondo</ng-template><br>
+              <div [align]="'left'">
+                <button mat-raised-button color="primary" >Send Request</button>
+              </div>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Request Approval to Ma'am Indira</ng-template><br>
+              <div [align]="'left'">
+                <button mat-raised-button color="primary" >Send Request</button>
+              </div>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Done</ng-template>
+              <div [align]="'left'">You are now done.</div>
+              <br>
+              <div [align]="'left'">
+                <button 
+                mat-raised-button
+                color="primary" 
+                (click)="showForm(true)">Show Form</button>
+              </div>
+            </mat-step>
+          </mat-vertical-stepper>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div 
+  *ngIf="isShowForm" 
+  class="login-register-box" 
+  style="margin-top: 10vh;">
+    <mat-card  class="m-t-10">
+      <mat-card-content>
+        <div style="width:900px; height: 1000px;">
+          <div [align]="'right'">
+            <button 
+            class="button-layout"
+            mat-raised-button
+            color="primary" 
+            (click)="downloadAsPDF()">
+              Download as PDF
+            </button>
+            <button 
+            class="button-layout"
+            mat-raised-button
+            color="primary" 
+            (click)="showForm(false)">
+              Back
+            </button>
+          </div>
+          <div [align]="'center'">
+            <h3> Leave Application Form</h3>
+          </div>
+          <div fxLayoutAlign="center center"> 
+            <table class="border table-layout" id="pdfTable" #pdfTable>
+              <tbody>
+                <tr class="border">
+                  <td class="p-10" [align]="'center'">
+                    <u>1. OFFICE/DEPARTMENT MSU-LNAC</u>
+                  </td>
+                  <td class="p-10" [align]="'center'">2. NAME: </td>
+                  <td class="width-16 p-10" [align]="'center'">
+                    <tr>(Last)</tr>
+                    <tr>Atis</tr>
+                  </td>
+                  <td class="width-16 p-10" [align]="'center'">
+                    <tr>(First)</tr>
+                    <tr>Jessiel</tr>
+                  </td>
+                  <td class="width-16 p-10" [align]="'center'">
+                    <tr>(Middle)</tr>
+                    <tr>Malco</tr>
+                  </td>
+                </tr>
+                <tr class="border">
+                  <td class="p-10" colspan="1" [align]="'center'">
+                    3. DATE OF FILING 
+                    <u>December 04, 2022</u>
+                  </td>
+                  <td class="p-10" colspan="2" [align]="'center'">
+                    4. POSITION: 
+                    <u>BS-IT FACULTY</u>
+                  </td>
+                  <td class="p-10" colspan="2" [align]="'center'">
+                    5. SALARY: 
+                    <u>15,000</u>
+                  </td>
+                </tr>
+                <tr class="border">
+                  <td class="p-10" colspan="5" [align]="'center'">6. DETAILS OF APPLICATION</td>
+                </tr>
+                <tr class="border width-50">
+                  <td class="left-content border p-10" colspan="2">
+                    <mat-label class="p-l-10">A. TYPE OF LEAVE TO BE AVAILED OF</mat-label><br><br>
+                    <div 
+                    class="left-content p-l-10"
+                    *ngFor="let choice of choices1;
+                    let i=index"
+                    [ngSwitch]="choice.type">
+                      <tr *ngSwitchCase="'checkbox'">
+                        <label>
+                          <input type="checkbox" disabled="disabled"> 
+                          {{choice.description}}
+                        </label>
+                      </tr>
+                      <tr *ngSwitchCase="'space'">
+                        <br>
+                      </tr>
+                      <tr *ngSwitchCase="'underline-label'">
+                        <mat-label>{{choice.description}}</mat-label>
+                      </tr>
+                      <tr *ngSwitchCase="'label'">
+                        <mat-label><u>{{choice.description}}</u></mat-label>
+                      </tr>
+                      <tr *ngSwitchCase="'input'">
+                        <input class="input width-100" type="text">
+                      </tr>
+                    </div><br>
+                  </td>
+                  <td class="left-content border width-50 p-10" [align]="'start'" colspan="3">
+                    <mat-label class=" p-l-10">B. DETAILS OF LEAVE </mat-label><br><br>
+                    <div 
+                    class=" p-l-10"
+                    *ngFor="let choice of choices2;
+                    let i=index"
+                    [ngSwitch]="choice.type">
+                    <tr *ngSwitchCase="'checkbox'">
+                      <label>
+                        <input type="checkbox" disabled="disabled"> 
+                        {{choice.description}}
+                      </label>
+                    </tr>
+                    <tr *ngSwitchCase="'checkbox-input'">
+                      <div 
+                      fxFlex.gt-sm="40" 
+                      fxFlex="100" 
+                      fxLayout="row"
+                      fxLayout.gt-sm="row"
+                      fxLayout.gt-xs="column"
+                      fxLayout.gt-md="row"
+                      fxLayout.gt-lg="row"
+                      fxLayout.lt-sm="column"
+                      fxLayoutAlign="left"
+                      class="width-100">
+                        <label style="white-space: nowrap">
+                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                            {{choice.description}}
+                        </label>
+                        <input class="input m-l-10" name="input" type="text">
+                      </div>
+                      </tr>
+                      <tr *ngSwitchCase="'italic-label-input'">
+                        <div 
+                        fxFlex.gt-sm="40" 
+                        fxFlex="100" 
+                        fxLayout="row"
+                        fxLayout.gt-sm="row"
+                        fxLayout.gt-xs="column"
+                        fxLayout.gt-md="row"
+                        fxLayout.gt-lg="row"
+                        fxLayout.lt-sm="column"
+                        fxLayoutAlign="left"
+                        class="width-100">
+                          <label style="white-space: nowrap">
+                            <i>{{choice.description}}</i>
+                          </label>
+                          <input class="input m-l-10" name="input" type="text">
+                        </div>
+                      </tr>
+                      <tr *ngSwitchCase="'space'"> <br/> </tr>
+                      <tr *ngSwitchCase="'label'">
+                        <mat-label>{{choice.description}}</mat-label>
+                      </tr>
+                      <tr *ngSwitchCase="'italic-label'"> 
+                        <i>{{choice.description}}</i>
+                      </tr>
+                    </div>
+                    <br><br><br>
+                  </td>
+                </tr>
+                <tr >
+                  <td [align]="'center'" class="p-10">
+                    <tr>Applicant</tr>
+                    <tr><input class="input" name="input" type="text"></tr>
+                  </td>
+                  <td [align]="'center'">
+                    <tr>Ma'm Redondo</tr>
+                    <tr><input class="input" name="input" type="text"></tr>
+                  </td>
+                  <td [align]="'center'" class="p-l-10">
+                    <tr> Ma'am Indira</tr>
+                    <tr><input  class="input" name="input" type="text"></tr>
+                  </td>
+                  <td [align]="'center'" colspan="2">
+                    <tr>Mr Taha</tr>
+                    <tr><input  class="input" name="input" type="text"></tr>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+           </div>
+           <br>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+

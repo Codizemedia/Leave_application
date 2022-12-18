@@ -9,6 +9,8 @@ import {
 import { CustomValidators } from 'ngx-custom-validators';
 // import { HandleTokenService } from 'src/app/shared/handle-token.service';
 import { RegisterService } from './register.service';
+import { Store } from '@ngrx/store';
+import * as authActions from '../store/authentication.actions'
 
 
 const password = new FormControl('', Validators.required);
@@ -26,7 +28,8 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder, 
     private router: Router,
     // private handleToken: HandleTokenService,
-    private registerService: RegisterService
+    private registerService: RegisterService,
+    private store: Store
     ) { }
 
   ngOnInit() {
@@ -55,5 +58,13 @@ export class RegisterComponent implements OnInit {
     //     this.router.navigate(['/dashboards/dashboard1']);
     //   }
     // }).unsubscribe;
+    console.log("doing ")
+
+    const accountCredentials = {
+      email: this.form.value.email, 
+      password: this.form.value.password
+    }
+
+    this.store.dispatch(authActions.requestAuthRegister({payload: accountCredentials}))
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { choicesA, choicesB } from '../../../../shared/form-questions';
 
 @Component({
   selector: 'app-filled-form',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./filled-form.component.scss']
 })
 export class FilledFormComponent implements OnInit {
+
+  choices1 = choicesA;
+  choices2 = choicesB;
 
   constructor() { }
 

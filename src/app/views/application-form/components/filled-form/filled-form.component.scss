@@ -1,11 +1,3 @@
-mat-card{
-  width: fit-content;
-}
-
-.dashboard-layout{
-  height: 100vh;
-}
-
 .center-content{
   justify-content: center;
   text-align: center;
@@ -84,7 +76,7 @@ mat-card{
   padding:10px;
 }
 
-::ng-deep .mat-vertical-stepper-header{
+.mat-step {
   pointer-events: none !important;
 }
 
@@ -92,7 +84,3 @@ mat-card{
   pointer-events: none;
 }
 
-.button-layout{
-  margin-left: 10px;
-  margin-right: 10px;
-}

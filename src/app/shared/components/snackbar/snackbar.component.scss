@@ -1,0 +1,12 @@
+@import "../../../../assets/styles/variable.scss";
+
+.bgcolor {
+  background: #ffff;
+  background-color: #ffff;
+}
+
+::ng-deep .alert-red {
+  padding: 20px;
+  background-color: red !important;
+  color: white;
+}

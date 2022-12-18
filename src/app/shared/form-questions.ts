@@ -149,22 +149,22 @@ export const choicesB: Array<any> = [
     value: null
   },
   {
-    type: 'checkbox-input', 
+    type: 'checkbox', 
     description: "Completion of Master's Degree", 
     value: false
   },
   {
-    type: 'checkbox-input', 
+    type: 'checkbox', 
     description: 'Bar/Board Examination Review', 
     value: false
   },
   {
-    type: 'italic-label', 
+    type: 'label', 
     description: 'Other Purpose:', 
     value: null
   },
   {
-    type: 'checkbox-input', 
+    type: 'checkbox', 
     description: 'Monetization of Leave Credits', 
     value: false
   },

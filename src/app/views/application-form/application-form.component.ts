@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
-import { choicesA, choicesB } from './form-questions';
+import { Router } from '@angular/router';
+import { choicesA, choicesB } from '../../shared/form-questions';
  
 
 @Component({
@@ -16,7 +17,9 @@ export class ApplicationFormComponent implements OnInit {
   choices1 = choicesA
   choices2 = choicesB
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(
+    private _formBuilder: FormBuilder,
+    private router: Router) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -29,6 +32,10 @@ export class ApplicationFormComponent implements OnInit {
 
   onCheckChange(event: any){
     console.log("event", event)
+  }
+
+  submitForm(){
+    this.router.navigate(['/dashboard'])
   }
 
 }

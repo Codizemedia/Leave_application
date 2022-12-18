@@ -6,12 +6,12 @@ export const StarterRoutes: Routes = [
   {
     path: '',
     component: ApplicationFormComponent,
-	data: {
-      title: 'Starter Page',
-      urls: [
-        { title: 'Dashboard', url: '/dashboard' },
-        { title: 'Starter Page' }
-      ]
-    }
+    data: {
+        title: 'Leave Application Form',
+        urls: [
+          { title: 'Dashboard', url: 'application-form' },
+          { title: 'Leave Application Form' }
+        ]
+      }
   }
 ];

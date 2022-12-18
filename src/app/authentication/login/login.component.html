@@ -6,28 +6,38 @@
         </div> -->
         <mat-card class="m-t-10">
         <mat-card-content>
-        <form id="loginform">
+        <form id="loginform" [formGroup]="_loginForm">
             <div class="text-center">
-                <img alt="homepage" src="assets/images/logo-icon.png">
+                <!-- <img alt="homepage" src="assets/images/logo-icon.png"> -->
                 <h4 class="m-t-0">Login to App</h4>
             </div>
             <div *ngIf="msg" class="bg-danger p-10 text-white">{{ msg }}</div>
             <div fxLayout="row wrap">
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                     <mat-form-field>
-                    <input matInput placeholder="Username" required="" #u1>
+                    <input 
+                    matInput 
+                    placeholder="Email" 
+                    required="" 
+                    #u1
+                    formControlName="email">
                     </mat-form-field>
                 </div>
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                     <mat-form-field>
-                    <input matInput type="password" placeholder="Password" required="" #p2>
+                    <input 
+                    matInput 
+                    type="password" 
+                    placeholder="Password" 
+                    required="" #p2
+                    formControlName="password">
                     </mat-form-field>
                 </div>
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" class="text-right">
                     <a [routerLink]="['/authentication/forgot']" class="link">Forgot pwd?</a>
                 </div>
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
-                    <button mat-raised-button color="primary" class="btn-block btn-lg m-t-20 m-b-20" (click)="check(u1.value, p2.value)" type="button">Login</button>
+                    <button mat-raised-button color="primary" class="btn-block btn-lg m-t-20 m-b-20" (click)="onLogin()" type="button">Login</button>
                 </div>
                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" class="text-center">
                     <span>Don't have an account?
