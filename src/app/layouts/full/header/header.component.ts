@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { TranslateService } from '@ngx-translate/core';
+import * as authActions from '../../../authentication/store/authentication.actions'
+import { Store } from '@ngrx/store';
+
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -105,12 +109,17 @@ export class AppHeaderComponent {
 
 
 
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService, 
+    private store: Store) {
     translate.setDefaultLang('en');
   }
 
   changeLanguage(lang: any) {
     this.translate.use(lang.code)
     this.selectedLanguage = lang;
+  }
+  onSignout(){
+    console.log("clicked")
+    this.store.dispatch(authActions.requestAuthLogout())
   }
 }

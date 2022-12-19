@@ -25,6 +25,13 @@ export const authReducer = createReducer(
       uid: payload.uid, };
   }),
 
+  on(authActions.successAuthResetPassword, (state: any, { payload }) => {
+    console.log("reset password payload: ", payload)
+    return {  
+      signedIn:false,
+      uid: "", };
+  }),
+
   on(authActions.successAuthLogout, (state: any) => {
     return {
       signedIn: false,

@@ -1,17 +1,3 @@
-// import { Injectable } from '@angular/core';
-// import { Actions, createEffect } from '@ngrx/effects';
-
-
-
-// @Injectable()
-// export class AuthenticationEffects {
-
-
-
-//   constructor(private actions$: Actions) {}
-
-// }
-
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
@@ -51,6 +37,7 @@ export class AuthEffects {
           });
       }),
       catchError((error) => {
+        console.log("error", error)
         this.sharedService.openSnackBar(error.message);
         return of(authActions.authFailure(error));
       })
@@ -83,6 +70,28 @@ export class AuthEffects {
     )
   );
 
+
+
+  resetPasswordEFFECT$: Observable<Action> = createEffect(() =>
+    this.actions$.pipe(
+      ofType(authActions.requestAuthResetPassword),
+      switchMap((response: any) => {
+        return this.angularFireAuth
+        .sendPasswordResetEmail(response.payload.email)
+          .then((res) => {
+            // localStorage.setItem('uid', res.user!.uid);
+            console.log("see reset password response", res)
+            this.routes.navigate(['/dashboard']);
+            return authActions.successAuthResetPassword({ payload: res });
+          });
+      }),
+      catchError((error) => {
+        this.sharedService.openSnackBar(error.message);
+        return of(authActions.authFailure(error));
+      })
+    )
+  );
+
   
 
   logoutEFFECT$: Observable<Action> = createEffect(() =>
@@ -92,6 +101,7 @@ export class AuthEffects {
         return this.angularFireAuth.signOut().then((res) => {
           localStorage.removeItem('uid');
           location.reload();
+          console.log("logged out")
           return authActions.successAuthLogout();
         });
       }),

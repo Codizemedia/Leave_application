@@ -16,6 +16,7 @@ export const AppRoutes: Routes = [
         component: FullComponent,
         canActivate: [AuthGuard],
         children: [
+           
             {
                 path: '',
                 loadChildren: () => import('./views/application-form/starter.module').then(m => m.StarterModule)
@@ -29,6 +30,7 @@ export const AppRoutes: Routes = [
     },
     {
         path: 'dashboard',
+        canActivate: [AuthGuard],
         component: DashboardComponent
        
     },

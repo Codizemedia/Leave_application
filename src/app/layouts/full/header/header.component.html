@@ -82,8 +82,8 @@
 <!-- ============================================================== -->
 <!-- Profile - style you can find in header.scss -->
 <!-- ============================================================== -->
-<button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5">
-    <img src="assets/images/users/1.jpg" alt="user" class="profile-pic"> </button>
+<button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-10">
+    <img src="assets/images/users/default-avatar.jpg" alt="user" class="profile-pic"> </button>
 <mat-menu #profile="matMenu" class="mymegamenu">
     <!-- <button mat-menu-item>
         <mat-icon>settings</mat-icon> Settings
@@ -94,7 +94,7 @@
     <button mat-menu-item>
         <mat-icon>notifications_off</mat-icon> Disable notifications
     </button> -->
-    <button mat-menu-item>
+    <button mat-menu-item (click)="onSignout()">
         <mat-icon>exit_to_app</mat-icon> Sign Out
     </button>
 </mat-menu>

@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CustomValidators } from 'ngx-custom-validators';
+import * as authActions from '../store/authentication.actions'
 import {
   FormBuilder,
   FormGroup,
   Validators,
   FormControl
 } from '@angular/forms';
-import { CustomValidators } from 'ngx-custom-validators';
+import { Store } from '@ngrx/store';
+
 
 
 @Component({
@@ -16,7 +19,11 @@ import { CustomValidators } from 'ngx-custom-validators';
 })
 export class ForgotComponent implements OnInit {
   public form: FormGroup = Object.create(null);
-  constructor(private fb: FormBuilder, private router: Router) { }
+  
+  constructor(
+    private fb: FormBuilder, 
+    private router: Router,
+    private store: Store) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -28,6 +35,7 @@ export class ForgotComponent implements OnInit {
   }
 
   onSubmit() {
-    this.router.navigate(['/authentication/login']);
+    // this.router.navigate(['/authentication/login']);
+    this.store.dispatch(authActions.requestAuthResetPassword({payload: {email: this.form.value.email}}))
   }
 }

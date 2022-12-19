@@ -19,11 +19,23 @@ export const successAuthRegister = createAction(
   props<{ payload: any }>()
 );
 
+
+export const requestAuthResetPassword = createAction(
+  '[Auth] Request Auth Reset Password ',
+  props<{ payload: any }>()
+);
+export const successAuthResetPassword = createAction(
+  '[Auth] Success Auth Reset Password ',
+  props<{ payload: any }>()
+);
+
 export const requestAuthLogout = createAction(
   '[Auth] Request Auth Logout '
   // props<{ payload: any }>()
 );
-export const successAuthLogout = createAction('[Auth] Success Auth Logout ');
+export const successAuthLogout = createAction(
+  '[Auth] Success Auth Logout '
+  );
 
 export const authFailure = createAction(
   '[Auth] Auth Failure',
