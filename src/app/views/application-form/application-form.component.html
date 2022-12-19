@@ -73,7 +73,7 @@
                 <div fxLayout="row" style="text-align:left;" >
                 
                     <div fxFlex="100" class="p-10">
-                      <mat-label>A. TYPE OF LEAVE TO BE AVAILED OF</mat-label><br><br>
+                      <mat-label>6. A. TYPE OF LEAVE TO BE AVAILED OF</mat-label><br><br>
                       <div  
                       *ngFor="let choice of choices1; 
                       let i=index"
@@ -88,9 +88,16 @@
                           <mat-label *ngSwitchCase="'underline-label'"><u>TLB (Termianl Leave Benefits)</u></mat-label>
                           <input  *ngSwitchCase="'input'" class="input full-width" type="text">
                       </div>
+                      <div  
+                      *ngFor="let choice of choices3; 
+                      let i=index"
+                      [ngSwitch]="choice.type" >
+                        <mat-label *ngSwitchCase="'label'">{{choice.description}}</mat-label>
+                        <input  *ngSwitchCase="'input'" class="input full-width" type="text">
+                      </div>
                     </div>
                     <div fxFlex="100" class="p-10">
-                      <mat-label>B. DETAILS OF LEAVE </mat-label><br><br>
+                      <mat-label>6. B. DETAILS OF LEAVE </mat-label><br><br>
                       <form action="">
                         <div 
                          *ngFor="let choice of choices2; 
@@ -142,6 +149,17 @@
                             </label>
                             <mat-label *ngSwitchCase="'label'">{{choice.description}}</mat-label>
                         </div>
+                        <div fxLayout="column">
+                          <mat-label>6. D. COMMUNICATION </mat-label>
+                          <label>
+                            <input type="checkbox" [value]="false">
+                            Not Requested
+                          </label>
+                          <label>
+                            <input type="checkbox" [value]="false">
+                            Requested
+                          </label>
+                        </div>
                       </form>
                     </div>
                 </div>
@@ -160,14 +178,6 @@
                 Next</button>
               </div>
             </form>
-          </mat-step>
-          <mat-step [stepControl]="thirdFormGroup">
-            <ng-template matStepLabel>Third Step</ng-template>
-             <form [formGroup]="thirdFormGroup">
-              <div>
-              
-              </div>
-             </form>
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>Done</ng-template>

@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { choicesA, choicesB } from '../../shared/form-questions';
+import { 
+  choicesA, 
+  choicesB,
+  choicesC,
+  choicesD } from '../../shared/form-questions';
  
 
 @Component({
@@ -17,6 +21,8 @@ export class ApplicationFormComponent implements OnInit {
   thirdFormGroup: FormGroup = Object.create(null);
   choices1 = choicesA
   choices2 = choicesB
+  choices3 = choicesC
+  choices4 = choicesD
 
   constructor(
     private _formBuilder: FormBuilder,
