@@ -3,7 +3,7 @@
   
    <div fxLayoutAlign="center center"> 
 
-    <table class="border table-layout">
+    <table class=" border table-layout">
       <tbody>
         <tr class="border">
           <td class="p-10" [align]="'center'"><u>1. OFFICE/DEPARTMENT MSU-LNAC</u></td>
@@ -40,7 +40,7 @@
         </tr>
         <tr class="border width-50">
           <td class="left-content border p-10" colspan="2">
-            <mat-label class="p-l-10">A. TYPE OF LEAVE TO BE AVAILED OF</mat-label><br><br>
+            <mat-label class="p-l-10">6. A. TYPE OF LEAVE TO BE AVAILED OF</mat-label><br><br>
             <div 
             class="left-content p-l-10"
             *ngFor="let choice of choices1;
@@ -56,10 +56,10 @@
                 <br>
               </tr>
               <tr *ngSwitchCase="'underline-label'">
-                <mat-label>{{choice.description}}</mat-label>
+                <mat-label><u>{{choice.description}}</u></mat-label>
               </tr>
               <tr *ngSwitchCase="'label'">
-                <mat-label><u>{{choice.description}}</u></mat-label>
+                <mat-label>{{choice.description}}</mat-label>
               </tr>
               <tr *ngSwitchCase="'input'">
                 <input class="input width-100" type="text">
@@ -67,7 +67,7 @@
             </div><br>
           </td>
           <td class="left-content border width-50 p-10" [align]="'start'" colspan="3">
-            <mat-label class=" p-l-10">B. DETAILS OF LEAVE </mat-label><br><br>
+            <mat-label class=" p-l-10">6. B. DETAILS OF LEAVE </mat-label><br><br>
             <div 
             class=" p-l-10"
             *ngFor="let choice of choices2;
@@ -128,22 +128,184 @@
             <br><br><br>
           </td>
         </tr>
+        <tr>
+          <td class="left-content border p-10" colspan="2">
+            <div 
+            class="left-content p-l-10"
+            *ngFor="let choice of choices3;
+            let i=index"
+            [ngSwitch]="choice.type">
+              <tr *ngSwitchCase="'space'">
+                <br>
+              </tr>
+              <tr *ngSwitchCase="'underline-label'">
+                <mat-label><u>{{choice.description}}</u></mat-label>
+              </tr>
+              <tr *ngSwitchCase="'label'">
+                <mat-label>{{choice.description}}</mat-label>
+              </tr>
+              <tr *ngSwitchCase="'input'">
+                <input class="input width-100" type="text">
+              </tr>
+            </div><br>
+          </td>
+          <td class="left-content border width-50 p-10" colspan="3">
+            <div 
+            class=" p-l-10"
+            [align]="'start'"
+            *ngFor="let choice of choices4;
+            let i=index"
+            [ngSwitch]="choice.type">
+              <tr *ngSwitchCase="'checkbox'">
+                <label>
+                  <input type="checkbox" disabled="disabled"> 
+                  {{choice.description}}
+                </label>
+              </tr>
+              <tr *ngSwitchCase="'space'"> <br/> </tr>
+              <tr *ngSwitchCase="'label'">
+                <mat-label>{{choice.description}}</mat-label>
+              </tr>
+            </div>
+            <br>
+           <div [align]="'center'" >
+            <tr>
+              <td>
+                <input 
+                class="input" 
+                style="width: 300px;" 
+                type="text" 
+                disabled="disabled"> 
+              </td>
+            </tr>
+            <tr>
+              <td [align]="'center'">
+                (Signature of Applicant)
+              </td>
+            </tr>
+           </div>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="p-10" colspan="5" [align]="'center'">7. DETAILS OF ACTION ON APPLICATION</td>
+        </tr>
+        <tr>
+          <td class="p-10 border" colspan="2">
+            <tr>
+              <td [align]="'left'"> 7. A. CERTIFICATION OF LEAVE CREDITS </td>
+            </tr>
+            <tr>
+              <td [align]="'center'">
+                As of 
+                <input 
+                class="input" 
+                style="width: 300px;" 
+                type="text" 
+                disabled="disabled"> 
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table class="border m-10 m-l-10 m-r-10">
+                  <tr>
+                    <td class="border"></td>
+                    <td class="border">Vacation Leave</td>
+                    <td class="border">Sick Leave</td>
+                  </tr>
+                  <tr>
+                    <td class="border">Total Earned Leave Application</td>
+                    <td class="border"></td>
+                    <td class="border"></td>
+                  </tr>
+                  <tr>
+                    <td class="border">Balance</td>
+                    <td class="border"></td>
+                    <td class="border"></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td [align]="'center'"><u>TAHA M. MOHAMAD MPA CSP</u></td>
+            </tr>
+            <tr>
+              <td [align]="'center'">(Authorized Officer)</td>
+            </tr>
+          </td>
+
+          <td class="p-10 border" colspan="3">
+            <tr>
+              <td  [align]="'left'"> 7. B. RECOMENDATION</td>
+            </tr><br>
+            <tr>
+              <td [align]="'left'">
+                <label>
+                  <input type="checkbox" disabled="disabled"> 
+                  For Approval
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td [align]="'left'">
+                <label>
+                  <input type="checkbox" disabled="disabled"> 
+                  For disapproval due to
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <textarea style="width:300px; height: 80px;" disabled="disabled"></textarea>
+              </td><br>
+            </tr>
+            <div [align]="'center'">
+              <tr>
+                <td><u>EUZA E. REDONDO PhD.</u></td>
+              </tr>
+              <tr>
+                <td>(Authorized Officer)</td>
+              </tr>
+            </div>
+          </td>
+          
+        </tr>
         <tr >
-          <td [align]="'center'" class="p-10">
-            <tr>Applicant</tr>
-            <tr><input name="input" class="input" type="text"></tr>
+          <td [align]="'left'" class=" p-10" colspan="2">
+            <tr>APPROVED FOR:</tr>
+            <tr>
+              <td><input name="input" class="input" type="text"></td>
+              <td>days with pay</td>
+            </tr>
+            <tr>
+              <td><input name="input" class="input" type="text"></td>
+              <td>days without pay</td>
+            </tr>
+            <tr>
+              <td><input name="input" class="input" type="text"></td>
+              <td>others (specify)</td>
+            </tr>
           </td>
-          <td [align]="'center'">
-            <tr>Ma'm Redondo</tr>
-            <tr><input name="input" class="input" type="text"></tr>
+          <td [align]="'left'" class=" p-10" colspan="3">
+            <tr>DISAPPROVED DUE TO:</tr>
+            <tr>
+              <td><input name="input" class="input" type="text"></td>
+            </tr>
+            <tr>
+              <td><input name="input" class="input" type="text"></td>
+            </tr>
+            <tr>
+              <td><input name="input" class="input" type="text"></td>
+            </tr>
           </td>
-          <td [align]="'center'" class="p-l-10">
-            <tr> Ma'am Indira</tr>
-            <tr><input name="input" class="input" type="text"></tr>
-          </td>
-          <td [align]="'center'" colspan="2">
-            <tr>Mr Taha</tr>
-            <tr><input name="input" class="input" type="text"></tr>
+        </tr>
+        <tr>
+          <td colspan="5" [align]="'center'">
+            <tr>
+              <td><u>DR. INDIRA B. DIMAPORO-TAWANTAWAN, Ai-Hadja</u></td>
+            </tr>
+            <tr>
+              <td>(Authorized Officer)</td>
+            </tr>
           </td>
         </tr>
       </tbody>

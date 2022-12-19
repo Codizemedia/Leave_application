@@ -48,7 +48,7 @@ style="
           <div [align]="'center'">
             <h3> Leave Application Status</h3>
           </div>
-          <mat-vertical-stepper [linear]="isLinear" #stepper selectedIndex="5">
+          <mat-vertical-stepper [linear]="isLinear" #stepper selectedIndex="1">
             <mat-step>
                 <ng-template matStepLabel>Request for Leave Application Form</ng-template><br>
                 <div [align]="'left'">
@@ -247,8 +247,9 @@ style="
                       <tr *ngSwitchCase="'italic-label'"> 
                         <i>{{choice.description}}</i>
                       </tr>
+                
                     </div>
-                    <br><br><br>
+                    <br>
                   </td>
                 </tr>
                 <tr >

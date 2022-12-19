@@ -161,6 +161,14 @@
               </div>
             </form>
           </mat-step>
+          <mat-step [stepControl]="thirdFormGroup">
+            <ng-template matStepLabel>Third Step</ng-template>
+             <form [formGroup]="thirdFormGroup">
+              <div>
+              
+              </div>
+             </form>
+          </mat-step>
           <mat-step>
             <ng-template matStepLabel>Done</ng-template>
             <app-filled-form></app-filled-form>

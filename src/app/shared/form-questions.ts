@@ -80,26 +80,7 @@ export const choicesA: Array<any> = [
     description: 'TLB (Termianl Leave Benefits)', 
     value: null
   },
-  {
-    type: 'label', 
-    description: 'C. NUMBER OF WORKING DAYS APPLIED FOR', 
-    value: null
-  },
-  {
-    type: 'input', 
-    description: '', 
-    value: null
-  },
-  {
-    type: 'label', 
-    description: 'INCLUSIVE DATES', 
-    value: null
-  },
-  {
-    type: 'input', 
-    description: '', 
-    value: null
-  },
+  
 ];
 
 export const choicesB: Array<any> = [
@@ -178,9 +159,37 @@ export const choicesB: Array<any> = [
     description: '', 
     value: null
   },
+  
+  
+];
+
+export const choicesC: Array<any> = [
   {
     type: 'label', 
-    description: 'D. COMMUTATION', 
+    description: '6. C. NUMBER OF WORKING DAYS APPLIED FOR', 
+    value: null
+  },
+  {
+    type: 'input', 
+    description: '', 
+    value: null
+  },
+  {
+    type: 'label', 
+    description: 'INCLUSIVE DATES', 
+    value: null
+  },
+  {
+    type: 'input', 
+    description: '', 
+    value: null
+  },
+];
+
+export const choicesD: Array<any> = [
+  {
+    type: 'label', 
+    description: '6. D. COMMUTATION', 
     value: null
   },
   {
@@ -193,5 +202,4 @@ export const choicesB: Array<any> = [
     description: 'Requested', 
     value: false,
   }
-  
-];
+]

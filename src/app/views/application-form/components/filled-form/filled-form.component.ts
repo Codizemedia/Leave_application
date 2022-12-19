@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { choicesA, choicesB } from '../../../../shared/form-questions';
+import { 
+  choicesA, 
+  choicesB,
+  choicesC,
+  choicesD } from '../../../../shared/form-questions';
 
 @Component({
   selector: 'app-filled-form',
@@ -10,6 +14,8 @@ export class FilledFormComponent implements OnInit {
 
   choices1 = choicesA;
   choices2 = choicesB;
+  choices3 = choicesC;
+  choices4 = choicesD;
 
   constructor() { }
 

@@ -14,6 +14,7 @@ export class ApplicationFormComponent implements OnInit {
   isLinear = false;
   firstFormGroup: FormGroup = Object.create(null);
   secondFormGroup: FormGroup = Object.create(null);
+  thirdFormGroup: FormGroup = Object.create(null);
   choices1 = choicesA
   choices2 = choicesB
 
@@ -27,6 +28,9 @@ export class ApplicationFormComponent implements OnInit {
     });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
+    });
+    this.thirdFormGroup = this._formBuilder.group({
+      thirdCtrl: ['', Validators.required]
     });
   }
 
