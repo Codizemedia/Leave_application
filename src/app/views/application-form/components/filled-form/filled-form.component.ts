@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AnyAaaaRecord } from 'dns';
 // import { SignaturePadComponent } from '@almothafar/angular-signature-pad';
+// import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 import { 
   choicesA, 
   choicesB,
@@ -22,6 +23,7 @@ export class FilledFormComponent implements OnInit {
   choices4 = choicesD;
   signatureImage:any;
   points = [];
+  signImage:any;
 
   constructor() { 
     // this.signaturePad.set('minWidth', 5);
@@ -31,13 +33,16 @@ export class FilledFormComponent implements OnInit {
   }
 
   signaturePadOptions: Object = { // passed through to szimek/signature_pad constructor
-    'minWidth': 5,
+    'minWidth': 0.5,
     'canvasWidth': 300,
-    'canvasHeight': 150
+    'canvasHeight': 100,
+    'backgroundColor': 'rgb(247,247,247)',
   };
-  showImage(data: any) {
-    console.log("data", data)
-    this.signatureImage = data;
+  showImage(data: any, signature: any) {
+    // console.log("data", data)
+    const base64ImageData = signature.toDataURL();
+    this.signatureImage = base64ImageData;
+    // this.signatureImage = data;
   }
 
   drawComplete(event: MouseEvent | Touch) {

@@ -226,10 +226,26 @@
               </td>
             </tr>
             <tr>
-              <td>
-                <signature-pad #signature [options]="signaturePadOptions" (drawStart)="drawStart($event)" (drawEnd)="drawComplete($event)"></signature-pad>
-                <img [src]="signatureImage" *ngIf="signatureImage" />
+              <td [align]="'center'">
+                <signature-pad 
+                #signature
+                format="base64" 
+                dotSize="1"
+                [options]="signaturePadOptions" 
+                doneButtonText="Show Image"
+                (drawStart)="drawStart($event)" 
+                (drawEnd)="drawComplete($event)">
+              </signature-pad>
               </td>
+              <img [src]="signatureImage" *ngIf="signatureImage" />
+            </tr>
+            <tr>
+              <!-- <div fxLayout="row"> -->
+                <td [align]="'center'">
+                  <button mat-button type="button" (click)="signature.clear()" >Clear</button>
+                  <button mat-button type="button" (click)="showImage($event, signature)" >Submit</button>
+                </td>
+              <!-- </div> -->
             </tr>
             <tr>
               <td [align]="'center'"><u>TAHA M. MOHAMAD MPA CSP</u></td>
