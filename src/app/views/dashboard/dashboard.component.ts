@@ -2,11 +2,18 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { Router} from '@angular/router';
-import { choicesA, choicesB } from '../../shared/form-questions';
+import { 
+  choicesA, 
+  choicesB,
+  choicesC,
+  choicesD } from '../../shared/form-questions';
 import jsPDF from 'jspdf';
 // import pdfMake from "pdfmake";
 import * as pdfMake from 'pdfmake/build/pdfmake.js';
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import * as autoTable from 'jspdf-autotable';
+import html2canvas from 'html2canvas';
+// import 'jspdf-autotable';
 
 declare var require: any;
 
@@ -24,6 +31,8 @@ export class DashboardComponent implements OnInit {
   secondFormGroup: FormGroup = Object.create(null);
   choices1 = choicesA;
   choices2 = choicesB;
+  choices3 = choicesC;
+  choices4 = choicesD;
   isOptional = false;
   isEditable = false;
   isShowForm = false;
@@ -60,46 +69,18 @@ export class DashboardComponent implements OnInit {
   }
 
   downloadAsPDF(){
-    // window.print();
-    //  const doc = new jsPDF();
-    // const elementHTML = document.querySelector('#printContent') as HTMLElement;
-    // //  doc.text('Hello world!', 20, 20);
-    // //  doc.text('This is client-side Javascript to generate a PDF.', 20, 30);
-
-    // const doc = new jsPDF({
-    //   unit: 'px',
-    //   format: [842, 1191]// this.pdfOptions.value.pageFormat === 'A4' ? [595, 842] : [842, 1191]
-    // });
-
-    // // doc.html(elementHTML, {
-    // //   callback: function(doc){
-    // //     doc.save('document-html.pdf');
-    // //   },
-    // //   // margin: [10, 10, 10, 10],
-    // //   // autoPaging: 'text',
-    // //   // x: 0,
-    // //   // y: 0,
-    // //   // width: 190, 
-    // //   // windowWidth: 675
-    // // },
-    // // )
-    //  const pages = document.querySelector('.all-pages') as HTMLElement;
-    // // this.workspaceService.exportAllToPDF(pages);
-    //  doc.html(pages, {
-    //   callback: (doc: jsPDF) => {
-    //     doc.deletePage(doc.getNumberOfPages());
-    //     doc.save('pdf-export');
-    //   }
-    // });
-
-    const pdfTable = this.pdfTable.nativeElement;
-    var html = htmlToPdfmake(pdfTable.innerHTML);
-    const documentDefinition = { content: html };
-    pdfMake.createPdf(documentDefinition).download(); 
-
-    //  doc.save("table.pdf");
-
-    
+  
+     let DATA: any = document.getElementById('pdfTable');
+     html2canvas(DATA).then((canvas) => {
+      console.log("see canvaas", canvas)
+       let fileWidth = 208;
+       let fileHeight = (canvas.height * fileWidth) / canvas.width;
+       const FILEURI = canvas.toDataURL('image/png');
+       let PDF = new jsPDF('p', 'mm', 'a4');
+       let position = 0;
+       PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+       PDF.save('Leave Application Form.pdf');
+     });
   }
 
 

@@ -102,10 +102,10 @@ style="
   <div 
   *ngIf="isShowForm" 
   class="login-register-box" 
-  style="margin-top: 10vh;">
+  style="margin-top: 5vh;">
     <mat-card  class="m-t-10">
       <mat-card-content>
-        <div style="width:900px; height: 1300px;">
+        <div style="width:1000px; height: 1450px; padding-left: 30px; padding-right: 30px;">
           <div [align]="'right'">
             <button 
             class="button-layout"
@@ -125,8 +125,12 @@ style="
           <div [align]="'center'">
             <h3> Leave Application Form</h3>
           </div>
-          <div fxLayoutAlign="center center"> 
-            <table class="border table-layout" id="pdfTable" #pdfTable>
+          <div 
+          style="padding: 40px; "
+          fxLayoutAlign="center center" 
+          id="pdfTable" 
+          #pdfTable> 
+            <table class="border table-layout">
               <tbody>
                 <tr class="border">
                   <td class="p-10" [align]="'center'">
@@ -272,7 +276,7 @@ style="
                       <tr *ngSwitchCase="'input'">
                         <input class="input width-100" type="text">
                       </tr>
-                    </div><br>
+                    </div>
                   </td>
                   <td class="left-content border width-50 p-10" colspan="3">
                     <div 

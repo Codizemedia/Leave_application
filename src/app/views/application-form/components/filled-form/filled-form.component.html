@@ -226,6 +226,12 @@
               </td>
             </tr>
             <tr>
+              <td>
+                <signature-pad #signature [options]="signaturePadOptions" (drawStart)="drawStart($event)" (drawEnd)="drawComplete($event)"></signature-pad>
+                <img [src]="signatureImage" *ngIf="signatureImage" />
+              </td>
+            </tr>
+            <tr>
               <td [align]="'center'"><u>TAHA M. MOHAMAD MPA CSP</u></td>
             </tr>
             <tr>
