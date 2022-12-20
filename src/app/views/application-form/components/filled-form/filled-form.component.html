@@ -2,7 +2,8 @@
   <mat-card-content>
   
    <div fxLayoutAlign="center center"> 
-
+    <div></div>
+    <br>
     <table class=" border table-layout">
       <tbody>
         <tr class="border">
@@ -95,7 +96,7 @@
                     <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
                     {{choice.description}}
                 </label>
-                <input class="input m-l-10" name="input" type="text">
+                <input class="input m-l-10" name="input" type="text" >
               </div>
               </tr>
               <tr *ngSwitchCase="'italic-label-input'">
@@ -145,7 +146,7 @@
                 <mat-label>{{choice.description}}</mat-label>
               </tr>
               <tr *ngSwitchCase="'input'">
-                <input class="input width-100" type="text">
+                <input class="input width-100" type="text" name="input">
               </tr>
             </div><br>
           </td>
@@ -169,6 +170,34 @@
             </div>
             <br>
            <div [align]="'center'" >
+            <tr>
+              <td [align]="'center'">
+                <div *ngIf="!signatureApplicant && hasSignatureAccessApplicant">
+                  <signature-pad 
+                  #signature1
+                  format="base64" 
+                  dotSize="1"
+                  [options]="signaturePadOptions" 
+                  doneButtonText="Show Image">
+                  </signature-pad>
+                  <div>
+                    <button 
+                      mat-button type="button" 
+                      (click)="signature1.clear()">
+                        Clear
+                      </button>
+                      <button 
+                      mat-button 
+                      type="button" 
+                      (click)="showImage('signature1', signature1)">
+                        Submit
+                    </button>
+                  </div>
+                </div>
+                <img [src]="signatureApplicant" *ngIf="signatureApplicant && hasSignatureAccessApplicant" />
+                <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessApplicant" />
+              </td>
+            </tr>
             <tr>
               <td>
                 <input 
@@ -225,27 +254,33 @@
                 </table>
               </td>
             </tr>
-            <tr>
+            <tr >
               <td [align]="'center'">
-                <signature-pad 
-                #signature
-                format="base64" 
-                dotSize="1"
-                [options]="signaturePadOptions" 
-                doneButtonText="Show Image"
-                (drawStart)="drawStart($event)" 
-                (drawEnd)="drawComplete($event)">
-              </signature-pad>
+                  <div *ngIf="!signatureTaha && hasSignatureAccessTaha">
+                    <signature-pad 
+                    #signature2
+                    format="base64" 
+                    dotSize="1"
+                    [options]="signaturePadOptions" 
+                    doneButtonText="Show Image">
+                    </signature-pad>
+                    <div>
+                      <button 
+                        mat-button type="button" 
+                        (click)="signature2.clear()">
+                          Clear
+                        </button>
+                        <button 
+                        mat-button 
+                        type="button" 
+                        (click)="showImage('signature2', signature2)">
+                          Submit
+                      </button>
+                    </div>
+                  </div>
+                  <img [src]="signatureTaha" *ngIf="signatureTaha && hasSignatureAccessTaha" />
+                  <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessTaha" />
               </td>
-              <img [src]="signatureImage" *ngIf="signatureImage" />
-            </tr>
-            <tr>
-              <!-- <div fxLayout="row"> -->
-                <td [align]="'center'">
-                  <button mat-button type="button" (click)="signature.clear()" >Clear</button>
-                  <button mat-button type="button" (click)="showImage($event, signature)" >Submit</button>
-                </td>
-              <!-- </div> -->
             </tr>
             <tr>
               <td [align]="'center'"><u>TAHA M. MOHAMAD MPA CSP</u></td>
@@ -281,6 +316,34 @@
               </td><br>
             </tr>
             <div [align]="'center'">
+              <tr>
+                <td [align]="'center'">
+                  <div *ngIf="!signatureRedondo && hasSignatureAccessRedondo">
+                    <signature-pad 
+                    #signature3
+                    format="base64" 
+                    dotSize="1"
+                    [options]="signaturePadOptions" 
+                    doneButtonText="Show Image">
+                    </signature-pad>
+                    <div>
+                      <button 
+                        mat-button type="button" 
+                        (click)="signature3.clear()">
+                          Clear
+                        </button>
+                        <button 
+                        mat-button 
+                        type="button" 
+                        (click)="showImage('signature3', signature3)">
+                          Submit
+                      </button>
+                    </div>
+                  </div>
+                  <img [src]="signatureRedondo" *ngIf="signatureRedondo && hasSignatureAccessRedondo" />
+                  <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessRedondo" />
+                </td>
+              </tr>
               <tr>
                 <td><u>EUZA E. REDONDO PhD.</u></td>
               </tr>
@@ -322,6 +385,34 @@
         </tr>
         <tr>
           <td colspan="5" [align]="'center'">
+              <tr>
+              <td [align]="'center'">
+                <div *ngIf="!signatureIndira && hasSignatureAccessIndira">
+                  <signature-pad 
+                  #signature4
+                  format="base64" 
+                  dotSize="1"
+                  [options]="signaturePadOptions" 
+                  doneButtonText="Show Image">
+                  </signature-pad>
+                  <div>
+                    <button 
+                      mat-button type="button" 
+                      (click)="signature4.clear()">
+                        Clear
+                      </button>
+                      <button 
+                      mat-button 
+                      type="button" 
+                      (click)="showImage('signature4', signature4)">
+                        Submit
+                    </button>
+                  </div>
+                </div>
+                <img [src]="signatureIndira" *ngIf="signatureIndira && hasSignatureAccessIndira" />
+                <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessIndira" />
+              </td>
+            </tr>
             <tr>
               <td><u>DR. INDIRA B. DIMAPORO-TAWANTAWAN, Ai-Hadja</u></td>
             </tr>

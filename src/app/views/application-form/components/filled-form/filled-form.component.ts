@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AnyAaaaRecord } from 'dns';
 // import { SignaturePadComponent } from '@almothafar/angular-signature-pad';
 // import { SignaturePad } from 'angular2-signaturepad/signature-pad';
@@ -15,46 +16,68 @@ import {
 })
 export class FilledFormComponent implements OnInit {
 
-  // @ViewChild('signature') public signaturePad!: SignaturePadComponent;
-
+  noSinatureAccess:string = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAABkCAYAAAA8AQ3AAAAAAXNSR0IArs4c6QAAAvxJREFUeF7t1MEJADAMA7Fm/4HzbKFbHCgTGDl4dvceR4AAgYDAGKxASyISIPAFDJZHIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoDAA9HwhYQ81I0ZAAAAAElFTkSuQmCC";
+  hasSignatureAccessApplicant:boolean = true;
+  hasSignatureAccessTaha:boolean = false;
+  hasSignatureAccessRedondo:boolean = false;
+  hasSignatureAccessIndira:boolean = false;
+  signatureForm1!: FormGroup;
+  signatureForm2!: FormGroup;
+  signatureForm3!: FormGroup;
   choices1 = choicesA;
   choices2 = choicesB;
   choices3 = choicesC;
   choices4 = choicesD;
-  signatureImage:any;
+  signatureApplicant:any;
+  signatureTaha:any;
+  signatureRedondo:any;
+  signatureIndira:any;
   points = [];
   signImage:any;
 
-  constructor() { 
-    // this.signaturePad.set('minWidth', 5);
+  constructor(private formBuilder: FormBuilder) {
+    this.signatureForm1 = this.formBuilder.group({
+     signature: new FormControl([''])
+    });
+    // this.signatureForm2 = this._formBuilder.group({
+    //  signature2: ['',]
+    // });
+    // this.signatureForm3 = this._formBuilder.group({
+    //  signature3: ['',]
+    // });
   }
 
   ngOnInit(): void {
   }
 
-  signaturePadOptions: Object = { // passed through to szimek/signature_pad constructor
+  signaturePadOptions: Object = {
     'minWidth': 0.5,
     'canvasWidth': 300,
     'canvasHeight': 100,
     'backgroundColor': 'rgb(247,247,247)',
   };
-  showImage(data: any, signature: any) {
-    // console.log("data", data)
+  showImage(action: string, signature: any) {
+    
     const base64ImageData = signature.toDataURL();
-    this.signatureImage = base64ImageData;
-    // this.signatureImage = data;
+    console.log("signature", signature)
+    console.log("base 64", base64ImageData)
+
+    switch(action){
+      case 'signature1':
+      this.signatureApplicant = base64ImageData;
+      break;
+      case 'signature2':
+      this.signatureTaha = base64ImageData;
+      break;
+      case 'signature3':
+      this.signatureRedondo= base64ImageData;
+      break;
+      case 'signature4':
+      this.signatureIndira = base64ImageData;
+      break;
+    }
+    
   }
 
-  drawComplete(event: MouseEvent | Touch) {
-    // will be notified of szimek/signature_pad's onEnd event
-    console.log('Completed drawing', event);
-    // console.log(this.signaturePad.toDataURL());
-    this.signatureImage = event;
-  }
-
-  drawStart(event: MouseEvent | Touch) {
-    // will be notified of szimek/signature_pad's onBegin event
-    console.log('Start drawing', event);
-  }
 
 }

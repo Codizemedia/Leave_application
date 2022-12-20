@@ -5,53 +5,78 @@
             <mat-card-content >
                 <mat-card-title>APPLICATION FOR LEAVE</mat-card-title>
         <mat-horizontal-stepper [linear]="isLinear">
-          <mat-step [stepControl]="firstFormGroup">
-            <form [formGroup]="firstFormGroup">
+          <mat-step [stepControl]="firstStepForm">
+            <form [formGroup]="firstStepForm">
               <ng-template matStepLabel>First step</ng-template>
               <div class="p-10">
                 <div >
-                  <mat-label>1. OFFICE/DEPARTMENT MSU-LNAC</mat-label>
-                  <mat-form-field>
-                    <input matInput placeholder="" formControlName="firstCtrl" required>
+                  <mat-label>1. OFFICE/DEPARTMENT </mat-label> <br>
+                    <mat-form-field>
+                      <input 
+                      matInput
+                      formControlName="officeOrDepartment"  
+                      disabled="disabled" 
+                      style="color:black">
                   </mat-form-field>
                 </div>
                 <mat-label>2. NAME:</mat-label>
                 <div>
                   <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
-                      <mat-form-field appearance="outline">
-                        <mat-label>Last name:</mat-label>
-                        <input matInput>
-                      </mat-form-field>
-                    </div>
-                    <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
-                      <mat-form-field appearance="outline">
-                        <mat-label>First name:</mat-label>
-                        <input matInput>
-                      </mat-form-field>
-                    </div>
-                    <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
-                      <mat-form-field appearance="outline">
-                        <mat-label>Middle name:</mat-label>
-                        <input matInput>
-                      </mat-form-field>
-                    </div>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Last name:</mat-label>
+                      <input
+                      formControlName="lastName" 
+                      matInput 
+                      required>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
+                    <mat-form-field appearance="outline">
+                      <mat-label>First name:</mat-label>
+                      <input 
+                      formControlName="firstName"
+                      matInput 
+                      required>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Middle name:</mat-label>
+                      <input
+                      formControlName="middleName" 
+                      matInput 
+                      required>
+                    </mat-form-field>
+                  </div>
                 </div>
                 <div>
                   <mat-label>3. DATE OF FILLING</mat-label>
                   <mat-form-field>
-                    <input matInput placeholder="" formControlName="firstCtrl" required>
+                    <input
+                    formControlName="dateOfFilling" 
+                    matInput 
+                    placeholder="" 
+                    required>
                   </mat-form-field>
                 </div>
                 <div>
                   <mat-label>4. POSITION</mat-label>
                   <mat-form-field>
-                    <input matInput placeholder="" formControlName="firstCtrl" required>
+                    <input
+                    formControlName="position" 
+                    matInput 
+                    placeholder="" 
+                    required>
                   </mat-form-field>
                 </div>
                 <div>
                   <mat-label>5. SALARY</mat-label>
                   <mat-form-field>
-                    <input matInput placeholder="" formControlName="firstCtrl" required>
+                    <input 
+                    formControlName="salary"
+                    matInput 
+                    placeholder="" 
+                    required>
                   </mat-form-field>
                 </div>
               </div>

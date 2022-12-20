@@ -16,7 +16,7 @@ import {
 })
 export class ApplicationFormComponent implements OnInit {
   isLinear = false;
-  firstFormGroup: FormGroup = Object.create(null);
+  firstStepForm: FormGroup = Object.create(null);
   secondFormGroup: FormGroup = Object.create(null);
   thirdFormGroup: FormGroup = Object.create(null);
   choices1 = choicesA
@@ -29,8 +29,14 @@ export class ApplicationFormComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
+    this.firstStepForm = this._formBuilder.group({
+      officeOrDepartment: ['     MSU-LNAC', Validators.required],
+      lastName: ['', Validators.required],
+      firstName: ['', Validators.required],
+      middleName: ['', Validators.required],
+      dateOfFilling: ['', Validators.required],
+      position: ['', Validators.required],
+      salary: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
