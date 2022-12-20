@@ -23,6 +23,7 @@ export class ApplicationFormComponent implements OnInit {
   choices2 = choicesB
   choices3 = choicesC
   choices4 = choicesD
+  formData!: Object;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -93,6 +94,9 @@ export class ApplicationFormComponent implements OnInit {
     if(this.secondStepForm.valid){
       console.log(this.secondStepForm.getRawValue())
     }
+    this.formData = {
+      firstPage: this.firstStepForm.value,
+      secondage: this.secondStepForm.value,
+    }
   }
-
 }

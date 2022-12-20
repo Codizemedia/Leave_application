@@ -1,9 +1,20 @@
 <mat-card>
   <mat-card-content>
   
-   <div fxLayoutAlign="center center"> 
-    <div></div>
-    <br>
+   <div fxLayoutAlign="center center" fxLayout="column"> 
+    <div fxLayout="row" style="height: 100px; width: 800px;" [align]="'center'">
+      <div>
+        <img src="assets/images/msu-logo.png" 
+        width="100"
+        height="100"/>
+      </div>
+      <div fxLayout="column" [align]="'center'" style="margin-left: 50px;">
+        <div style="font-size: 20px;">Republic of the Philippines</div>
+        <div style="font-size: 20px;">MASU-LANAO DEL NORTE AGRICULTURAL COLLEGE</div>
+        <div style="font-size: 18px;">Ramain, Sultan Naga Dimaporo, Lanao del Norte</div>
+        <h3><strong>APPLICATION FOR LEAVE</strong> </h3>
+      </div>
+    </div><br><br>
     <table class=" border table-layout">
       <tbody>
         <tr class="border">
@@ -52,7 +63,9 @@
             [ngSwitch]="choice.type">
               <tr *ngSwitchCase="'checkbox'">
                 <label>
-                  <input type="checkbox" disabled="disabled"> 
+                  <!-- <input *ngIf="choice.value" type="checkbox" disabled="disabled" checked style="accent-color:black">  -->
+                  <mat-icon *ngIf="choice.value">check</mat-icon>
+                  <input *ngIf="!choice.value" type="checkbox" disabled="disabled"> 
                   {{choice.description}}
                 </label>
               </tr>
@@ -388,7 +401,7 @@
         </tr>
         <tr>
           <td colspan="5" [align]="'center'">
-              <tr>
+            <tr>
               <td [align]="'center'">
                 <div *ngIf="!signatureIndira && hasSignatureAccessIndira">
                   <signature-pad 
@@ -403,8 +416,8 @@
                       mat-button type="button" 
                       (click)="signature4.clear()">
                         Clear
-                      </button>
-                      <button 
+                    </button>
+                    <button 
                       mat-button 
                       type="button" 
                       (click)="showImage('signature4', signature4)">

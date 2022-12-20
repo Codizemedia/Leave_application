@@ -102,10 +102,11 @@ style="
   <div 
   *ngIf="isShowForm" 
   class="login-register-box" 
-  style="margin-top: 5vh;">
+  style="margin-top: 5vh;"
+  [align]="'center'">
     <mat-card  class="m-t-10">
       <mat-card-content>
-        <div style="width:1000px; height: 1450px; padding-left: 30px; padding-right: 30px;">
+        <div style="width:1150px; height: 1450px; padding-left: 30px; padding-right: 30px;">
           <div [align]="'right'">
             <button 
             class="button-layout"
@@ -122,14 +123,26 @@ style="
               Back
             </button>
           </div>
-          <div [align]="'center'">
-            <h3> Leave Application Form</h3>
-          </div>
+
           <div 
-          style="padding: 40px; "
+          style="padding: 40px; padding-left: 10px; padding-right: 10px; "
           fxLayoutAlign="center center" 
+          fxLayout="column"
           id="pdfTable" 
           #pdfTable> 
+            <div fxLayout="row" style="height: 100px; width: 800px;" [align]="'center'">
+              <div>
+                <img src="assets/images/msu-logo.png" 
+                width="100"
+                height="100"/>
+              </div>
+              <div fxLayout="column" [align]="'center'" style="margin-left: 50px;">
+                <div style="font-size: 20px;">Republic of the Philippines</div>
+                <div style="font-size: 20px;">MASU-LANAO DEL NORTE AGRICULTURAL COLLEGE</div>
+                <div style="font-size: 18px;">Ramain, Sultan Naga Dimaporo, Lanao del Norte</div>
+                <h3><strong>APPLICATION FOR LEAVE</strong> </h3>
+              </div>
+            </div><br>
             <table class="border table-layout">
               <tbody>
                 <tr class="border">
