@@ -3,224 +3,250 @@
     <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
         <mat-card >
             <mat-card-content >
-                <mat-card-title>APPLICATION FOR LEAVE</mat-card-title>
-        <mat-horizontal-stepper [linear]="isLinear">
-          <mat-step [stepControl]="firstStepForm">
-            <form [formGroup]="firstStepForm">
-              <ng-template matStepLabel>First step</ng-template>
-              <div class="p-10">
-                <div >
-                  <mat-label>1. OFFICE/DEPARTMENT </mat-label> <br>
-                    <mat-form-field>
-                      <input 
-                      matInput
-                      formControlName="officeOrDepartment"  
-                      disabled="disabled" 
-                      style="color:black">
-                  </mat-form-field>
-                </div>
-                <mat-label>2. NAME:</mat-label>
-                <div>
-                  <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
-                    <mat-form-field appearance="outline">
-                      <mat-label>Last name:</mat-label>
-                      <input
-                      formControlName="lastName" 
-                      matInput 
-                      required>
-                    </mat-form-field>
-                  </div>
-                  <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
-                    <mat-form-field appearance="outline">
-                      <mat-label>First name:</mat-label>
-                      <input 
-                      formControlName="firstName"
-                      matInput 
-                      required>
-                    </mat-form-field>
-                  </div>
-                  <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
-                    <mat-form-field appearance="outline">
-                      <mat-label>Middle name:</mat-label>
-                      <input
-                      formControlName="middleName" 
-                      matInput 
-                      required>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div>
-                  <mat-label>3. DATE OF FILLING</mat-label>
-                  <mat-form-field>
-                    <input
-                    formControlName="dateOfFilling" 
-                    matInput 
-                    placeholder="" 
-                    required>
-                  </mat-form-field>
-                </div>
-                <div>
-                  <mat-label>4. POSITION</mat-label>
-                  <mat-form-field>
-                    <input
-                    formControlName="position" 
-                    matInput 
-                    placeholder="" 
-                    required>
-                  </mat-form-field>
-                </div>
-                <div>
-                  <mat-label>5. SALARY</mat-label>
-                  <mat-form-field>
-                    <input 
-                    formControlName="salary"
-                    matInput 
-                    placeholder="" 
-                    required>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="align-right">
-                <button 
-                mat-raised-button
-                matStepperNext
-                class="button-layout button-style">
-                Next</button>
-              </div>
-            </form>
-          </mat-step>
-          <mat-step [stepControl]="secondFormGroup">
-            <form [formGroup]="secondFormGroup">
-              <ng-template matStepLabel>Second step</ng-template>
-              <div style="text-align:center;">
-                <mat-label><u>6. OFFICE/DEPARTMENT MSU-LNAC</u></mat-label>
-                <br><br>
-                <div fxLayout="row" style="text-align:left;" >
-                
-                    <div fxFlex="100" class="p-10">
-                      <mat-label>6. A. TYPE OF LEAVE TO BE AVAILED OF</mat-label><br><br>
-                      <div  
-                      *ngFor="let choice of choices1; 
-                      let i=index"
-                      [ngSwitch]="choice.type" 
-                      fxLayout="column">
-                          <label *ngSwitchCase="'checkbox'">
-                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                            {{choice.description}}
-                          </label>
-                          <br *ngSwitchCase="'space'">
-                          <mat-label *ngSwitchCase="'label'">{{choice.description}}</mat-label>
-                          <mat-label *ngSwitchCase="'underline-label'"><u>TLB (Termianl Leave Benefits)</u></mat-label>
-                          <input  *ngSwitchCase="'input'" class="input full-width" type="text">
+              <mat-card-title>APPLICATION FOR LEAVE</mat-card-title>
+              <mat-horizontal-stepper [linear]="isLinear">
+                <mat-step [stepControl]="firstStepForm">
+                  <form [formGroup]="firstStepForm">
+                    <ng-template matStepLabel>First step</ng-template>
+                    <div class="p-10">
+                      <div >
+                        <mat-label>1. OFFICE/DEPARTMENT </mat-label> <br>
+                          <mat-form-field>
+                            <input 
+                            matInput
+                            formControlName="officeOrDepartment"  
+                            style="color:black">
+                        </mat-form-field>
                       </div>
-                      <div  
-                      *ngFor="let choice of choices3; 
-                      let i=index"
-                      [ngSwitch]="choice.type" >
-                        <mat-label *ngSwitchCase="'label'">{{choice.description}}</mat-label>
-                        <input  *ngSwitchCase="'input'" class="input full-width" type="text">
+                      <mat-label>2. NAME:</mat-label>
+                      <div>
+                        <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Last name:</mat-label>
+                            <input
+                            formControlName="lastName" 
+                            matInput 
+                            required>
+                          </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
+                          <mat-form-field appearance="outline">
+                            <mat-label>First name:</mat-label>
+                            <input 
+                            formControlName="firstName"
+                            matInput 
+                            required>
+                          </mat-form-field>
+                        </div>
+                        <div fxFlex.gt-sm="33.33" fxFlex="100" class="p-10">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Middle name:</mat-label>
+                            <input
+                            formControlName="middleName" 
+                            matInput 
+                            required>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div>
+                        <mat-label>3. DATE OF FILLING</mat-label>
+                        <mat-form-field>
+                          <input
+                          formControlName="dateOfFilling" 
+                          matInput 
+                          placeholder="" 
+                          required>
+                        </mat-form-field>
+                      </div>
+                      <div>
+                        <mat-label>4. POSITION</mat-label>
+                        <mat-form-field>
+                          <input
+                          formControlName="position" 
+                          matInput 
+                          placeholder="" 
+                          required>
+                        </mat-form-field>
+                      </div>
+                      <div>
+                        <mat-label>5. SALARY</mat-label>
+                        <mat-form-field>
+                          <input 
+                          formControlName="salary"
+                          matInput 
+                          placeholder="" 
+                          required>
+                        </mat-form-field>
                       </div>
                     </div>
-                    <div fxFlex="100" class="p-10">
-                      <mat-label>6. B. DETAILS OF LEAVE </mat-label><br><br>
-                      <form action="">
-                        <div 
-                         *ngFor="let choice of choices2; 
-                         let i=index"
-                         [ngSwitch]="choice.type" 
-                         class="col-md-2" 
-                         fxLayout="column" 
-                         fxLayoutAlign="center">
-                          <i *ngSwitchCase="'italic-label'">{{choice.description}}</i>
-                          <div 
-                          fxFlex.gt-sm="40" 
-                          fxFlex="100" 
-                          fxLayout="row"
-                          fxLayout.gt-sm="row"
-                          fxLayout.gt-xs="column"
-                          fxLayout.gt-md="row"
-                          fxLayout.gt-lg="row"
-                          fxLayout.lt-sm="column"
-                          fxLayoutAlign="left"
-                          class="full-width"
-                          *ngSwitchCase="'checkbox-input'">
-                            <label style="white-space: nowrap">
-                                <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                                {{choice.description}}
-                            </label>
-                            <input class="input full-width m-l-10" type="text">
-                          </div>
-                          <div 
-                            fxFlex.gt-sm="40" 
-                            fxFlex="100" 
-                            fxLayout="row"
-                            fxLayout.gt-sm="row"
-                            fxLayout.gt-xs="column"
-                            fxLayout.gt-md="row"
-                            fxLayout.gt-lg="row"
-                            fxLayout.lt-sm="column"
-                            fxLayoutAlign="left"
-                            class="full-width"
-                            *ngSwitchCase="'italic-label-input'">
-                              <label style="white-space: nowrap">
-                                <i>{{choice.description}}</i>
-                              </label>
-                              <input class="input full-width m-l-10" type="text">
+                    <div class="align-right">
+                      <button 
+                      mat-raised-button
+                      matStepperNext
+                      (click)="firstStepSubmit()"
+                      class="button-layout button-style">
+                      Next</button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="secondStepForm">
+                  <form [formGroup]="secondStepForm">
+                    <ng-template matStepLabel>Second step</ng-template>
+                    <div style="text-align:center;">
+                      <mat-label><u>6. OFFICE/DEPARTMENT MSU-LNAC</u></mat-label>
+                      <br><br>
+                      <div fxLayout="row" style="text-align:left;" >
+                          <div fxFlex="100" class="p-10">
+                            <mat-label>6. A. TYPE OF LEAVE TO BE AVAILED OF</mat-label><br><br>
+                            <div  
+                            *ngFor="let choice of choices1; 
+                            let i=index"
+                            [ngSwitch]="choice.type" 
+                            fxLayout="column">
+                                <label *ngSwitchCase="'checkbox'">
+                                  <input 
+                                  type="checkbox" 
+                                  [value]="false"
+                                  formControlName="{{choice.name}}">
+                                  {{choice.description}}
+                                </label>
+                                <br *ngSwitchCase="'space'">
+                                <mat-label *ngSwitchCase="'label'">{{choice.description}}</mat-label>
+                                <mat-label *ngSwitchCase="'underline-label'"><u>TLB (Termianl Leave Benefits)</u></mat-label>
+                                <!-- <input  
+                                *ngSwitchCase="'input'" 
+                                class="input full-width" 
+                                type="text"
+                                formControlName="{{choice.input}}"> -->
                             </div>
-                            <br *ngSwitchCase="'space'"/>
-                            <label *ngSwitchCase="'checkbox'">
-                              <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                              {{choice.description}}
-                            </label>
-                            <mat-label *ngSwitchCase="'label'">{{choice.description}}</mat-label>
-                        </div>
-                        <div fxLayout="column">
-                          <mat-label>6. D. COMMUNICATION </mat-label>
-                          <label>
-                            <input type="checkbox" [value]="false">
-                            Not Requested
-                          </label>
-                          <label>
-                            <input type="checkbox" [value]="false">
-                            Requested
-                          </label>
-                        </div>
-                      </form>
+                            <div  
+                            *ngFor="let choice of choices3; 
+                            let i=index"
+                            [ngSwitch]="choice.type" >
+                              <mat-label *ngSwitchCase="'label'">{{choice.description}}</mat-label>
+                              <input  
+                              *ngSwitchCase="'input'" 
+                              class="input full-width" 
+                              type="text"
+                              formControlName="{{choice.input}}">
+                            </div>
+                          </div>
+                          <div fxFlex="100" class="p-10">
+                            <mat-label>6. B. DETAILS OF LEAVE </mat-label><br><br>
+                            <form action="">
+                              <div 
+                              *ngFor="let choice of choices2; 
+                              let i=index"
+                              [ngSwitch]="choice.type" 
+                              class="col-md-2" 
+                              fxLayout="column" 
+                              fxLayoutAlign="center">
+                                <i *ngSwitchCase="'italic-label'">{{choice.description}}</i>
+                                <div 
+                                fxFlex.gt-sm="40" 
+                                fxFlex="100" 
+                                fxLayout="row"
+                                fxLayout.gt-sm="row"
+                                fxLayout.gt-xs="column"
+                                fxLayout.gt-md="row"
+                                fxLayout.gt-lg="row"
+                                fxLayout.lt-sm="column"
+                                fxLayoutAlign="left"
+                                class="full-width"
+                                [formGroup]="secondStepForm"
+                                *ngSwitchCase="'checkbox-input'">
+                                  <label style="white-space: nowrap">
+                                      <input 
+                                      type="checkbox" 
+                                      [value]="false"
+                                      formControlName="{{choice.name}}">
+                                      {{choice.description}}
+                                  </label>
+                                  <input 
+                                  class="input full-width m-l-10" 
+                                  type="text"
+                                  formControlName="{{choice.input}}">
+                                </div>
+                                <div 
+                                  fxFlex.gt-sm="40" 
+                                  fxFlex="100" 
+                                  fxLayout="row"
+                                  fxLayout.gt-sm="row"
+                                  fxLayout.gt-xs="column"
+                                  fxLayout.gt-md="row"
+                                  fxLayout.gt-lg="row"
+                                  fxLayout.lt-sm="column"
+                                  fxLayoutAlign="left"
+                                  class="full-width"
+                                  [formGroup]="secondStepForm"
+                                  *ngSwitchCase="'italic-label-input'">
+                                    <label style="white-space: nowrap">
+                                      <i>{{choice.description}}</i>
+                                    </label>
+                                    <input 
+                                    class="input full-width m-l-10" 
+                                    type="text"
+                                    formControlName="{{choice.input}}">
+                                  </div>
+                                  <br *ngSwitchCase="'space'"/>
+                                  <label *ngSwitchCase="'checkbox'">
+                                    <input type="checkbox" [value]="false">
+                                    {{choice.description}}
+                                  </label>
+                                  <mat-label *ngSwitchCase="'label'">{{choice.description}}</mat-label>
+                              </div>
+                              <div 
+                              fxLayout="column"
+                              *ngFor="let choice of choices4; 
+                              let i=index"
+                              [ngSwitch]="choice.type" 
+                              [formGroup]="secondStepForm">
+                                <mat-label *ngSwitchCase="'label'">6. D. COMMUNICATION </mat-label>
+                                <label *ngSwitchCase="'checkbox'">
+                                  <input 
+                                  type="checkbox" 
+                                  [value]="false"
+                                  formControlName="{{choice.name}}">
+                                  {{choice.description}}
+                                </label>
+                              </div>
+                            </form>
+                          </div>
+                      </div>
                     </div>
-                </div>
-              </div>
-              <br><br>
-              <div class="align-right">
-                <button 
-                mat-raised-button 
-                matStepperPrevious
-                class="button-layout button-style">
-                  Back</button>
-                <button 
-                mat-raised-button 
-                matStepperNext
-                class="button-layout button-style">
-                Next</button>
-              </div>
-            </form>
-          </mat-step>
-          <mat-step>
-            <ng-template matStepLabel>Done</ng-template>
-            <app-filled-form></app-filled-form>
-            <div class="align-right">
-              <button 
-              mat-raised-button 
-              matStepperPrevious
-              class="button-layout button-style">
-              Back</button>
-              <button 
-              mat-raised-button 
-              class="button-layout button-style"
-              (click)="submitForm()">
-              Done</button>
-            </div>
-          </mat-step>
-        </mat-horizontal-stepper>
+                    <br><br>
+                    <div class="align-right">
+                      <button 
+                      mat-raised-button 
+                      matStepperPrevious
+                      class="button-layout button-style">
+                        Back</button>
+                      <button 
+                      mat-raised-button 
+                      matStepperNext
+                      (click)="secondStepSubmit()"
+                      class="button-layout button-style">
+                      Next</button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step>
+                  <ng-template matStepLabel>Done</ng-template>
+                  <app-filled-form></app-filled-form>
+                  <div class="align-right">
+                    <button 
+                    mat-raised-button 
+                    matStepperPrevious
+                    class="button-layout button-style">
+                    Back</button>
+                    <button 
+                    mat-raised-button 
+                    class="button-layout button-style"
+                    (click)="submitForm()">
+                    Done</button>
+                  </div>
+                </mat-step>
+              </mat-horizontal-stepper>
             </mat-card-content>
         </mat-card>
     </div>

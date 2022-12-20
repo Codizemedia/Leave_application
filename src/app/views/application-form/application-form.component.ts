@@ -17,7 +17,7 @@ import {
 export class ApplicationFormComponent implements OnInit {
   isLinear = false;
   firstStepForm: FormGroup = Object.create(null);
-  secondFormGroup: FormGroup = Object.create(null);
+  secondStepForm: FormGroup = Object.create(null);
   thirdFormGroup: FormGroup = Object.create(null);
   choices1 = choicesA
   choices2 = choicesB
@@ -30,7 +30,7 @@ export class ApplicationFormComponent implements OnInit {
 
   ngOnInit() {
     this.firstStepForm = this._formBuilder.group({
-      officeOrDepartment: ['     MSU-LNAC', Validators.required],
+      officeOrDepartment: [{disabled: true, value:'MSU-LNAC'}, Validators.required,  ],
       lastName: ['', Validators.required],
       firstName: ['', Validators.required],
       middleName: ['', Validators.required],
@@ -38,20 +38,61 @@ export class ApplicationFormComponent implements OnInit {
       position: ['', Validators.required],
       salary: ['', Validators.required]
     });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+    this.secondStepForm = this._formBuilder.group({
+      vacationLeave: [false,],
+      mandatoryOrForceLeave: [false,],
+      sickLeave: [false,],
+      maternityLeave: [false,],
+      paternityLeave: [false,],
+      specialPrivilege: [false,],
+      soloParentLeave: [false,],
+      studyLeave: [false,],
+      tenDayVAWCLeave: [false,],
+      rehabilitationPrivilege: [false,],
+      specialLeaveBenefitsForWomen: [false,],
+      specialEmergency: [false,],
+      adoptionLeave: [false,],
+      withinThePhilippines: [false,],
+      withinThePhilippinesInput: ["",],
+      abroad: [false,],
+      abroadInput: ["",],
+      inHospital: [false,],
+      inHospitalInput: ["",],
+      outPatient: [false,],
+      outPatientInput: ["",],
+      incaseOfLeaveForWomen: ["",],
+      completionOfMastersDegree: [false,],
+      barOrBoardExaminationReview: [false,],
+      monetizationOfLeaveCredits: [false,],
+      terminalLeave: [false,],
+      numberOfWorkingDays: ["",],
+      inclusiveDates: ["",],
+      notRequested: [false,],
+      requested: [false,],
     });
     this.thirdFormGroup = this._formBuilder.group({
       thirdCtrl: ['', Validators.required]
     });
   }
 
-  onCheckChange(event: any){
-    console.log("event", event)
-  }
+  // onCheckChange(event: any){
+  //   console.log("event", event)
+  // }
 
   submitForm(){
     this.router.navigate(['/dashboard'])
+  }
+
+  firstStepSubmit(){
+    if(this.firstStepForm.valid){
+      console.log(this.firstStepForm.getRawValue())
+    }
+  }
+
+  secondStepSubmit(){
+    if(this.secondStepForm.valid){
+      console.log(this.secondStepForm.getRawValue())
+    }
   }
 
 }

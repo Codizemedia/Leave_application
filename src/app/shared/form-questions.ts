@@ -3,67 +3,80 @@ export const choicesA: Array<any> = [
   {
     type: 'checkbox', 
     description: 'Vacation Leave', 
-    value: false
+    value: false,
+    name: "vacationLeave"
   },
   {
     type: 'checkbox', 
     description: "Mandatory/Force Leave", 
-    value: false
+    value: false,
+    name: "mandatoryOrForceLeave"
   },
   {
     type: 'checkbox', 
     description: "Sick Leave", 
-    value: false
+    value: false,
+    name: "sickLeave"
   },
   {
     type: 'checkbox', 
     description: "Maternity Leave", 
-    value: false
+    value: false,
+    name: "maternityLeave"
   },
   {
     type: 'checkbox', 
     description: "Paternity Leave", 
-    value: false
+    value: false,
+    name: "paternityLeave"
   },
   {
     type: 'checkbox', 
     description: "Special Privilege Leave", 
-    value: false
+    value: false,
+    name: "specialPrivilege"
   },
   {
     type: 'checkbox', 
     description: "Solo Parent Leave", 
-    value: false
+    value: false,
+    name: "soloParentLeave"
   },
   {
     type: 'checkbox', 
     description: "Study Leave", 
-    value: false
+    value: false,
+    name: "studyLeave"
   },
   {
     type: 'checkbox', 
     description: "10-Day VAWC Leave", 
-    value: false
+    value: false,
+    name: "tenDayVAWCLeave"
   },
   {
     type: 'checkbox', 
     description: "Rehabilitation Privilege", 
-    value: false
+    value: false,
+    name: "rehabilitationPrivilege"
   },
   {
     type: 'checkbox', 
     description: "Special Leave Benefits for Women", 
-    value: false
+    value: false,
+    name: "specialLeaveBenefitsForWomen"
   },
   {
     type: 'checkbox', 
     description: "Special Emergency", 
-    value: false
+    value: false,
+    name: "specialEmergency"
   },
   {
     type: 'checkbox', 
     description: "Adoption Leave", 
-    value: false
+    value: false,
+    name: "adoptionLeave"
   },
   {
     type: 'space', 
@@ -92,12 +105,16 @@ export const choicesB: Array<any> = [
   {
     type: 'checkbox-input', 
     description: 'Within the Philippines', 
-    value: false
+    value: false,
+    name: "withinThePhilippines",
+    input: "withinThePhilippinesInput"
   },
   {
     type: 'checkbox-input', 
     description: 'Abroad (Specify)', 
-    value: false
+    value: false,
+    name: "abroad",
+    input: "abroadInput"
   },
   {
     type: 'italic-label', 
@@ -107,22 +124,27 @@ export const choicesB: Array<any> = [
   {
     type: 'checkbox-input', 
     description: 'In Hospital (Specify Illness)', 
-    value: false
+    value: false,
+    name: "inHospital",
+    input: "inHospitalInput"
   },
   {
     type: 'checkbox-input', 
     description: 'Out Patient (Specify Illness)', 
-    value: false
+    value: false,
+    name: "outPatient",
+    input: "outPatientInput"
   },
   {
     type: 'italic-label', 
     description: 'In case of Special Leave Benefits for Women:', 
-    value: null
+    value: null,
   },
   {
     type: 'italic-label-input', 
     description: '(Specify Illnes)',
-    value: null
+    value: null,
+    input: "incaseOfLeaveForWomen"
   },
   {
     type: 'italic-label', 
@@ -132,27 +154,31 @@ export const choicesB: Array<any> = [
   {
     type: 'checkbox', 
     description: "Completion of Master's Degree", 
-    value: false
+    value: false,
+    name: "completionOfMastersDegree"
   },
   {
     type: 'checkbox', 
     description: 'Bar/Board Examination Review', 
-    value: false
+    value: false,
+    name: "barOrBoardExaminationReview"
   },
   {
     type: 'label', 
     description: 'Other Purpose:', 
-    value: null
+    value: null,
   },
   {
     type: 'checkbox', 
     description: 'Monetization of Leave Credits', 
-    value: false
+    value: false,
+    name: "monetizationOfLeaveCredits"
   },
   {
     type: 'checkbox', 
     description: 'Terminal Leave', 
-    value: false
+    value: false,
+    name: "terminalLeave"
   },
   {
     type: 'space', 
@@ -172,7 +198,8 @@ export const choicesC: Array<any> = [
   {
     type: 'input', 
     description: '', 
-    value: null
+    value: null,
+    input: "numberOfWorkingDays"
   },
   {
     type: 'label', 
@@ -182,7 +209,8 @@ export const choicesC: Array<any> = [
   {
     type: 'input', 
     description: '', 
-    value: null
+    value: null,
+    input: "inclusiveDates"
   },
 ];
 
@@ -195,11 +223,13 @@ export const choicesD: Array<any> = [
   {
     type: 'checkbox', 
     description: 'Not Requested', 
-    value: false
+    value: false,
+    name: "notRequested"
   },
   {
     type: 'checkbox', 
     description: 'Requested', 
     value: false,
+    name: "requested"
   }
 ]
