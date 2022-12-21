@@ -106,7 +106,7 @@ style="
   [align]="'center'">
     <mat-card  class="m-t-10">
       <mat-card-content>
-        <div style="width:1000px; height: 1550px; padding-left: 30px; padding-right: 30px;">
+        <div style="width:1000px; height: 1600px; padding-left: 30px; padding-right: 30px;">
           <div [align]="'right'">
             <button 
             class="button-layout"
@@ -123,9 +123,8 @@ style="
               Back
             </button>
           </div>
-
           <div 
-          style="padding: 40px; padding-left: 10px; padding-right: 10px; "
+          style="padding: 40px; padding-left: 10px; padding-right: 10px; font-size: 13px; "
           fxLayoutAlign="center center" 
           fxLayout="column"
           id="pdfTable" 
@@ -182,7 +181,7 @@ style="
                 </tr>
                 <tr class="border width-50">
                   <td class="left-content border p-10" colspan="2">
-                    <mat-label class="p-l-10">A. TYPE OF LEAVE TO BE AVAILED OF</mat-label><br><br>
+                    <mat-label class="p-l-10">6. A. TYPE OF LEAVE TO BE AVAILED OF</mat-label>
                     <div 
                     class="left-content p-l-10"
                     *ngFor="let choice of choices1;
@@ -206,10 +205,10 @@ style="
                       <tr *ngSwitchCase="'input'">
                         <input class="input width-100" type="text">
                       </tr>
-                    </div><br>
+                    </div>
                   </td>
                   <td class="left-content border width-50 p-10" [align]="'start'" colspan="3">
-                    <mat-label class=" p-l-10">B. DETAILS OF LEAVE </mat-label><br><br>
+                    <mat-label class=" p-l-10">6. B. DETAILS OF LEAVE </mat-label>
                     <div 
                     class=" p-l-10"
                     *ngFor="let choice of choices2;
@@ -265,9 +264,7 @@ style="
                       <tr *ngSwitchCase="'italic-label'"> 
                         <i>{{choice.description}}</i>
                       </tr>
-                
                     </div>
-                    <br>
                   </td>
                 </tr>
                 <tr>
@@ -304,18 +301,21 @@ style="
                           {{choice.description}}
                         </label>
                       </tr>
-                      <tr *ngSwitchCase="'space'"> <br/> </tr>
                       <tr *ngSwitchCase="'label'">
                         <mat-label>{{choice.description}}</mat-label>
                       </tr>
                     </div>
-                    <br>
                    <div [align]="'center'" >
                     <tr>
                       <td>
+                         <img 
+                          [src]="noSinatureAccess"
+                          width="150px"
+                          height="50px" 
+                          style="padding:0px; margin:0px;"/>
                         <input 
                         class="input" 
-                        style="width: 300px;" 
+                        style="width: 300px; margin:0px; height: 2px; background-color: green;" 
                         type="text" 
                         disabled="disabled"> 
                       </td>
@@ -337,7 +337,7 @@ style="
                       <td [align]="'left'"> 7. A. CERTIFICATION OF LEAVE CREDITS </td>
                     </tr>
                     <tr>
-                      <td [align]="'center'">
+                      <td [align]="'center'" style="white-space: nowrap">
                         As of 
                         <input 
                         class="input" 

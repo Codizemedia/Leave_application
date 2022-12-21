@@ -19,9 +19,9 @@ export class FilledFormComponent implements OnInit {
   @Input('formData') formData!: string;
   noSinatureAccess:string = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAABkCAYAAAA8AQ3AAAAAAXNSR0IArs4c6QAAAvxJREFUeF7t1MEJADAMA7Fm/4HzbKFbHCgTGDl4dvceR4AAgYDAGKxASyISIPAFDJZHIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoDAA9HwhYQ81I0ZAAAAAElFTkSuQmCC";
   hasSignatureAccessApplicant:boolean = true;
-  hasSignatureAccessTaha:boolean = false;
-  hasSignatureAccessRedondo:boolean = false;
-  hasSignatureAccessIndira:boolean = false;
+  hasSignatureAccessTaha:boolean = true;
+  hasSignatureAccessRedondo:boolean = true;
+  hasSignatureAccessIndira:boolean = true;
   signatureForm1!: FormGroup;
   signatureForm2!: FormGroup;
   signatureForm3!: FormGroup;
@@ -40,12 +40,6 @@ export class FilledFormComponent implements OnInit {
     this.signatureForm1 = this.formBuilder.group({
      signature: new FormControl([''])
     });
-    // this.signatureForm2 = this._formBuilder.group({
-    //  signature2: ['',]
-    // });
-    // this.signatureForm3 = this._formBuilder.group({
-    //  signature3: ['',]
-    // });
   }
 
   ngOnInit(): void {
@@ -78,7 +72,9 @@ export class FilledFormComponent implements OnInit {
       this.signatureIndira = base64ImageData;
       break;
     }
-    
+  }
+  display(){
+    console.log("see form data",this.formData)
   }
 
 

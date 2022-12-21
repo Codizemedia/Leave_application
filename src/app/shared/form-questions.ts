@@ -78,11 +78,11 @@ export const choicesA: Array<any> = [
     value: true,
     name: "adoptionLeave"
   },
-  {
-    type: 'space', 
-    description: '', 
-    value: null
-  },
+  // {
+  //   type: 'space', 
+  //   description: '', 
+  //   value: null
+  // },
   {
     type: 'label', 
     description: 'Others:', 
