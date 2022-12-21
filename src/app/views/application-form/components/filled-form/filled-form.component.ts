@@ -35,6 +35,7 @@ export class FilledFormComponent implements OnInit {
   signatureIndira:any;
   points = [];
   signImage:any;
+  filledUpFormData:Map<string, string> = new Map<string, string>()
 
   constructor(private formBuilder: FormBuilder) {
     this.signatureForm1 = this.formBuilder.group({
@@ -44,6 +45,7 @@ export class FilledFormComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("see form data",this.formData)
+    this.filledUpFormData =new Map(Object.entries(this.formData))
   }
 
   signaturePadOptions: Object = {
