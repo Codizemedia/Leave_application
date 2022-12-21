@@ -65,8 +65,8 @@
                   <tr *ngSwitchCase="'checkbox'">
                     <label>
                       <!-- <input *ngIf="choice.value" type="checkbox" disabled="disabled" checked style="accent-color:black">  -->
-                      <mat-icon *ngIf="choice.value">check</mat-icon>
-                      <input *ngIf="!choice.value" type="checkbox" disabled="disabled"> 
+                      <mat-icon *ngIf="formData.get(choice.name)">check</mat-icon>
+                      <input *ngIf="!formData.get(choice.name)" type="checkbox" disabled="disabled"> 
                       {{choice.description}}
                     </label>
                   </tr>
@@ -90,7 +90,8 @@
                 [ngSwitch]="choice.type">
                 <tr *ngSwitchCase="'checkbox'">
                   <label>
-                    <input type="checkbox" disabled="disabled"> 
+                    <mat-icon *ngIf="formData.get(choice.name)">check</mat-icon>
+                    <input *ngIf="!formData.get(choice.name)" type="checkbox" disabled="disabled"> 
                     {{choice.description}}
                   </label>
                 </tr>
@@ -105,12 +106,22 @@
                   fxLayout.gt-lg="row"
                   fxLayout.lt-sm="column"
                   fxLayoutAlign="left"
-                  class="width-100">
+                  style="background-color: green; width: 100%;">
                     <label style="white-space: nowrap">
-                        <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                        <mat-icon *ngIf="formData.get(choice.name)">check</mat-icon>
+                        <input 
+                        *ngIf="!formData.get(choice.name)"
+                        type="checkbox" 
+                        [value]="false" 
+                        disabled="disabled">
                         {{choice.description}}
                     </label>
-                    <input class="input m-l-10" name="input" type="text" >
+                    <input 
+                    *ngIf="formData.get(choice.input) == ''"
+                    class="input m-l-10" 
+                    name="input" 
+                    type="text" >
+                    <u *ngIf="formData.get(choice.input) != ''">{{formData.get(choice.input)}}</u>
                   </div>
                   </tr>
                   <tr *ngSwitchCase="'italic-label-input'">
