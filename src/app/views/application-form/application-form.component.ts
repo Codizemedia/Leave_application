@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { keyValuesToMap } from '@angular/flex-layout/extended/typings/style/style-transforms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -24,6 +25,7 @@ export class ApplicationFormComponent implements OnInit {
   choices3 = choicesC
   choices4 = choicesD
   formData!: Object;
+  filledUpFormData:Map<string, string> = new Map<string, string>()
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -31,7 +33,7 @@ export class ApplicationFormComponent implements OnInit {
 
   ngOnInit() {
     this.firstStepForm = this._formBuilder.group({
-      officeOrDepartment: [{disabled: true, value:'MSU-LNAC'}, Validators.required,  ],
+      officeOrDepartment: ['MSU-LNAC', Validators.required,  ],
       lastName: ['', Validators.required],
       firstName: ['', Validators.required],
       middleName: ['', Validators.required],
@@ -71,9 +73,23 @@ export class ApplicationFormComponent implements OnInit {
       notRequested: [false,],
       requested: [false,],
     });
-    this.thirdFormGroup = this._formBuilder.group({
-      thirdCtrl: ['', Validators.required]
+
+    const firtsFormMap = new Map(Object.entries(this.firstStepForm.value))
+    const secondFormMap = new Map(Object.entries(this.secondStepForm.value))
+   
+    firtsFormMap.forEach((value:any, key:any) =>{
+      this.filledUpFormData.set(key, value)
     });
+    secondFormMap.forEach((value:any, key:any) =>{
+      this.filledUpFormData.set(key, value)
+    });
+
+    this.formData =  this.filledUpFormData;
+    // this.formData = Object.fromEntries()
+    
+  
+
+    // console.log("look for something", Object.entries(this.filledUpFormData).map(function(key,value)=> key, value ))
   }
 
   // onCheckChange(event: any){
@@ -91,12 +107,18 @@ export class ApplicationFormComponent implements OnInit {
   }
 
   secondStepSubmit(){
-    if(this.secondStepForm.valid){
-      console.log(this.secondStepForm.getRawValue())
-    }
-    this.formData = {
-      firstPage: this.firstStepForm.value,
-      secondage: this.secondStepForm.value,
-    }
+    const firtsFormMap = new Map(Object.entries(this.firstStepForm.value))
+    const secondFormMap = new Map(Object.entries(this.secondStepForm.value))
+    // if(this.firstStepForm.valid){
+      firtsFormMap.forEach((value:any, key:any) =>{
+        this.filledUpFormData.set(key, value)
+      });
+      secondFormMap.forEach((value:any, key:any) =>{
+        this.filledUpFormData.set(key, value)
+      });
+  
+      this.formData = this.filledUpFormData as Object;
+    // }
+    console.log("seee dataaaaa", this.filledUpFormData);
   }
 }

@@ -16,7 +16,7 @@ import {
 })
 export class FilledFormComponent implements OnInit {
 
-  @Input('formData') formData!: string;
+  @Input('formData') formData: any = {};
   noSinatureAccess:string = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAABkCAYAAAA8AQ3AAAAAAXNSR0IArs4c6QAAAvxJREFUeF7t1MEJADAMA7Fm/4HzbKFbHCgTGDl4dvceR4AAgYDAGKxASyISIPAFDJZHIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoDAA9HwhYQ81I0ZAAAAAElFTkSuQmCC";
   hasSignatureAccessApplicant:boolean = true;
   hasSignatureAccessTaha:boolean = true;
@@ -35,7 +35,7 @@ export class FilledFormComponent implements OnInit {
   signatureIndira:any;
   points = [];
   signImage:any;
-  filledUpFormData:Map<string, string> = new Map<string, string>()
+ 
 
   constructor(private formBuilder: FormBuilder) {
     this.signatureForm1 = this.formBuilder.group({
@@ -44,8 +44,16 @@ export class FilledFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("see form data",this.formData)
-    this.filledUpFormData =new Map(Object.entries(this.formData))
+    // console.log("see form data",this.formData)
+    // this.filledUpFormData =new Map(Object.entries(this.formData))
+    // console.log("executing on init")
+    // if(this.formData != null){
+    //   console.log("initializing in on init")
+    //   this.formData.firstPage.array.forEach((value:any, key:any) =>{
+    //     // console.log(data[""])
+    //     this.filledUpFormData.set(value,key)
+    //   });
+    // }
   }
 
   signaturePadOptions: Object = {
@@ -77,7 +85,6 @@ export class FilledFormComponent implements OnInit {
   }
   display(){
     console.log("see form data",this.formData)
+    console.log("other data ==== ", this.formData.get("officeOrDepartment"))
   }
-
-
 }
