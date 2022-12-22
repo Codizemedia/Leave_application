@@ -79,7 +79,7 @@
                   <tr *ngSwitchCase="'label'">
                     <mat-label>{{choice.description}}</mat-label>
                   </tr>
-                </div><br>
+                </div>
               </td>
               <td class="left-content border width-50 p-5" [align]="'start'" colspan="3">
                 <mat-label class=" p-l-10">6. B. DETAILS OF LEAVE </mat-label><br><br>
@@ -106,7 +106,7 @@
                   fxLayout.gt-lg="row"
                   fxLayout.lt-sm="column"
                   fxLayoutAlign="left"
-                  style="background-color: green; width: 100%;">
+                  style="width: 100%;">
                     <label style="white-space: nowrap">
                         <mat-icon *ngIf="formData.get(choice.name)">check</mat-icon>
                         <input 
@@ -117,11 +117,11 @@
                         {{choice.description}}
                     </label>
                     <input 
-                    *ngIf="formData.get(choice.input) == ''"
+                    [value]="formData.get(choice.input)"
                     class="input m-l-10" 
                     name="input" 
                     type="text" >
-                    <u *ngIf="formData.get(choice.input) != ''">{{formData.get(choice.input)}}</u>
+                    <!-- <u *ngIf="formData.get(choice.input) != ''">{{formData.get(choice.input)}}</u> -->
                   </div>
                   </tr>
                   <tr *ngSwitchCase="'italic-label-input'">
@@ -151,7 +151,7 @@
                   </tr>
                 </div>
                 
-                <br><br><br>
+                <br>
               </td>
             </tr>
             <tr>
@@ -171,7 +171,11 @@
                     <mat-label>{{choice.description}}</mat-label>
                   </tr>
                   <tr *ngSwitchCase="'input'">
-                    <input class="input width-100" type="text" name="input">
+                    <input 
+                    class="input width-100" 
+                    type="text" 
+                    name="input" 
+                    [value]="formData.get(choice.input)">
                   </tr>
                 </div><br>
               </td>
@@ -184,7 +188,8 @@
                 [ngSwitch]="choice.type">
                   <tr *ngSwitchCase="'checkbox'">
                     <label>
-                      <input type="checkbox" disabled="disabled"> 
+                      <mat-icon *ngIf="formData.get(choice.name)">check</mat-icon>
+                      <input *ngIf="!formData.get(choice.name)" type="checkbox" disabled="disabled"> 
                       {{choice.description}}
                     </label>
                   </tr>
