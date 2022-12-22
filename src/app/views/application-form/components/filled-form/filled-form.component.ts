@@ -1,8 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AnyAaaaRecord } from 'dns';
-// import { SignaturePadComponent } from '@almothafar/angular-signature-pad';
-// import { SignaturePad } from 'angular2-signaturepad/signature-pad';
+import { Store } from '@ngrx/store';
+import * as formDataActions from '../../../store/leave-application-form/leave-application-form.actions';
 import { 
   choicesA, 
   choicesB,
@@ -29,15 +28,17 @@ export class FilledFormComponent implements OnInit {
   choices2 = choicesB;
   choices3 = choicesC;
   choices4 = choicesD;
-  signatureApplicant:any;
-  signatureTaha:any;
-  signatureRedondo:any;
-  signatureIndira:any;
+  signatureApplicant:string = "";
+  signatureTaha:string = "";
+  signatureRedondo:string = "";
+  signatureIndira:string = "";
   points = [];
   signImage:any;
  
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private store: Store) {
     this.signatureForm1 = this.formBuilder.group({
      signature: new FormControl([''])
     });
@@ -82,6 +83,8 @@ export class FilledFormComponent implements OnInit {
       this.signatureIndira = base64ImageData;
       break;
     }
+
+    this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: this.formData}))
   }
   display(){
     console.log("see form data",this.formData)

@@ -10,6 +10,7 @@ import jsPDF from 'jspdf';
 import * as pdfMake from 'pdfmake/build/pdfmake.js';
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import html2canvas from 'html2canvas';
+import { emptyForm } from './empty-form';
 
 declare var require: any;
 
@@ -50,6 +51,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("see empty form ", emptyForm)
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
     });

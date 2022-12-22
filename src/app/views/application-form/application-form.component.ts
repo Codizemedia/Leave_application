@@ -3,11 +3,15 @@ import { keyValuesToMap } from '@angular/flex-layout/extended/typings/style/styl
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as formDataActions from '../store/leave-application-form/leave-application-form.actions';
 import { 
   choicesA, 
   choicesB,
   choicesC,
   choicesD } from '../../shared/form-questions';
+import { emptyForm } from '../dashboard/empty-form';
+import { selectFormData } from '../store/leave-application-form/leave-application-form.selectors';
  
 
 @Component({
@@ -29,7 +33,8 @@ export class ApplicationFormComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+    private stroe: Store) { }
 
   ngOnInit() {
     this.firstStepForm = this._formBuilder.group({
@@ -84,12 +89,16 @@ export class ApplicationFormComponent implements OnInit {
       this.filledUpFormData.set(key, value)
     });
 
+    this.filledUpFormData.set("applicantSignature", "")
+    this.filledUpFormData.set("tahaSignature", "")
+    this.filledUpFormData.set("redondoSignature", "")
+    this.filledUpFormData.set("indiraSignature", "")
     this.formData =  this.filledUpFormData;
-    // this.formData = Object.fromEntries()
     
-  
-
-    // console.log("look for something", Object.entries(this.filledUpFormData).map(function(key,value)=> key, value ))
+    this.stroe.dispatch(formDataActions.requestSelectFormDataACTION({payload: emptyForm}))
+    this.stroe.select(selectFormData).subscribe((response: any)=>{
+      console.log("see response",response)
+    })
   }
 
   // onCheckChange(event: any){
@@ -118,6 +127,7 @@ export class ApplicationFormComponent implements OnInit {
       });
   
       this.formData = this.filledUpFormData as Object;
+      this.stroe.dispatch(formDataActions.requestSelectFormDataACTION({payload: this.filledUpFormData}))
     // }
     console.log("seee dataaaaa", this.filledUpFormData);
   }

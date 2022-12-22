@@ -18,6 +18,14 @@ export const successFetchFormDataACTION = createAction(
   '[ ApplicationForm ] Success Fetch FormData',
   props<{ payload: any[] }>()
 );
+export const requestSelectFormDataACTION = createAction(
+  '[ ApplicationForm ] Request Select FormData',
+  props<{ payload: any }>()
+);
+export const successSelectFormDataACTION = createAction(
+  '[ ApplicationForm ] Success Select FormData',
+  props<{ payload: FormData }>()
+);
 export const requestAddFormDataACTION = createAction(
   '[ ApplicationForm ] Request Add FormData',
   props<{ payload: FormData }>()

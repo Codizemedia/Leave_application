@@ -3,10 +3,11 @@ import { FormDataState } from './leave-application-form.state';
 import * as formDataActions from './leave-application-form.actions'
 
 
-export const leaveApplicationFormFeatureKey = 'leaveApplicationForm';
+export const leaveApplicationFormFeatureKey = 'formData';
 
 export const initialState: FormDataState = {
-  formData: {}
+  formData: {},
+  selectedFormData: {}
 };
 
 export const formDataReducer = createReducer(
@@ -15,15 +16,21 @@ export const formDataReducer = createReducer(
   on(
     formDataActions.successFetchFormDataACTION,
     (state: FormDataState, { payload }) => {
-      return {
-        ...state,
-        categories: payload,
-      };
+      return {...state, formDtaa: payload };
     }
   ),
 
-  on(formDataActions.requestAddFormDataACTION, (state: FormDataState) => {
-    return { ...state, state };
+  on(formDataActions.successSelectFormDataACTION,
+    (state: any, {payload}) =>{
+      console.log("see reducer", payload)
+      return { ...state, selectedFormData: payload };
+    }),
+
+
+  on(formDataActions.requestAddFormDataACTION, 
+    (state: FormDataState, {payload}) => {
+      // const categories = [...state.formData, payload]
+    return { ...state, payload };
   }),
 
   on(

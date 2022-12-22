@@ -5,5 +5,8 @@ export const selectFormDataFeatureState =
   createFeatureSelector<any>('formData');
 export const selectFormData = createSelector(
   selectFormDataFeatureState,
-  (state: FormData) => state
+  (state: any) => {
+    console.log("reading selector", state)
+    return state
+  }
 );
