@@ -4,21 +4,29 @@ import { AuthGuard } from './auth.guard';
 import { ErrorComponent } from './error/error.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { AppBlankComponent } from './layouts/blank/blank.component';
+import { FormDataResolverService } from './resolvers/form-data-resolver.service';
 
 export const AppRoutes: Routes = [
     {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: '/dashboard',
         pathMatch: 'full',
+        // component: DashboardComponent
     },
     {
-        path: 'application-form',
-        component: FullComponent,
+        path: 'dashboard',
         canActivate: [AuthGuard],
+        resolve: [FormDataResolverService],
+        component: DashboardComponent
+       
+    },
+    {
+        path: '',
+        component: FullComponent,
         children: [
-           
             {
-                path: '',
+                canActivate: [AuthGuard],
+                path: 'application-form',
                 loadChildren: () => import('./views/application-form/starter.module').then(m => m.StarterModule)
             },
         ]
@@ -27,12 +35,6 @@ export const AppRoutes: Routes = [
         path: 'authentication',
         loadChildren:
             () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
-    },
-    {
-        path: 'dashboard',
-        canActivate: [AuthGuard],
-        component: DashboardComponent
-       
     },
     {
         path: '**',

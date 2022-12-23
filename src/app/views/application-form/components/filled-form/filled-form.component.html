@@ -139,7 +139,11 @@
                       <label style="white-space: nowrap">
                         <i>{{choice.description}}</i>
                       </label>
-                      <input class="input m-l-10" name="input" type="text">
+                      <input 
+                      class="input m-l-10" 
+                      name="input" 
+                      type="text"
+                      [value]="formData.get(choice.input)">
                     </div>
                   </tr>
                   <tr *ngSwitchCase="'space'"> <br/> </tr>
@@ -286,7 +290,7 @@
                 </tr>
                 <tr >
                   <td [align]="'center'">
-                      <div *ngIf="!signatureTaha && hasSignatureAccessTaha">
+                      <div *ngIf="!tahaSignature && hasSignatureAccessTaha">
                         <signature-pad 
                         #signature2
                         format="base64" 
@@ -308,7 +312,7 @@
                           </button>
                         </div>
                       </div>
-                      <img [src]="signatureTaha" *ngIf="signatureTaha && hasSignatureAccessTaha" />
+                      <img [src]="tahaSignature" *ngIf="tahaSignature && hasSignatureAccessTaha" />
                       <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessTaha" />
                   </td>
                 </tr>
@@ -348,7 +352,7 @@
                 <div [align]="'center'">
                   <tr>
                     <td [align]="'center'">
-                      <div *ngIf="!signatureRedondo && hasSignatureAccessRedondo">
+                      <div *ngIf="!redondoSignature && hasSignatureAccessRedondo">
                         <signature-pad 
                         #signature3
                         format="base64" 
@@ -370,7 +374,7 @@
                           </button>
                         </div>
                       </div>
-                      <img [src]="signatureRedondo" *ngIf="signatureRedondo && hasSignatureAccessRedondo" />
+                      <img [src]="redondoSignature" *ngIf="redondoSignature && hasSignatureAccessRedondo" />
                       <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessRedondo" />
                     </td>
                   </tr>
@@ -417,7 +421,7 @@
               <td colspan="5" [align]="'center'">
                 <tr>
                   <td [align]="'center'">
-                    <div *ngIf="!signatureIndira && hasSignatureAccessIndira">
+                    <div *ngIf="!indiraSignature && hasSignatureAccessIndira">
                       <signature-pad 
                       #signature4
                       format="base64" 
@@ -439,7 +443,7 @@
                         </button>
                       </div>
                     </div>
-                    <img [src]="signatureIndira" *ngIf="signatureIndira && hasSignatureAccessIndira" />
+                    <img [src]="indiraSignature" *ngIf="indiraSignature && hasSignatureAccessIndira" />
                     <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessIndira" />
                   </td>
                 </tr>

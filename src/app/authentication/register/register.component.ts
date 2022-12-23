@@ -13,6 +13,7 @@ import { Store } from '@ngrx/store';
 import * as authActions from '../store/authentication.actions'
 
 
+
 const password = new FormControl('', Validators.required);
 const confirmPassword = new FormControl('', CustomValidators.equalTo(password));
 
@@ -65,6 +66,12 @@ export class RegisterComponent implements OnInit {
       password: this.form.value.password
     }
 
-    this.store.dispatch(authActions.requestAuthRegister({payload: accountCredentials}))
+    const userDetails = {
+      name: "Applicant",
+      userRole: "Admin"
+    }
+
+    this.store.dispatch(authActions.requestAuthRegister({payload: accountCredentials, userDetails: userDetails}))
+    // this.store.dispatch(userDetailActions.requestAddUserDetailsACTION({payload: userDetails}))
   }
 }

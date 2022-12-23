@@ -142,6 +142,7 @@ style="
             <table class="border table-layout" style="width:500px;">
               <tbody>
                 <!-- <form [formGroup]="leaveApplicationForm"> -->
+                  <!-- {{formData.get("")}} -->
                     <tr class="border">
                       <td class="p-10" [align]="'center'">
                         <u>1. OFFICE/DEPARTMENT MSU-LNAC</u>
@@ -162,16 +163,16 @@ style="
                     </tr>
                     <tr class="border">
                       <td class="p-10" colspan="1" [align]="'center'">
-                        3. DATE OF FILING 
-                        <u>December 04, 2022</u>
+                        3. DATE OF FILING: 
+                        <u>{{formData.get("dateOfFilling")}}</u>
                       </td>
                       <td class="p-10" colspan="2" [align]="'center'">
                         4. POSITION: 
-                        <u>BS-IT FACULTY</u>
+                        <u>{{formData.get("position")}}</u>
                       </td>
                       <td class="p-10" colspan="2" [align]="'center'">
                         5. SALARY: 
-                        <u>15,000</u>
+                        <u>{{formData.get("salary")}}</u>
                       </td>
                     </tr>
                     <tr class="border">
@@ -187,7 +188,9 @@ style="
                         [ngSwitch]="choice.type">
                           <tr *ngSwitchCase="'checkbox'">
                             <label>
-                              <input type="checkbox" disabled="disabled"> 
+                              <mat-icon *ngIf="formData.get(choice.name)">check</mat-icon>
+                              <input *ngIf="!formData.get(choice.name)" type="checkbox" disabled="disabled"> 
+                              <!-- <input type="checkbox" disabled="disabled">  -->
                               {{choice.description}}
                             </label>
                           </tr>
@@ -214,7 +217,9 @@ style="
                         [ngSwitch]="choice.type">
                         <tr *ngSwitchCase="'checkbox'">
                           <label>
-                            <input type="checkbox" disabled="disabled"> 
+                            <mat-icon *ngIf="formData.get(choice.name)">check</mat-icon>
+                            <input *ngIf="!formData.get(choice.name)" type="checkbox" disabled="disabled"> 
+                            <!-- <input type="checkbox" disabled="disabled">  -->
                             {{choice.description}}
                           </label>
                         </tr>
@@ -231,10 +236,15 @@ style="
                           fxLayoutAlign="left"
                           class="width-100">
                             <label style="white-space: nowrap">
-                                <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                              <mat-icon *ngIf="formData.get(choice.name)">check</mat-icon>
+                              <input *ngIf="!formData.get(choice.name)" type="checkbox" disabled="disabled"> 
                                 {{choice.description}}
                             </label>
-                            <input class="input m-l-10" name="input" type="text">
+                            <input 
+                            class="input m-l-10" 
+                            name="input" 
+                            type="text" 
+                            [value]="formData.get(choice.input)">
                           </div>
                           </tr>
                           <tr *ngSwitchCase="'italic-label-input'">
@@ -252,7 +262,11 @@ style="
                               <label style="white-space: nowrap">
                                 <i>{{choice.description}}</i>
                               </label>
-                              <input class="input m-l-10" name="input" type="text">
+                              <input 
+                              class="input m-l-10" 
+                              name="input" 
+                              type="text" 
+                              [value]="formData.get(choice.input)">
                             </div>
                           </tr>
                           <tr *ngSwitchCase="'space'"> <br/> </tr>
@@ -282,7 +296,10 @@ style="
                             <mat-label>{{choice.description}}</mat-label>
                           </tr>
                           <tr *ngSwitchCase="'input'">
-                            <input class="input width-100" type="text">
+                            <input 
+                            class="input width-100" 
+                            type="text" 
+                            [value]="formData.get(choice.input)">
                           </tr>
                         </div>
                       </td>
@@ -295,7 +312,9 @@ style="
                         [ngSwitch]="choice.type">
                           <tr *ngSwitchCase="'checkbox'">
                             <label>
-                              <input type="checkbox" disabled="disabled"> 
+                              <mat-icon *ngIf="formData.get(choice.name)">check</mat-icon>
+                              <input *ngIf="!formData.get(choice.name)" type="checkbox" disabled="disabled"> 
+                              <!-- <input type="checkbox" disabled="disabled">  -->
                               {{choice.description}}
                             </label>
                           </tr>
@@ -306,7 +325,7 @@ style="
                       <div [align]="'center'" >
                         <tr>
                           <img 
-                          [src]="noSinatureAccess"
+                          [src]="applicantSignature"
                           width="150px"
                           height="50px"/>
                         </tr>
@@ -360,7 +379,7 @@ style="
                         <tr>
                           <td [align]="'center'">
                             <img 
-                            [src]="noSinatureAccess"
+                            [src]="tahaSignature"
                             width="150px"
                             height="50px"/>
                           </td>
@@ -402,7 +421,7 @@ style="
                           <tr>
                             <td [align]="'center'">
                               <img 
-                              [src]="noSinatureAccess"
+                              [src]="redondoSignature"
                               width="150px"
                               height="50px"/>
                             </td>
@@ -451,7 +470,7 @@ style="
                         <tr>
                           <td [align]="'center'">
                             <img 
-                            [src]="noSinatureAccess"
+                            [src]="indiraSignature"
                             width="150px"
                             height="50px"/>
                           </td>

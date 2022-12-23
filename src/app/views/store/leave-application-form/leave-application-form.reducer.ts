@@ -35,10 +35,10 @@ export const formDataReducer = createReducer(
   on(
     formDataActions.requestUpdateFormDataACTION,
     (state: FormDataState, { payload }) => {
-      const updateCategory = [state.formData].map((category: any) => {
-        return payload === category.id ? payload : category;
+      const updateFormData = [state.formData].map((formData: any) => {
+        return payload === formData.id ? payload : formData;
       });
-      const returnState = { ...state, category: updateCategory };
+      const returnState = { ...state, formData: updateFormData };
       return returnState;
     }
   ),
@@ -46,9 +46,9 @@ export const formDataReducer = createReducer(
   on(
     formDataActions.requestDeleteFormDataACTION,
     (state: FormDataState, { payload }) => {
-      let newCategories = [state.formData];
-      newCategories.splice(newCategories.indexOf(payload), 1);
-      const returnState = { ...state, products: newCategories };
+      let newFormData = [state.formData];
+      newFormData.splice(newFormData.indexOf(payload), 1);
+      const returnState = { ...state, formData: newFormData };
       return returnState;
     }
   )

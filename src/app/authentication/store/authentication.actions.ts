@@ -12,7 +12,7 @@ export const successAuthLogin = createAction(
 
 export const requestAuthRegister = createAction(
   '[Auth] Request Auth Register ',
-  props<{ payload: AccountCredentials }>()
+  props<{ payload: AccountCredentials, userDetails: any }>()
 );
 export const successAuthRegister = createAction(
   '[Auth] Success Auth Register ',

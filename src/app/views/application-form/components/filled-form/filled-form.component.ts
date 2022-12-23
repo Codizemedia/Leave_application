@@ -30,9 +30,9 @@ export class FilledFormComponent implements OnInit {
   choices3 = choicesC;
   choices4 = choicesD;
   signatureApplicant:string = "";
-  signatureTaha:string = "";
-  signatureRedondo:string = "";
-  signatureIndira:string = "";
+  tahaSignature:string = "";
+  redondoSignature:string = "";
+  indiraSignature:string = "";
   points = [];
   signImage:any;
  
@@ -46,17 +46,6 @@ export class FilledFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log("see form data",this.formData)
-    // this.filledUpFormData =new Map(Object.entries(this.formData))
-    // console.log("executing on init")
-    // if(this.formData != null){
-    //   console.log("initializing in on init")
-    //   this.formData.firstPage.array.forEach((value:any, key:any) =>{
-    //     // console.log(data[""])
-    //     this.filledUpFormData.set(value,key)
-    //   });
-    // }
- 
   }
 
   signaturePadOptions: Object = {
@@ -68,27 +57,30 @@ export class FilledFormComponent implements OnInit {
   showImage(action: string, signature: any) {
     
     const base64ImageData = signature.toDataURL();
-    console.log("signature", signature)
-    console.log("base 64", base64ImageData)
+    let formDataMap = this.formData
 
     switch(action){
       case 'signature1':
       this.signatureApplicant = base64ImageData;
+      formDataMap.set("applicantSignature", this.signatureApplicant)
       break;
       case 'signature2':
-      this.signatureTaha = base64ImageData;
+      this.tahaSignature = base64ImageData;
+      formDataMap.set("tahaSignature", this.tahaSignature)
       break;
       case 'signature3':
-      this.signatureRedondo= base64ImageData;
+      this.redondoSignature= base64ImageData;
+      formDataMap.set("redondoSignature", this.redondoSignature)
       break;
       case 'signature4':
-      this.signatureIndira = base64ImageData;
+      this.indiraSignature = base64ImageData;
+      formDataMap.set("indiraSignature", this.indiraSignature)
       break;
     }
 
-     let formDataMap = this.formData
-    formDataMap.set("signatureApplicant", this.signatureApplicant)
-    console.log("see type === ", this.formData)
+     
+    
+    
 
     this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: this.formData}))
   }

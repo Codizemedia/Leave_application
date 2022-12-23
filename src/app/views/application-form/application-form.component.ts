@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { keyValuesToMap } from '@angular/flex-layout/extended/typings/style/style-transforms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
@@ -12,6 +12,7 @@ import {
   choicesD } from '../../shared/form-questions';
 import { emptyForm } from '../dashboard/empty-form';
 import { selectFormData } from '../store/leave-application-form/leave-application-form.selectors';
+import { Subscription } from 'rxjs';
  
 
 @Component({
@@ -19,7 +20,7 @@ import { selectFormData } from '../store/leave-application-form/leave-applicatio
   templateUrl: './application-form.component.html',
   styleUrls: ['./application-form.component.scss']
 })
-export class ApplicationFormComponent implements OnInit {
+export class ApplicationFormComponent implements OnInit, OnDestroy {
   isLinear = false;
   firstStepForm: FormGroup = Object.create(null);
   secondStepForm: FormGroup = Object.create(null);
@@ -29,12 +30,16 @@ export class ApplicationFormComponent implements OnInit {
   choices3 = choicesC
   choices4 = choicesD
   formData!: Object;
+  formSubscription!: Subscription;
   filledUpFormData:Map<string, string> = new Map<string, string>()
 
   constructor(
     private _formBuilder: FormBuilder,
     private router: Router,
-    private stroe: Store) { }
+    private store: Store) { }
+  ngOnDestroy(): void {
+    this.formSubscription.unsubscribe();
+  }
 
   ngOnInit() {
     this.firstStepForm = this._formBuilder.group({
@@ -95,15 +100,11 @@ export class ApplicationFormComponent implements OnInit {
     this.filledUpFormData.set("indiraSignature", "")
     this.formData =  this.filledUpFormData;
     
-    this.stroe.dispatch(formDataActions.requestSelectFormDataACTION({payload: emptyForm}))
-    this.stroe.select(selectFormData).subscribe((response: any)=>{
+    this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: emptyForm}))
+    this.formSubscription = this.store.select(selectFormData).subscribe((response: any)=>{
       console.log("see response",response)
     })
   }
-
-  // onCheckChange(event: any){
-  //   console.log("event", event)
-  // }
 
   submitForm(){
     this.router.navigate(['/dashboard'])
@@ -118,17 +119,14 @@ export class ApplicationFormComponent implements OnInit {
   secondStepSubmit(){
     const firstFormMap = new Map(Object.entries(this.firstStepForm.value))
     const secondFormMap = new Map(Object.entries(this.secondStepForm.value))
-    // if(this.firstStepForm.valid){
-      firstFormMap.forEach((value:any, key:any) =>{
-        this.filledUpFormData.set(key, value)
-      });
-      secondFormMap.forEach((value:any, key:any) =>{
-        this.filledUpFormData.set(key, value)
-      });
-  
-      this.formData = this.filledUpFormData as Object;
-      this.stroe.dispatch(formDataActions.requestSelectFormDataACTION({payload: this.filledUpFormData}))
-    // }
-    console.log("seee dataaaaa", this.filledUpFormData);
+    firstFormMap.forEach((value:any, key:any) =>{
+      this.filledUpFormData.set(key, value)
+    });
+    secondFormMap.forEach((value:any, key:any) =>{
+      this.filledUpFormData.set(key, value)
+    });
+
+    this.formData = this.filledUpFormData as Object;
+    this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: this.filledUpFormData}))
   }
 }

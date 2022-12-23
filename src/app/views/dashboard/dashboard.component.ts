@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router} from '@angular/router';
 import jsPDF from 'jspdf';
@@ -13,13 +13,14 @@ import {
   choicesB,
   choicesC,
   choicesD } from '../../shared/form-questions';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   leaveApplicationForm: FormGroup = Object.create(null);
   choices1 = choicesA;
@@ -31,12 +32,13 @@ export class DashboardComponent implements OnInit {
   isShowForm = false;
   applicationFormAction="Fill-up Form";
   noSinatureAccess:string = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAABkCAYAAAA8AQ3AAAAAAXNSR0IArs4c6QAAAvxJREFUeF7t1MEJADAMA7Fm/4HzbKFbHCgTGDl4dvceR4AAgYDAGKxASyISIPAFDJZHIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoDAA9HwhYQ81I0ZAAAAAElFTkSuQmCC";
-  applicantSignature:string = "";
-  tahaSignature: string = "";
-  redondoSignature: string = "";
-  indiraSignature: string = "";
+  applicantSignature:string = this.noSinatureAccess;
+  tahaSignature: string = this.noSinatureAccess;
+  redondoSignature: string = this.noSinatureAccess;
+  indiraSignature: string = this.noSinatureAccess;
+  formSubscription!: Subscription;
   @ViewChild('pdfTable') pdfTable!: ElementRef;
-  formData:any;
+  formData:Map<string, string> = emptyForm;
  
   constructor(
     private router: Router, 
@@ -45,15 +47,26 @@ export class DashboardComponent implements OnInit {
     window.onbeforeunload = function () {
       window.scrollTo(0, 0);
     }
-    this.store.select(selectFormData).subscribe((response)=>{
-      console.log("see response", response)
-      this.formData = response.selectedFormData;
-    })
+    
 
+  }
+  ngOnDestroy(): void {
+    this.formSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
-    console.log("see form data ", this.formData)
+
+    this.formSubscription = this.store.select(selectFormData).subscribe((response)=>{
+      const data = response.selectedFormData;
+      if(data != undefined){
+        this.formData = data;
+        this.applicantSignature = data.get("applicantSignature") != "" ? data.get("applicantSignature"): this.noSinatureAccess;
+        this.tahaSignature = data.get("tahaSignature") != "" ? data.get("tahaSignature"): this.noSinatureAccess;
+        this.redondoSignature = data.get("redondoSignature") != "" ? data.get("redondoSignature"): this.noSinatureAccess;
+        this.indiraSignature = data.get("indiraSignature") != "" ? data.get("indiraSignature"): this.noSinatureAccess;
+        
+      }
+    })
 
   }
 

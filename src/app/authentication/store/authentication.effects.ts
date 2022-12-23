@@ -7,6 +7,9 @@ import * as authActions from './authentication.actions';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { SharedService } from 'src/app/shared/shared.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as userDetailActions from '../../views/store/user-details/user-details.actions';
+
 
 @Injectable()
 export class AuthEffects {
@@ -14,7 +17,8 @@ export class AuthEffects {
     private actions$: Actions,
     private routes: Router,
     private angularFireAuth: AngularFireAuth,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private store: Store,
   ) {}
 
   loginEFFECT$: Observable<Action> = createEffect(() =>
@@ -44,7 +48,6 @@ export class AuthEffects {
     )
   );
 
-
   registerEFFECT$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(authActions.requestAuthRegister),
@@ -59,6 +62,12 @@ export class AuthEffects {
               signedIn: true,
               uid: res.user?.uid,
             };
+            const userDetails = {
+              name: response.userDetails.name,
+              userRole: response.userDetails.userRole,
+              uid: res.user!.uid,
+            }
+            this.store.dispatch(userDetailActions.requestAddUserDetailsACTION({payload: userDetails}))
             this.routes.navigate(['/dashboard']);
             return authActions.successAuthRegister({ payload: signInDetails });
           });
@@ -69,8 +78,6 @@ export class AuthEffects {
       })
     )
   );
-
-
 
   resetPasswordEFFECT$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
@@ -91,8 +98,6 @@ export class AuthEffects {
       })
     )
   );
-
-  
 
   logoutEFFECT$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
