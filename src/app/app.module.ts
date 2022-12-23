@@ -79,7 +79,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebase),
-    HttpClientModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot(appEffects),
     TranslateModule.forRoot({
@@ -89,7 +88,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         deps: [HttpClient]
       }
     }),
-    StoreModule.forRoot({}, {})
 
   ],
   providers: [

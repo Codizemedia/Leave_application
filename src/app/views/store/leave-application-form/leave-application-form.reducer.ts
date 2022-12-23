@@ -22,7 +22,6 @@ export const formDataReducer = createReducer(
 
   on(formDataActions.successSelectFormDataACTION,
     (state: any, {payload}) =>{
-      console.log("see reducer", payload)
       return { ...state, selectedFormData: payload };
     }),
 

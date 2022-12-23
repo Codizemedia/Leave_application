@@ -79,10 +79,10 @@ export class ApplicationFormComponent implements OnInit {
       requested: [false,],
     });
 
-    const firtsFormMap = new Map(Object.entries(this.firstStepForm.value))
+    const firstFormMap = new Map(Object.entries(this.firstStepForm.value))
     const secondFormMap = new Map(Object.entries(this.secondStepForm.value))
    
-    firtsFormMap.forEach((value:any, key:any) =>{
+    firstFormMap.forEach((value:any, key:any) =>{
       this.filledUpFormData.set(key, value)
     });
     secondFormMap.forEach((value:any, key:any) =>{
@@ -116,10 +116,10 @@ export class ApplicationFormComponent implements OnInit {
   }
 
   secondStepSubmit(){
-    const firtsFormMap = new Map(Object.entries(this.firstStepForm.value))
+    const firstFormMap = new Map(Object.entries(this.firstStepForm.value))
     const secondFormMap = new Map(Object.entries(this.secondStepForm.value))
     // if(this.firstStepForm.valid){
-      firtsFormMap.forEach((value:any, key:any) =>{
+      firstFormMap.forEach((value:any, key:any) =>{
         this.filledUpFormData.set(key, value)
       });
       secondFormMap.forEach((value:any, key:any) =>{

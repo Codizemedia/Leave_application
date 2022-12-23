@@ -7,6 +7,7 @@ import {
   choicesB,
   choicesC,
   choicesD } from '../../../../shared/form-questions';
+import { selectFormData } from 'src/app/views/store/leave-application-form/leave-application-form.selectors';
 
 @Component({
   selector: 'app-filled-form',
@@ -55,6 +56,7 @@ export class FilledFormComponent implements OnInit {
     //     this.filledUpFormData.set(value,key)
     //   });
     // }
+ 
   }
 
   signaturePadOptions: Object = {
@@ -84,10 +86,21 @@ export class FilledFormComponent implements OnInit {
       break;
     }
 
+     let formDataMap = this.formData
+    formDataMap.set("signatureApplicant", this.signatureApplicant)
+    console.log("see type === ", this.formData)
+
     this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: this.formData}))
   }
   display(){
     console.log("see form data",this.formData)
     console.log("other data ==== ", this.formData.get("officeOrDepartment"))
+    // this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: }))
+    // this.store.select(selectFormData).subscribe((response: any)=>{
+    //   console.log("see reponse", response)
+    // })
+    let formDataMap = this.formData
+    formDataMap.set("signatureApplicant", this.signatureApplicant)
+    console.log("see type === ", typeof(this.formData))
   }
 }

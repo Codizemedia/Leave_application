@@ -42,7 +42,6 @@ export class LeaveApplicationFormEffects {
     this.actions$.pipe(
       ofType(formDataActions.requestSelectFormDataACTION),
         switchMap((response:any) => {
-          console.log("see effect response", response)
           return [
             formDataActions.successSelectFormDataACTION(response),
           ];

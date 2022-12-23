@@ -17,5 +17,4 @@ export interface AppState {
 export const appReducers: ActionReducerMap<AppState> = {
   auth: auth.authReducer,
   formData: formData.formDataReducer
-
 };
