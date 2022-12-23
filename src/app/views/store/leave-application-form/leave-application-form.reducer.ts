@@ -7,7 +7,7 @@ export const leaveApplicationFormFeatureKey = 'formData';
 
 export const initialState: FormDataState = {
   formData: {},
-  selectedFormData: {}
+  selectedFormData: undefined
 };
 
 export const formDataReducer = createReducer(

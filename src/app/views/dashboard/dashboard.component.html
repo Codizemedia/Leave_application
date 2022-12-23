@@ -141,328 +141,330 @@ style="
             </div><br>
             <table class="border table-layout" style="width:500px;">
               <tbody>
-                <tr class="border">
-                  <td class="p-10" [align]="'center'">
-                    <u>1. OFFICE/DEPARTMENT MSU-LNAC</u>
-                  </td>
-                  <td class="p-10" [align]="'center'">2. NAME: </td>
-                  <td class="width-16 p-10" [align]="'center'">
-                    <tr>(Last)</tr>
-                    <tr>Atis</tr>
-                  </td>
-                  <td class="width-16 p-10" [align]="'center'">
-                    <tr>(First)</tr>
-                    <tr>Jessiel</tr>
-                  </td>
-                  <td class="width-16 p-10" [align]="'center'">
-                    <tr>(Middle)</tr>
-                    <tr>Malco</tr>
-                  </td>
-                </tr>
-                <tr class="border">
-                  <td class="p-10" colspan="1" [align]="'center'">
-                    3. DATE OF FILING 
-                    <u>December 04, 2022</u>
-                  </td>
-                  <td class="p-10" colspan="2" [align]="'center'">
-                    4. POSITION: 
-                    <u>BS-IT FACULTY</u>
-                  </td>
-                  <td class="p-10" colspan="2" [align]="'center'">
-                    5. SALARY: 
-                    <u>15,000</u>
-                  </td>
-                </tr>
-                <tr class="border">
-                  <td class="p-10" colspan="5" [align]="'center'">6. DETAILS OF APPLICATION</td>
-                </tr>
-                <tr class="border width-50">
-                  <td class="left-content border p-10" colspan="2">
-                    <mat-label class="p-l-10">6. A. TYPE OF LEAVE TO BE AVAILED OF</mat-label>
-                    <div 
-                    class="left-content p-l-10"
-                    *ngFor="let choice of choices1;
-                    let i=index"
-                    [ngSwitch]="choice.type">
-                      <tr *ngSwitchCase="'checkbox'">
-                        <label>
-                          <input type="checkbox" disabled="disabled"> 
-                          {{choice.description}}
-                        </label>
-                      </tr>
-                      <tr *ngSwitchCase="'space'">
-                        <br>
-                      </tr>
-                      <tr *ngSwitchCase="'underline-label'">
-                        <mat-label>{{choice.description}}</mat-label>
-                      </tr>
-                      <tr *ngSwitchCase="'label'">
-                        <mat-label><u>{{choice.description}}</u></mat-label>
-                      </tr>
-                      <tr *ngSwitchCase="'input'">
-                        <input class="input width-100" type="text">
-                      </tr>
-                    </div>
-                  </td>
-                  <td class="left-content border width-50 p-10" [align]="'start'" colspan="3">
-                    <mat-label class=" p-l-10">6. B. DETAILS OF LEAVE </mat-label>
-                    <div 
-                    class=" p-l-10"
-                    *ngFor="let choice of choices2;
-                    let i=index"
-                    [ngSwitch]="choice.type">
-                    <tr *ngSwitchCase="'checkbox'">
-                      <label>
-                        <input type="checkbox" disabled="disabled"> 
-                        {{choice.description}}
-                      </label>
+                <!-- <form [formGroup]="leaveApplicationForm"> -->
+                    <tr class="border">
+                      <td class="p-10" [align]="'center'">
+                        <u>1. OFFICE/DEPARTMENT MSU-LNAC</u>
+                      </td>
+                      <td class="p-10" [align]="'center'">2. NAME: </td>
+                      <td class="width-16 p-10" [align]="'center'">
+                        <tr>(Last)</tr>
+                        <tr>{{formData.get("lastName")}}</tr>
+                      </td>
+                      <td class="width-16 p-10" [align]="'center'">
+                        <tr>(First)</tr>
+                        <tr>{{formData.get("firstName")}}</tr>
+                      </td>
+                      <td class="width-16 p-10" [align]="'center'">
+                        <tr>(Middle)</tr>
+                        <tr>{{formData.get("middleName")}}</tr>
+                      </td>
                     </tr>
-                    <tr *ngSwitchCase="'checkbox-input'">
-                      <div 
-                      fxFlex.gt-sm="40" 
-                      fxFlex="100" 
-                      fxLayout="row"
-                      fxLayout.gt-sm="row"
-                      fxLayout.gt-xs="column"
-                      fxLayout.gt-md="row"
-                      fxLayout.gt-lg="row"
-                      fxLayout.lt-sm="column"
-                      fxLayoutAlign="left"
-                      class="width-100">
-                        <label style="white-space: nowrap">
-                            <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
-                            {{choice.description}}
-                        </label>
-                        <input class="input m-l-10" name="input" type="text">
-                      </div>
-                      </tr>
-                      <tr *ngSwitchCase="'italic-label-input'">
+                    <tr class="border">
+                      <td class="p-10" colspan="1" [align]="'center'">
+                        3. DATE OF FILING 
+                        <u>December 04, 2022</u>
+                      </td>
+                      <td class="p-10" colspan="2" [align]="'center'">
+                        4. POSITION: 
+                        <u>BS-IT FACULTY</u>
+                      </td>
+                      <td class="p-10" colspan="2" [align]="'center'">
+                        5. SALARY: 
+                        <u>15,000</u>
+                      </td>
+                    </tr>
+                    <tr class="border">
+                      <td class="p-10" colspan="5" [align]="'center'">6. DETAILS OF APPLICATION</td>
+                    </tr>
+                    <tr class="border width-50">
+                      <td class="left-content border p-10" colspan="2">
+                        <mat-label class="p-l-10">6. A. TYPE OF LEAVE TO BE AVAILED OF</mat-label>
                         <div 
-                        fxFlex.gt-sm="40" 
-                        fxFlex="100" 
-                        fxLayout="row"
-                        fxLayout.gt-sm="row"
-                        fxLayout.gt-xs="column"
-                        fxLayout.gt-md="row"
-                        fxLayout.gt-lg="row"
-                        fxLayout.lt-sm="column"
-                        fxLayoutAlign="left"
-                        class="width-100">
-                          <label style="white-space: nowrap">
-                            <i>{{choice.description}}</i>
-                          </label>
-                          <input class="input m-l-10" name="input" type="text">
+                        class="left-content p-l-10"
+                        *ngFor="let choice of choices1;
+                        let i=index"
+                        [ngSwitch]="choice.type">
+                          <tr *ngSwitchCase="'checkbox'">
+                            <label>
+                              <input type="checkbox" disabled="disabled"> 
+                              {{choice.description}}
+                            </label>
+                          </tr>
+                          <tr *ngSwitchCase="'space'">
+                            <br>
+                          </tr>
+                          <tr *ngSwitchCase="'underline-label'">
+                            <mat-label>{{choice.description}}</mat-label>
+                          </tr>
+                          <tr *ngSwitchCase="'label'">
+                            <mat-label><u>{{choice.description}}</u></mat-label>
+                          </tr>
+                          <tr *ngSwitchCase="'input'">
+                            <input class="input width-100" type="text">
+                          </tr>
                         </div>
-                      </tr>
-                      <tr *ngSwitchCase="'space'"> <br/> </tr>
-                      <tr *ngSwitchCase="'label'">
-                        <mat-label>{{choice.description}}</mat-label>
-                      </tr>
-                      <tr *ngSwitchCase="'italic-label'"> 
-                        <i>{{choice.description}}</i>
-                      </tr>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="left-content border p-10" colspan="2">
-                    <div 
-                    class="left-content p-l-10"
-                    *ngFor="let choice of choices3;
-                    let i=index"
-                    [ngSwitch]="choice.type">
-                      <tr *ngSwitchCase="'space'">
-                        <br>
-                      </tr>
-                      <tr *ngSwitchCase="'underline-label'">
-                        <mat-label><u>{{choice.description}}</u></mat-label>
-                      </tr>
-                      <tr *ngSwitchCase="'label'">
-                        <mat-label>{{choice.description}}</mat-label>
-                      </tr>
-                      <tr *ngSwitchCase="'input'">
-                        <input class="input width-100" type="text">
-                      </tr>
-                    </div>
-                  </td>
-                  <td class="left-content border width-50 p-10" colspan="3">
-                    <div 
-                    class=" p-l-10"
-                    [align]="'start'"
-                    *ngFor="let choice of choices4;
-                    let i=index"
-                    [ngSwitch]="choice.type">
-                      <tr *ngSwitchCase="'checkbox'">
-                        <label>
-                          <input type="checkbox" disabled="disabled"> 
-                          {{choice.description}}
-                        </label>
-                      </tr>
-                      <tr *ngSwitchCase="'label'">
-                        <mat-label>{{choice.description}}</mat-label>
-                      </tr>
-                    </div>
-                   <div [align]="'center'" >
-                    <tr>
-                      <img 
-                      [src]="noSinatureAccess"
-                      width="150px"
-                      height="50px"/>
-                    </tr>
-                    <tr>
-                      <td [align]="'center'" style="text-decoration:overline">
-                        (Signature of Applicant)
                       </td>
-                    </tr>
-                   </div>
-                  </td>
-                </tr>
-                <tr class="border">
-                  <td class="p-10" colspan="5" [align]="'center'">7. DETAILS OF ACTION ON APPLICATION</td>
-                </tr>
-                <tr>
-                  <td class="p-10 border" colspan="2">
-                    <tr>
-                      <td [align]="'left'"> 7. A. CERTIFICATION OF LEAVE CREDITS </td>
-                    </tr>
-                    <tr>
-                      <td [align]="'center'" style="white-space: nowrap">
-                        As of 
-                        <input 
-                        class="input" 
-                        style="width: 300px;" 
-                        type="text" 
-                        disabled="disabled"> 
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <table class="border m-10 m-l-10 m-r-10">
-                          <tr>
-                            <td class="border"></td>
-                            <td class="border">Vacation Leave</td>
-                            <td class="border">Sick Leave</td>
+                      <td class="left-content border width-50 p-10" [align]="'start'" colspan="3">
+                        <mat-label class=" p-l-10">6. B. DETAILS OF LEAVE </mat-label>
+                        <div 
+                        class=" p-l-10"
+                        *ngFor="let choice of choices2;
+                        let i=index"
+                        [ngSwitch]="choice.type">
+                        <tr *ngSwitchCase="'checkbox'">
+                          <label>
+                            <input type="checkbox" disabled="disabled"> 
+                            {{choice.description}}
+                          </label>
+                        </tr>
+                        <tr *ngSwitchCase="'checkbox-input'">
+                          <div 
+                          fxFlex.gt-sm="40" 
+                          fxFlex="100" 
+                          fxLayout="row"
+                          fxLayout.gt-sm="row"
+                          fxLayout.gt-xs="column"
+                          fxLayout.gt-md="row"
+                          fxLayout.gt-lg="row"
+                          fxLayout.lt-sm="column"
+                          fxLayoutAlign="left"
+                          class="width-100">
+                            <label style="white-space: nowrap">
+                                <input type="checkbox" [value]="false" (change)="onCheckChange($event)">
+                                {{choice.description}}
+                            </label>
+                            <input class="input m-l-10" name="input" type="text">
+                          </div>
                           </tr>
-                          <tr>
-                            <td class="border">Total Earned Leave Application</td>
-                            <td class="border"></td>
-                            <td class="border"></td>
+                          <tr *ngSwitchCase="'italic-label-input'">
+                            <div 
+                            fxFlex.gt-sm="40" 
+                            fxFlex="100" 
+                            fxLayout="row"
+                            fxLayout.gt-sm="row"
+                            fxLayout.gt-xs="column"
+                            fxLayout.gt-md="row"
+                            fxLayout.gt-lg="row"
+                            fxLayout.lt-sm="column"
+                            fxLayoutAlign="left"
+                            class="width-100">
+                              <label style="white-space: nowrap">
+                                <i>{{choice.description}}</i>
+                              </label>
+                              <input class="input m-l-10" name="input" type="text">
+                            </div>
                           </tr>
-                          <tr>
-                            <td class="border">Balance</td>
-                            <td class="border"></td>
-                            <td class="border"></td>
+                          <tr *ngSwitchCase="'space'"> <br/> </tr>
+                          <tr *ngSwitchCase="'label'">
+                            <mat-label>{{choice.description}}</mat-label>
                           </tr>
-                        </table>
+                          <tr *ngSwitchCase="'italic-label'"> 
+                            <i>{{choice.description}}</i>
+                          </tr>
+                        </div>
                       </td>
                     </tr>
                     <tr>
-                      <td [align]="'center'">
-                        <img 
-                        [src]="noSinatureAccess"
-                        width="150px"
-                        height="50px"/>
+                      <td class="left-content border p-10" colspan="2">
+                        <div 
+                        class="left-content p-l-10"
+                        *ngFor="let choice of choices3;
+                        let i=index"
+                        [ngSwitch]="choice.type">
+                          <tr *ngSwitchCase="'space'">
+                            <br>
+                          </tr>
+                          <tr *ngSwitchCase="'underline-label'">
+                            <mat-label><u>{{choice.description}}</u></mat-label>
+                          </tr>
+                          <tr *ngSwitchCase="'label'">
+                            <mat-label>{{choice.description}}</mat-label>
+                          </tr>
+                          <tr *ngSwitchCase="'input'">
+                            <input class="input width-100" type="text">
+                          </tr>
+                        </div>
                       </td>
-                    </tr>
-                    <tr>
-                      <td [align]="'center'"><u>TAHA M. MOHAMAD MPA CSP</u></td>
-                    </tr>
-                    <tr>
-                      <td [align]="'center'">(Authorized Officer)</td>
-                    </tr>
-                  </td>
-        
-                  <td class="p-10 border" colspan="3">
-                    <tr>
-                      <td  [align]="'left'"> 7. B. RECOMENDATION</td>
-                    </tr><br>
-                    <tr>
-                      <td [align]="'left'">
-                        <label>
-                          <input type="checkbox" disabled="disabled"> 
-                          For Approval
-                        </label>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td [align]="'left'">
-                        <label>
-                          <input type="checkbox" disabled="disabled"> 
-                          For disapproval due to
-                        </label>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <textarea style="width:300px; height: 80px;" disabled="disabled"></textarea>
-                      </td><br>
-                    </tr>
-                    <div [align]="'center'">
-                      <tr>
-                        <td [align]="'center'">
+                      <td class="left-content border width-50 p-10" colspan="3">
+                        <div 
+                        class=" p-l-10"
+                        [align]="'start'"
+                        *ngFor="let choice of choices4;
+                        let i=index"
+                        [ngSwitch]="choice.type">
+                          <tr *ngSwitchCase="'checkbox'">
+                            <label>
+                              <input type="checkbox" disabled="disabled"> 
+                              {{choice.description}}
+                            </label>
+                          </tr>
+                          <tr *ngSwitchCase="'label'">
+                            <mat-label>{{choice.description}}</mat-label>
+                          </tr>
+                        </div>
+                      <div [align]="'center'" >
+                        <tr>
                           <img 
                           [src]="noSinatureAccess"
                           width="150px"
                           height="50px"/>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><u>EUZA E. REDONDO PhD.</u></td>
-                      </tr>
-                      <tr>
-                        <td>(Authorized Officer)</td>
-                      </tr>
-                    </div>
-                  </td>
-                  
-                </tr>
-                <tr >
-                  <td [align]="'left'" class=" p-10" colspan="2">
-                    <tr>APPROVED FOR:</tr>
-                    <tr>
-                      <td><input name="input" class="input" type="text"></td>
-                      <td>days with pay</td>
+                        </tr>
+                        <tr>
+                          <td [align]="'center'" style="text-decoration:overline">
+                            (Signature of Applicant)
+                          </td>
+                        </tr>
+                      </div>
+                      </td>
+                    </tr>
+                    <tr class="border">
+                      <td class="p-10" colspan="5" [align]="'center'">7. DETAILS OF ACTION ON APPLICATION</td>
                     </tr>
                     <tr>
-                      <td><input name="input" class="input" type="text"></td>
-                      <td>days without pay</td>
+                      <td class="p-10 border" colspan="2">
+                        <tr>
+                          <td [align]="'left'"> 7. A. CERTIFICATION OF LEAVE CREDITS </td>
+                        </tr>
+                        <tr>
+                          <td [align]="'center'" style="white-space: nowrap">
+                            As of 
+                            <input 
+                            class="input" 
+                            style="width: 300px;" 
+                            type="text" 
+                            disabled="disabled"> 
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <table class="border m-10 m-l-10 m-r-10">
+                              <tr>
+                                <td class="border"></td>
+                                <td class="border">Vacation Leave</td>
+                                <td class="border">Sick Leave</td>
+                              </tr>
+                              <tr>
+                                <td class="border">Total Earned Leave Application</td>
+                                <td class="border"></td>
+                                <td class="border"></td>
+                              </tr>
+                              <tr>
+                                <td class="border">Balance</td>
+                                <td class="border"></td>
+                                <td class="border"></td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td [align]="'center'">
+                            <img 
+                            [src]="noSinatureAccess"
+                            width="150px"
+                            height="50px"/>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td [align]="'center'"><u>TAHA M. MOHAMAD MPA CSP</u></td>
+                        </tr>
+                        <tr>
+                          <td [align]="'center'">(Authorized Officer)</td>
+                        </tr>
+                      </td>
+            
+                      <td class="p-10 border" colspan="3">
+                        <tr>
+                          <td  [align]="'left'"> 7. B. RECOMENDATION</td>
+                        </tr><br>
+                        <tr>
+                          <td [align]="'left'">
+                            <label>
+                              <input type="checkbox" disabled="disabled"> 
+                              For Approval
+                            </label>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td [align]="'left'">
+                            <label>
+                              <input type="checkbox" disabled="disabled"> 
+                              For disapproval due to
+                            </label>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <textarea style="width:300px; height: 80px;" disabled="disabled"></textarea>
+                          </td><br>
+                        </tr>
+                        <div [align]="'center'">
+                          <tr>
+                            <td [align]="'center'">
+                              <img 
+                              [src]="noSinatureAccess"
+                              width="150px"
+                              height="50px"/>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><u>EUZA E. REDONDO PhD.</u></td>
+                          </tr>
+                          <tr>
+                            <td>(Authorized Officer)</td>
+                          </tr>
+                        </div>
+                      </td>
+                      
                     </tr>
-                    <tr>
-                      <td><input name="input" class="input" type="text"></td>
-                      <td>others (specify)</td>
-                    </tr>
-                  </td>
-                  <td [align]="'left'" class=" p-10" colspan="3">
-                    <tr>DISAPPROVED DUE TO:</tr>
-                    <tr>
-                      <td><input name="input" class="input" type="text"></td>
-                    </tr>
-                    <tr>
-                      <td><input name="input" class="input" type="text"></td>
-                    </tr>
-                    <tr>
-                      <td><input name="input" class="input" type="text"></td>
-                    </tr>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="5" [align]="'center'">
-                    <tr>
-                      <td [align]="'center'">
-                        <img 
-                        [src]="noSinatureAccess"
-                        width="150px"
-                        height="50px"/>
+                    <tr >
+                      <td [align]="'left'" class=" p-10" colspan="2">
+                        <tr>APPROVED FOR:</tr>
+                        <tr>
+                          <td><input name="input" class="input" type="text"></td>
+                          <td>days with pay</td>
+                        </tr>
+                        <tr>
+                          <td><input name="input" class="input" type="text"></td>
+                          <td>days without pay</td>
+                        </tr>
+                        <tr>
+                          <td><input name="input" class="input" type="text"></td>
+                          <td>others (specify)</td>
+                        </tr>
+                      </td>
+                      <td [align]="'left'" class=" p-10" colspan="3">
+                        <tr>DISAPPROVED DUE TO:</tr>
+                        <tr>
+                          <td><input name="input" class="input" type="text"></td>
+                        </tr>
+                        <tr>
+                          <td><input name="input" class="input" type="text"></td>
+                        </tr>
+                        <tr>
+                          <td><input name="input" class="input" type="text"></td>
+                        </tr>
                       </td>
                     </tr>
                     <tr>
-                      <td><u>DR. INDIRA B. DIMAPORO-TAWANTAWAN, Ai-Hadja</u></td>
+                      <td colspan="5" [align]="'center'">
+                        <tr>
+                          <td [align]="'center'">
+                            <img 
+                            [src]="noSinatureAccess"
+                            width="150px"
+                            height="50px"/>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><u>DR. INDIRA B. DIMAPORO-TAWANTAWAN, Ai-Hadja</u></td>
+                        </tr>
+                        <tr>
+                          <td>(Authorized Officer)</td>
+                        </tr>
+                      </td>
                     </tr>
-                    <tr>
-                      <td>(Authorized Officer)</td>
-                    </tr>
-                  </td>
-                </tr>
+                  <!-- </form> -->
               </tbody>
             </table>
            </div>

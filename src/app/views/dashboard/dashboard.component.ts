@@ -1,21 +1,18 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router} from '@angular/router';
-import { 
-  choicesA, 
-  choicesB,
-  choicesC,
-  choicesD } from '../../shared/form-questions';
 import jsPDF from 'jspdf';
 import * as pdfMake from 'pdfmake/build/pdfmake.js';
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import html2canvas from 'html2canvas';
 import { emptyForm } from './empty-form';
-
-declare var require: any;
-
-const htmlToPdfmake = require("html-to-pdfmake");
-(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+import { Store } from '@ngrx/store';
+import { selectFormData } from '../store/leave-application-form/leave-application-form.selectors';
+import { 
+  choicesA, 
+  choicesB,
+  choicesC,
+  choicesD } from '../../shared/form-questions';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,8 +21,7 @@ const htmlToPdfmake = require("html-to-pdfmake");
 })
 export class DashboardComponent implements OnInit {
 
-  firstFormGroup: FormGroup = Object.create(null);
-  secondFormGroup: FormGroup = Object.create(null);
+  leaveApplicationForm: FormGroup = Object.create(null);
   choices1 = choicesA;
   choices2 = choicesB;
   choices3 = choicesC;
@@ -40,24 +36,25 @@ export class DashboardComponent implements OnInit {
   redondoSignature: string = "";
   indiraSignature: string = "";
   @ViewChild('pdfTable') pdfTable!: ElementRef;
+  formData:any;
  
   constructor(
-    private _formBuilder: FormBuilder,
-    private router: Router 
+    private router: Router, 
+    private store: Store,
   ) { 
     window.onbeforeunload = function () {
       window.scrollTo(0, 0);
     }
+    this.store.select(selectFormData).subscribe((response)=>{
+      console.log("see response", response)
+      this.formData = response.selectedFormData;
+    })
+
   }
 
   ngOnInit(): void {
-    console.log("see empty form ", emptyForm)
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
+    console.log("see form data ", this.formData)
+
   }
 
   formAction(){
@@ -69,20 +66,17 @@ export class DashboardComponent implements OnInit {
   }
 
   downloadAsPDF(){
-  
-     let DATA: any = document.getElementById('pdfTable');
-     html2canvas(DATA).then((canvas) => {
-      console.log("see canvaas", canvas)
-       let fileWidth = 208;
-       let fileHeight = ((canvas.height * fileWidth) / canvas.width) - 50 ;
-       console.log("file height", fileHeight)
-       const FILEURI = canvas.toDataURL('image/png');
-       let PDF = new jsPDF('p', 'mm', 'a4');
-       let position = 0;
-       PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
-       PDF.save('Leave Application Form.pdf');
-     });
+    let DATA: any = document.getElementById('pdfTable');
+    html2canvas(DATA).then((canvas) => {
+    console.log("see canvaas", canvas)
+      let fileWidth = 208;
+      let fileHeight = ((canvas.height * fileWidth) / canvas.width) - 50 ;
+      console.log("file height", fileHeight)
+      const FILEURI = canvas.toDataURL('image/png');
+      let PDF = new jsPDF('p', 'mm', 'a4');
+      let position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+      PDF.save('Leave Application Form.pdf');
+    });
   }
-
-
 }
