@@ -45,6 +45,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   formStatusSubscription!: Subscription;
   userName: string = ""; 
   formData:Map<string, string> = emptyForm;
+  adminRole: boolean = false;
   applicantRole: boolean = false;  
   tahaRole: boolean = false;
   redondoRole: boolean = false;
@@ -61,8 +62,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     window.onbeforeunload = function () {
       window.scrollTo(0, 0);
     }
-    
-
   }
   ngOnDestroy(): void {
     this.formSubscription.unsubscribe();
@@ -96,6 +95,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
           case "applicant":
             this.applicantRole = true;
             break;
+          case "admin":
+            this.adminRole = true;
+            break;
           case "admin-taha":
             this.tahaRole = true;
             break;
@@ -112,8 +114,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.formStatusSubscription = this.store.select(selectFormStatus).subscribe((response)=>{
       console.log("see response == formstatus ==",response.formStatus)
       if(response.formStatus != undefined){
-        console.log("suppose to execute")
-        this.requestStatus = response.formStatus.status;
+        console.log("suppose to execute",response.formStatus)
+        if(response.formStatus.length != 0){
+          this.requestStatus = response.formStatus.status;
+        }
+        
       }
     })
 
@@ -150,8 +155,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
         email: statusData.email,
         status: "pending"
       }
-      this.store.dispatch(fromStatusActions.requestAddFormStatusACTION({payload: formStatusData}))
-      alert("Leave Application Request Sent!")
+      if(this.requestStatus != "requesting"){
+        this.store.dispatch(fromStatusActions.requestAddFormStatusACTION({payload: formStatusData}))
+        alert("Leave Application Request Sent!")
+      }else{
+        alert("Leave Application Request is Already in Process!")
+      }
+      
       // this.requestStatus = "pending";
       // this.openStep = "1";
 

@@ -33,8 +33,30 @@ style="
   background-size: cover;
   justify-content: center;
   ">
+
+
+
+  <!-- Admin accepts or decline application request approval  -->
   <div 
-  *ngIf="!isShowForm" 
+  *ngIf="adminRole"
+  class="login-register-box" 
+  style="margin-top: 5vh;"
+  [align]="'center'">
+    <mat-card  class="m-t-10">
+      <mat-card-content>
+        <!-- <app-filled-form  [formData]="formData"></app-filled-form> -->
+        <div style="width:450px; height: 800px;">
+          <div [align]="'center'">
+            <h3> Leave Application Requests</h3>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Form Status -->
+  <div 
+  *ngIf="!adminRole && !isShowForm" 
   class="login-register-box"
   style="margin-top: 15vh;">
     <mat-card class="m-t-10">
@@ -120,20 +142,6 @@ style="
       </mat-card-content>
     </mat-card>
   </div>
-
-  <!-- Admin accepts or decline application request approval  -->
-  <div 
-  *ngIf="isShowForm" 
-  class="login-register-box" 
-  style="margin-top: 5vh;"
-  [align]="'center'">
-    <mat-card  class="m-t-10">
-      <mat-card-content>
-        <app-filled-form  [formData]="formData"></app-filled-form>
-      </mat-card-content>
-    </mat-card>
-  </div>
-
 
   <!-- Filled-up application release -->
   <div 
