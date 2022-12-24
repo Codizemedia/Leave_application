@@ -12,16 +12,13 @@ style="position: sticky; top:0; z-index: 1000;">
   border-radius: 5px;
   margin: 10px;" >
     <a class="navbar-brand" href="/dashboard">
-      <b>
-      </b>
       <span fxShow="false" fxShow.gt-xs>
         <img src="assets/images/leave-logo.png" class="light-logo" alt="homepage" style="height: 30px; width:190px">
       </span>
     </a>
   </div>
-   
-  <div [align]="'right'" style="width: 100vw;">
-    
+  <div [align]="'right'" style="width: 100vw; display: flex; justify-content: right; align-items: center;">
+    <p style="font-size: medium;">{{userName}}</p>&nbsp;&nbsp;&nbsp;
     <app-header></app-header>
   </div>
 </mat-toolbar>
@@ -42,15 +39,43 @@ style="
   style="margin-top: 15vh;">
     <mat-card class="m-t-10">
       <mat-card-content>
-        <div style="width:450px; height: 600px;">
+        <div style="width:450px; height: 800px;">
           <div [align]="'center'">
             <h3> Leave Application Status</h3>
           </div>
-          <mat-vertical-stepper [linear]="isLinear" #stepper selectedIndex="5">
+          <mat-vertical-stepper [linear]="isLinear" #stepper selectedIndex="{{openStep}}">
             <mat-step>
                 <ng-template matStepLabel>Request for Leave Application Form</ng-template><br>
-                <div [align]="'left'">
-                  <button mat-raised-button color="primary" >Send Request</button>
+                <div *ngIf="requestStatus == 'not-accepted'" [align]="'left'">
+                    <mat-label>Your request is not accepted</mat-label><br><br>
+                    <button 
+                    mat-raised-button
+                    type="button" 
+                    color="primary"
+                    (click)="resendRequest()">
+                      Resend Request
+                    </button>
+                  </div>
+                <div *ngIf="requestStatus == 'requesting'" [align]="'left'">
+                  <form [formGroup]="requestForm" (ngSubmit)="sendReuqest()">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Name</mat-label>
+                      <input matInput formControlName="name">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                      <mat-label>Email</mat-label>
+                      <input matInput formControlName="email">
+                    </mat-form-field>
+                    <button 
+                    mat-raised-button
+                    type="submit" 
+                    color="primary">
+                      Send Request
+                    </button>
+                  </form>
+                </div>
+                <div *ngIf="requestStatus == 'pending'" [align]="'left'">
+                  <mat-label>Your request is pending, Please wait for approval</mat-label>
                 </div>
             </mat-step>
             <mat-step>
@@ -96,6 +121,21 @@ style="
     </mat-card>
   </div>
 
+  <!-- Admin accepts or decline application request approval  -->
+  <div 
+  *ngIf="isShowForm" 
+  class="login-register-box" 
+  style="margin-top: 5vh;"
+  [align]="'center'">
+    <mat-card  class="m-t-10">
+      <mat-card-content>
+        <app-filled-form  [formData]="formData"></app-filled-form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+
+  <!-- Filled-up application release -->
   <div 
   *ngIf="isShowForm" 
   class="login-register-box" 
@@ -299,6 +339,7 @@ style="
                             <input 
                             class="input width-100" 
                             type="text" 
+                            disabled="disabled"
                             [value]="formData.get(choice.input)">
                           </tr>
                         </div>

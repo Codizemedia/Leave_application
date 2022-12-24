@@ -17,7 +17,7 @@ import { DemoMaterialModule } from './demo-material-module';
 
 import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -35,9 +35,6 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { appReducers } from './reducers/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { appEffects } from './effects/effects';
-// import { SignaturePadModule } from 'angular2-signaturepad';
-// import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
-
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -60,7 +57,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppSidebarComponent,
     AppBreadcrumbComponent,
     AppBlankComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

@@ -64,6 +64,7 @@ export class AuthEffects {
             };
             const userDetails = {
               name: response.userDetails.name,
+              email: response.userDetails.email,
               userRole: response.userDetails.userRole,
               uid: res.user!.uid,
             }

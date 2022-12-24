@@ -68,7 +68,8 @@ export class RegisterComponent implements OnInit {
 
     const userDetails = {
       name: "Applicant",
-      userRole: "Admin"
+      userRole: "applicant",
+      email: this.form.value.email, 
     }
 
     this.store.dispatch(authActions.requestAuthRegister({payload: accountCredentials, userDetails: userDetails}))

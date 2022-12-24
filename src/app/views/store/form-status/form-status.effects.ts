@@ -1,3 +1,18 @@
+// import { Injectable } from '@angular/core';
+// import { Actions, createEffect } from '@ngrx/effects';
+
+
+
+// @Injectable()
+// export class FormStatusEffects {
+
+
+
+//   constructor(private actions$: Actions) {}
+
+// }
+
+
 
 
 import { Injectable } from '@angular/core';
@@ -6,35 +21,35 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
-import * as userDetailActions from './user-details.actions';
+import * as fromStatusActions from './form-status.actions';
 
 
 
 @Injectable()
-export class UserDetailsEffects {
+export class FormStatusEffects {
   constructor(
     private actions$: Actions,
     private fireStore: AngularFirestore) {}
 
     fetchEFFECT$: Observable<Action> = createEffect(() =>
       this.actions$.pipe(
-        ofType(userDetailActions.requestFetchUserDetailsACTION),
+        ofType(fromStatusActions.requestFetchFormStatusACTION),
         switchMap(() => {
           return this.fireStore
-            .collection('user_details')
+            .collection('form_status')
             .valueChanges({ idField: 'id' })
             .pipe(
               switchMap((response) => {
-                const returnResponse = response.filter((data:any)=>{
+                 const returnResponse = response.filter((data:any)=>{
                   return data.uid == localStorage.getItem("uid")
                 })
-                return [userDetailActions.successFetchUserDetailsACTION({
+                return [fromStatusActions.successFetchFormStatusACTION({
                     payload: returnResponse,
                   })];
               }),
               catchError((error: Error) => {
                 console.log('Fetch Error: ', error);
-                return of(userDetailActions.onUserDetailsFailure({ error: error }));
+                return of(fromStatusActions.onFormStatusaFailure({ error: error }));
               })
             );
         })
@@ -43,32 +58,33 @@ export class UserDetailsEffects {
 
     selectEFFECT$: Observable<Action> = createEffect(() =>
       this.actions$.pipe(
-        ofType(userDetailActions.requestSelectUserDetailsACTION),
+        ofType(fromStatusActions.requestSelectFormStatusACTION),
           switchMap((response:any) => {
             return [
-              userDetailActions.successSelectUserDetailsACTION(response),
+              fromStatusActions.successSelectFormStatusACTION(response),
             ];
           }),
           catchError((error: Error) => {
             console.log('Fetch Error: ', error);
-            return of(userDetailActions.onUserDetailsFailure({ error: error }));
+            return of(fromStatusActions.onFormStatusaFailure({ error: error }));
           })
       )
     );
 
     addEFFECT$: Observable<Action> = createEffect(() => {
       return this.actions$.pipe(
-        ofType(userDetailActions.requestAddUserDetailsACTION),
+        ofType(fromStatusActions.requestAddFormStatusACTION),
         switchMap((data) => {
+          console.log("see add data", data)
           return this.fireStore
-            .collection('user_details')
+            .collection('form_status')
             .add(data.payload)
             .then(() => {
-              return userDetailActions.successAddUserDetailsACTION();
+              return fromStatusActions.successAddFormStatusACTION();
             })
             .catch((error) => {
               console.log('Add Error: ', error);
-              return userDetailActions.onUserDetailsFailure({ error: error });
+              return fromStatusActions.onFormStatusaFailure({ error: error });
             });
         })
       );
@@ -76,18 +92,18 @@ export class UserDetailsEffects {
 
     updateEffect$: Observable<Action> = createEffect(() =>
       this.actions$.pipe(
-        ofType(userDetailActions.requestUpdateUserDetailsACTION),
+        ofType(fromStatusActions.requestUpdateFormStatusACTION),
         switchMap((data) => {
           return this.fireStore
-            .collection('user_details')
+            .collection('form_status')
             .doc(data.id)
             .update(data.payload)
             .then(() => {
-              return userDetailActions.successUpdateUserDetailsACTION();
+              return fromStatusActions.successUpdateFormStatusACTION();
             })
             .catch((error) => {
               console.log('Update Error: ', error);
-              return userDetailActions.onUserDetailsFailure({ error: error });
+              return fromStatusActions.onFormStatusaFailure({ error: error });
             });
         })
       )
@@ -95,21 +111,22 @@ export class UserDetailsEffects {
 
     deleteEFFEET$: Observable<Action> = createEffect(() =>
       this.actions$.pipe(
-        ofType(userDetailActions.requestDeleteUserDetailsACTION),
+        ofType(fromStatusActions.requestDeleteFormStatusACTION),
         switchMap((docID) => {
           return this.fireStore
-            .collection('user_details')
+            .collection('form_status')
             .doc(docID.payload)
             .delete()
             .then(() => {
-              return userDetailActions.successDeleteUserDetailsACTION();
+              return fromStatusActions.successDeleteFormStatusACTION();
             })
             .catch((error) => {
               console.log('Delete Error: ', error);
-              return userDetailActions.onUserDetailsFailure({ error: error });
+              return fromStatusActions.onFormStatusaFailure({ error: error });
             });
         })
       )
     );
 }
+
 

@@ -7,7 +7,7 @@ export const userDetailsFeatureKey = 'userDetails';
 
 
 export const initialState: UserDetailsState = {
-  userDetails: {}
+  userDetails: undefined
 };
 
 
@@ -17,13 +17,14 @@ export const userDetailsReducer = createReducer(
   on(
     userDetailActions.successFetchUserDetailsACTION,
     (state: UserDetailsState, { payload }) => {
-      return {...state, formData: payload };
+      console.log("see payload", payload)
+      return {...state, userDetails: payload };
     }
   ),
 
   on(userDetailActions.successSelectUserDetailsACTION,
     (state: any, {payload}) =>{
-      return { ...state, selectedFormData: payload };
+      return { ...state, selectedUserDetails: payload };
     }),
 
 
@@ -49,7 +50,7 @@ export const userDetailsReducer = createReducer(
     (state: UserDetailsState, { payload }) => {
       let newUserDetails = [state.userDetails];
       newUserDetails.splice(newUserDetails.indexOf(payload), 1);
-      const returnState = { ...state, formData: newUserDetails };
+      const returnState = { ...state, userDetails: newUserDetails };
       return returnState;
     }
   )
