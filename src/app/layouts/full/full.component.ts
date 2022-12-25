@@ -12,6 +12,9 @@ import { MenuItems } from '../../shared/menu-items/menu-items';
 
 
 import { PerfectScrollbarConfigInterface, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectUserDetails } from 'src/app/views/store/user-details/user-details.selectors';
 
 /** @title Responsive sidenav */
 @Component({
@@ -32,11 +35,13 @@ export class FullComponent implements OnDestroy {
   url = '';
   sidebarOpened = false;
   status = false;
+  userName:string = ""; 
 
   public showSearch = false;
 
   public config: PerfectScrollbarConfigInterface = {};
   private _mobileQueryListener: () => void;
+  userDetailsSubscription!: Subscription;
 
   clickEvent() {
     this.status = !this.status;
@@ -47,17 +52,27 @@ export class FullComponent implements OnDestroy {
     public router: Router,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    public menuItems: MenuItems
+    public menuItems: MenuItems,
+    private store: Store,
   ) {
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     // tslint:disable-next-line: deprecation
     this.mobileQuery.addListener(this._mobileQueryListener);
+
+    this .userDetailsSubscription = this.store.select(selectUserDetails).subscribe((response)=>{
+      console.log("see header logs", response)
+      if(response.userDetails != undefined){
+        this.userName = response.userDetails[0].name
+      }
+    })
   }
 
   ngOnDestroy(): void {
     // tslint:disable-next-line: deprecation
     this.mobileQuery.removeListener(this._mobileQueryListener);
+
+   
   }
 
 

@@ -104,3 +104,10 @@ mat-card{
 textarea {
   resize: none;
 }
+
+.responsive-table mat-header-cell,
+mat-cell {
+  text-align: center;
+  justify-content: center;
+}
+

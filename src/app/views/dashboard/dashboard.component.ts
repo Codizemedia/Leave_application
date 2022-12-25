@@ -56,9 +56,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   indiraRole: boolean = false;
   openStep: string = "0";
   requestStatus: string = "requesting"
+  formRequests: any[] = []
   @ViewChild('pdfTable') pdfTable!: ElementRef;
-  dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
-  displayedColumns = [ 'name', 'email', 'actions'];
+  dataSource = new MatTableDataSource<any>(this.formRequests);
+  displayedColumns = [ 'name', 'email', 'status'];
  
   constructor(
     private router: Router, 
@@ -75,8 +76,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
       this.displayedColumns = result.matches ?
-          [ 'name', 'email', 'actions'] :
-          [ 'name', 'email', 'actions'];
+          [ 'name', 'email', 'status'] :
+          [ 'name', 'email', 'status'];
   });
   }
   ngOnDestroy(): void {
@@ -86,7 +87,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.sharedService.loadSpinner = true
 
     console.log("see dashboard", this.userDetailsService.userDetails)
 
@@ -120,12 +120,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
             break;
           case "admin-taha":
             this.tahaRole = true;
+            this.openStep = "2"
             break;
           case "admin-redondo":
             this.redondoRole = true;
+            this.openStep = "3"
             break;
           case "admin-indira":
             this.indiraRole = true;
+            this.openStep = "4"
             break;
         }
       }
@@ -134,9 +137,38 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.formStatusSubscription = this.store.select(selectFormStatus).subscribe((response)=>{
       if(response.formStatus != undefined){
         if(response.formStatus.length != 0){
-          this.requestStatus = response.formStatus.status;
+          this.dataSource = new MatTableDataSource<any>(response.formStatus);
+          console.log("see always response", response)
+          const currentUserForm = response.formStatus.filter((data:any)=>{
+              return data.uid == this.userDetailsService.userDetails.uid
+          })
+          console.log("see curent user form", currentUserForm)
+          if(currentUserForm.length != 0){
+            switch(currentUserForm[0].status){
+              case "pending":
+                this.requestStatus = "pending";
+                break;
+              case "accepted":
+                this.openStep = "1";
+                break;
+              case "declined":
+                this.requestStatus = "declined";
+                break;
+              case "taha-approval":
+                this.openStep = "2"
+                break;
+              case "redondo-approval":
+                this.openStep = "3"
+                break;
+              case "indira-approval":
+                this.openStep = "4"
+                break;
+              case "done":
+                this.openStep = "5"
+                break;
+            }
+          }
         }
-        
       }
     })
 
@@ -169,25 +201,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
       const formStatusData: FormStatus = {
         name: statusData.name,
         email: statusData.email,
-        status: "pending"
+        status: "pending",
+        uid: this.userDetailsService.userDetails.uid
       }
-      if(this.requestStatus != "requesting"){
+
+      if(this.requestStatus == "requesting"){
         this.store.dispatch(fromStatusActions.requestAddFormStatusACTION({payload: formStatusData}))
         alert("Leave Application Request Sent!")
       }else{
         alert("Leave Application Request is Already in Process!")
       }
-      
-      // this.requestStatus = "pending";
-      // this.openStep = "1";
 
-      this.formStatusSubscription = this.store.select(selectFormStatus).subscribe((response)=>{
-        if(response.formStatus != undefined){
-          this.requestStatus = response.formStatus.status;
+      // this.formStatusSubscription = this.store.select(selectFormStatus).subscribe((response)=>{
+      //   if(response.formStatus != undefined){
+      //     console.log("see requests", response.formStatus)
+      //     // this.formRequests = response.formStatus.status;
 
           
-        }
-      })
+      //   }
+      // })
     }else{
       alert("Invalid name or email")
     }
@@ -195,33 +227,28 @@ export class DashboardComponent implements OnInit, OnDestroy {
   resendRequest(){
     this.requestStatus = "requesting";
   }
+
+  decideFormRequest(action: string, formStatus: FormStatus){
+    switch(action){
+      case "accepted":
+        const formAccepted = {
+          name: formStatus.name,
+          email: formStatus.email,
+          status: "accepted"
+        }
+        this.store.dispatch(fromStatusActions.requestUpdateFormStatusACTION({id: formStatus.id!, payload: formAccepted}))
+        break;
+      case "declined":
+        const formDeclined = {
+          name: formStatus.name,
+          email: formStatus.email,
+          status: "declined"
+        }
+        this.store.dispatch(fromStatusActions.requestUpdateFormStatusACTION({id: formStatus.id!, payload: formDeclined}))
+        break;
+    }
+
+  }
 }
 
-export interface Element {
-  name: string;
-  email: number;
-  actions: string;
-}
 
-const ELEMENT_DATA: Element[] = [
-  { name: 'Hydrogen', email: 1.0079, actions: 'H' },
-  { name: 'Helium', email: 4.0026, actions: 'He' },
-  { name: 'Lithium', email: 6.941, actions: 'Li' },
-  { name: 'Beryllium', email: 9.0122, actions: 'Be' },
-  { name: 'Boron', email: 10.811, actions: 'B' },
-  { name: 'Carbon', email: 12.0107,actions: 'C' },
-  { name: 'Nitrogen', email: 14.0067,actions: 'N' },
-  { name: 'Oxygen', email: 15.9994,actions: 'O' },
-  { name: 'Fluorine', email: 18.9984,actions: 'F' },
-  { name: 'Neon', email: 20.1797,actions: 'Ne' },
-  { name: 'Sodium', email: 22.9897,actions: 'Na' },
-  { name: 'Magnesium', email: 24.305, actions: 'Mg' },
-  { name: 'Aluminum', email: 26.9815,actions: 'Al' },
-  { name: 'Silicon', email: 28.0855,actions: 'Si' },
-  { name: 'Phosphorus', email: 30.9738,actions: 'P' },
-  { name: 'Sulfur', email: 32.065, actions: 'S' },
-  { name: 'Chlorine', email: 35.453, actions: 'Cl' },
-  { name: 'Argon', email: 39.948, actions: 'Ar' },
-  { name: 'Potassium', email: 39.0983,actions: 'K' },
-  { name: 'Calcium', email: 40.078, actions: 'Ca' },
-];

@@ -13,6 +13,7 @@ import {
 import { emptyForm } from '../dashboard/empty-form';
 import { selectFormData } from '../store/leave-application-form/leave-application-form.selectors';
 import { Subscription } from 'rxjs';
+import { selectUserDetails } from '../store/user-details/user-details.selectors';
  
 
 @Component({
@@ -30,15 +31,16 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
   choices3 = choicesC
   choices4 = choicesD
   formData!: Object;
-  formSubscription!: Subscription;
+  // formSubscription!: Subscription;
   filledUpFormData:Map<string, string> = new Map<string, string>()
+  userDetails: any = {};
 
   constructor(
     private _formBuilder: FormBuilder,
     private router: Router,
     private store: Store) { }
   ngOnDestroy(): void {
-    this.formSubscription.unsubscribe();
+    // this.formSubscription.unsubscribe();
   }
 
   ngOnInit() {
@@ -101,9 +103,7 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
     this.formData =  this.filledUpFormData;
     
     this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: emptyForm}))
-    this.formSubscription = this.store.select(selectFormData).subscribe((response: any)=>{
-      // console.log("see response",response)
-    })
+    
   }
 
   submitForm(){
@@ -127,6 +127,7 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
     });
 
     this.formData = this.filledUpFormData as Object;
+    console.log("seee", this.formData)
     this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: this.filledUpFormData}))
   }
 }

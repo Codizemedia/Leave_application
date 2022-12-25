@@ -25,12 +25,12 @@ export class FormStatusEffects {
             .valueChanges({ idField: 'id' })
             .pipe(
               switchMap((response) => {
-                 const returnResponse = response.filter((data:any)=>{
-                  return data.uid == localStorage.getItem("uid")
+                const returnResponse = response.filter((data:any)=>{
+                  return data.status != "done";
                 })
                 return [fromStatusActions.successFetchFormStatusACTION({
-                    payload: returnResponse,
-                  })];
+                    payload: response,
+                })];
               }),
               catchError((error: Error) => {
                 console.log('Fetch Error: ', error);

@@ -28,7 +28,7 @@ export const successSelectFormDataACTION = createAction(
 );
 export const requestAddFormDataACTION = createAction(
   '[ ApplicationForm ] Request Add FormData',
-  props<{ payload: FormData }>()
+  props<{ payload: any }>()
 );
 export const successAddFormDataACTION = createAction(
   '[ ApplicationForm ] Success Add FormData'

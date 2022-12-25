@@ -34,7 +34,10 @@
       </a>
     </form>
     <span fxFlex></span>
-    <app-header></app-header>
+    <div [align]="'right'" style="width: 100vw; display: flex; justify-content: right; align-items: center;">
+      <p style="font-size: medium;">{{userName}}</p>&nbsp;&nbsp;&nbsp;
+      <app-header></app-header>
+    </div>
     <!-- <button (click)="end.toggle()" mat-icon-button class="ml-xs overflow-visible">
       <mat-icon>settings</mat-icon>
     </button> -->

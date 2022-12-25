@@ -1,9 +1,9 @@
 <mat-card>
   <mat-card-content>
-    <button (click)="display()">DISPLAY</button>
+    <!-- <button (click)="display()">DISPLAY</button> -->
     <div  [align]="'center'">
       <div fxLayoutAlign="center center" fxLayout="column"> 
-          <div fxLayout="row" style="height: 100px; width: 600px;" [align]="'center'">
+          <div fxLayout="row" style="height: 100px; width: 700px;" [align]="'center'">
             <div>
               <img src="assets/images/msu-logo.png" 
               width="100"
@@ -56,7 +56,7 @@
             </tr>
             <tr class="border width-50">
               <td class="left-content border p-10" colspan="2">
-                <mat-label class="p-l-10">6. A. TYPE OF LEAVE TO BE AVAILED OF</mat-label>
+                <mat-label class="p-l-10" style="white-space: nowrap; padding-right: 80px;">6. A. TYPE OF LEAVE TO BE AVAILED OF </mat-label>
                 <div 
                 class="left-content p-l-10"
                 *ngFor="let choice of choices1;

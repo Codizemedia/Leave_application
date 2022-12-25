@@ -57,6 +57,7 @@ export class LeaveApplicationFormEffects {
       return this.actions$.pipe(
         ofType(formDataActions.requestAddFormDataACTION),
         switchMap((data) => {
+          console.log("loook",data.payload)
           return this.fireStore
             .collection('form_data')
             .add(data.payload)

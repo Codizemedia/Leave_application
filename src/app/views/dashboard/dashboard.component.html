@@ -38,67 +38,81 @@ style="
 
   <!-- Admin accepts or decline application request approval  -->
   <div 
-  *ngIf="adminRole"
+  *ngIf="adminRole "
   class="login-register-box" 
   style="margin-top: 5vh;"
   [align]="'center'">
     <mat-card  class="m-t-10">
       <mat-card-content>
         <!-- <app-filled-form  [formData]="formData"></app-filled-form> -->
-        <div style="width:450px; height: 800px;">
+        <div >
           <div [align]="'center'">
-            <h3> Leave Application Requests</h3>
-            <div class="responsive-table" style=" height: 700px; width: 450px;" [align]="'center'">
-              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-
-                  <!-- Name Column -->
+            <h3> Leave Application Requests</h3><br>
+            <div *ngIf="formRequests.legnth == 0"></div>
+            <div
+            *ngIf="formRequests.legnth != 0" 
+            class="responsive-table" 
+            style="min-width: 600px; max-height: 600px;" >
+              <table mat-table [dataSource]="dataSource" >
                   <ng-container matColumnDef="name">
-                      <th mat-header-cell *matHeaderCellDef> Name </th>
+                      <th mat-header-cell *matHeaderCellDef> <div style="display: flex; justify-content: center;">Name</div> </th>
                       <td mat-cell *matCellDef="let element" [align]="'center'"> {{element.name}} </td>
                   </ng-container>
-
-                  <!-- Weight Column -->
                   <ng-container matColumnDef="email" >
-                      <th mat-header-cell *matHeaderCellDef > Email </th>
-                      <td mat-cell *matCellDef="let element" [align]="'center'"> {{element.email}} </td>
+                      <th 
+                      mat-header-cell 
+                      *matHeaderCellDef 
+                      [align]="'center'"> <div style="display: flex; justify-content: center;">Email</div> </th>
+                      <td mat-cell *matCellDef="let element" [align]="'center'" > {{element.email}} </td>
                   </ng-container>
-
-                  <!-- Symbol Column -->
-                  <ng-container matColumnDef="actions" >
-                      <th mat-header-cell *matHeaderCellDef > Actions </th>
+                  <ng-container matColumnDef="status" >
+                      <th 
+                      mat-header-cell 
+                      *matHeaderCellDef 
+                      [align]="'center'"> <div style="display: flex; justify-content: center;">Actions</div> </th>
                       <td mat-cell *matCellDef="let element" [align]="'center'">
-                         <button mat-raised-button color="primary">Accept</button>
-                         &nbsp;&nbsp;
-                         <button mat-raised-button color="warn">Decline</button> 
+                        <div *ngIf="element.status == 'accepted'">Accepted</div>
+                        <div *ngIf="element.status == 'declined'">Declined</div>
+                        <div *ngIf="element.status == 'pending'">
+                          <button 
+                          type="button"
+                          mat-raised-button 
+                          color="primary"
+                          (click)="decideFormRequest('accepted', element)">Accept</button>
+                          &nbsp;&nbsp;
+                          <button 
+                          type="button"
+                          mat-raised-button 
+                          color="warn"
+                          (click)="decideFormRequest('declined', element)">Decline</button> 
+                        </div>
                       </td>
                   </ng-container>
                   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
+            </div>
           </div>
-
-          </div>
-        </div>
+        </div><br><br>
       </mat-card-content>
     </mat-card>
   </div>
 
   <!-- Form Status -->
   <div 
-  *ngIf="applicantRole" 
+  *ngIf="applicantRole || tahaRole || redondoRole || indiraRole " 
   class="login-register-box"
   style="margin-top: 15vh;">
     <mat-card class="m-t-10">
       <mat-card-content>
-        <div style="width:450px; height: 800px;">
+        <div style="width:600px;">
           <div [align]="'center'">
             <h3> Leave Application Status</h3>
           </div>
           <mat-vertical-stepper [linear]="isLinear" #stepper selectedIndex="{{openStep}}">
             <mat-step>
                 <ng-template matStepLabel>Request for Leave Application Form</ng-template><br>
-                <div *ngIf="requestStatus == 'not-accepted'" [align]="'left'">
+                <div *ngIf="requestStatus == 'declined'" [align]="'left'">
                     <mat-label>Your request is not accepted</mat-label><br><br>
                     <button 
                     mat-raised-button
@@ -107,7 +121,7 @@ style="
                     (click)="resendRequest()">
                       Resend Request
                     </button>
-                  </div>
+                </div>
                 <div *ngIf="requestStatus == 'requesting'" [align]="'left'">
                   <form [formGroup]="requestForm" (ngSubmit)="sendReuqest()">
                     <mat-form-field appearance="fill">
@@ -132,7 +146,7 @@ style="
             </mat-step>
             <mat-step>
                 <ng-template matStepLabel>Fillup Leave Application Form</ng-template>
-                <ng-template matStepLabel>Request Approval to sir Ma'am Redondo</ng-template><br>
+                <ng-template matStepLabel>Request Approval to Ma'am Redondo</ng-template><br>
               
                 <div [align]="'left'">
                   <button mat-raised-button color="primary" (click)="formAction()">{{applicationFormAction}}</button>
@@ -141,11 +155,58 @@ style="
             <mat-step >
               <ng-template matStepLabel>Request Approval to sir Taha</ng-template><br>
               <div [align]="'left'">
-                <button mat-raised-button color="primary" >Send Request</button>
+                <!-- <button mat-raised-button color="primary" >Send Request</button> -->
+                <div [align]="'center'">
+                  <!-- <h3> Leave Application Requests</h3><br> -->
+                  <div *ngIf="formRequests.legnth == 0"></div>
+                  <div
+                  *ngIf="formRequests.legnth != 0" 
+                  class="responsive-table" 
+                  style="min-width: 500px; max-height: 600px;" >
+                    <table mat-table [dataSource]="dataSource" >
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> <div style="display: flex; justify-content: center;">Name</div> </th>
+                            <td mat-cell *matCellDef="let element" [align]="'center'"> {{element.name}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="email" >
+                            <th 
+                            mat-header-cell 
+                            *matHeaderCellDef 
+                            [align]="'center'"> <div style="display: flex; justify-content: center;">Email</div> </th>
+                            <td mat-cell *matCellDef="let element" [align]="'center'" > {{element.email}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="status" >
+                            <th 
+                            mat-header-cell 
+                            *matHeaderCellDef 
+                            [align]="'center'"> <div style="display: flex; justify-content: center;">Actions</div> </th>
+                            <td mat-cell *matCellDef="let element" [align]="'center'">
+                              <div *ngIf="element.status == 'approved'">Approved</div>
+                              <div *ngIf="element.status == 'disapproved'">Disapproved</div>
+                              <div *ngIf="element.status == 'pending'">
+                                <button 
+                                type="button"
+                                mat-raised-button 
+                                color="primary"
+                                (click)="decideFormRequest('accepted', element)">Accept</button>
+                                &nbsp;&nbsp;
+                                <button 
+                                type="button"
+                                mat-raised-button 
+                                color="warn"
+                                (click)="decideFormRequest('declined', element)">Decline</button> 
+                              </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                  </div>
+                </div>
               </div>
             </mat-step>
             <mat-step>
-              <ng-template matStepLabel>Request Approval to sir Ma'am Redondo</ng-template><br>
+              <ng-template matStepLabel>Request Approval to Ma'am Redondo</ng-template><br>
               <div [align]="'left'">
                 <button mat-raised-button color="primary" >Send Request</button>
               </div>
@@ -258,7 +319,7 @@ style="
                     </tr>
                     <tr class="border width-50">
                       <td class="left-content border p-10" colspan="2">
-                        <mat-label class="p-l-10">6. A. TYPE OF LEAVE TO BE AVAILED OF</mat-label>
+                        <mat-label class="p-l-10">6. A. TYPE OF LEAVE TO BE AVAILED OF </mat-label>
                         <div 
                         class="left-content p-l-10"
                         *ngFor="let choice of choices1;

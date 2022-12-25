@@ -3,4 +3,5 @@ export interface FormStatus{
     name: string;
     email: string;
     status: string;
+    uid?: string
 }

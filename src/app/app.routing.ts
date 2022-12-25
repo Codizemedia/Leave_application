@@ -29,10 +29,12 @@ export const AppRoutes: Routes = [
     {
         path: '',
         component: FullComponent,
+        resolve: [UserDetailsResolverService, FormStatusResolverService],
         children: [
             {
                 canActivate: [AuthGuard],
                 path: 'application-form',
+                resolve: [UserDetailsResolverService],
                 loadChildren: () => import('./views/application-form/starter.module').then(m => m.StarterModule)
             },
         ]
