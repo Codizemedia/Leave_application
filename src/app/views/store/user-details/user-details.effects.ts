@@ -7,6 +7,7 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import * as userDetailActions from './user-details.actions';
+import { UserDetailsService } from 'src/app/services/user-details.service';
 
 
 
@@ -14,7 +15,8 @@ import * as userDetailActions from './user-details.actions';
 export class UserDetailsEffects {
   constructor(
     private actions$: Actions,
-    private fireStore: AngularFirestore) {}
+    private fireStore: AngularFirestore,
+    private userDetailsService: UserDetailsService,) {}
 
     fetchEFFECT$: Observable<Action> = createEffect(() =>
       this.actions$.pipe(
@@ -24,10 +26,11 @@ export class UserDetailsEffects {
             .collection('user_details')
             .valueChanges({ idField: 'id' })
             .pipe(
-              switchMap((response) => {
+              switchMap((response: any) => {
                 const returnResponse = response.filter((data:any)=>{
                   return data.uid == localStorage.getItem("uid")
                 })
+                this.userDetailsService.userDetails = returnResponse[0]; 
                 return [userDetailActions.successFetchUserDetailsACTION({
                     payload: returnResponse,
                   })];

@@ -102,7 +102,7 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
     
     this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: emptyForm}))
     this.formSubscription = this.store.select(selectFormData).subscribe((response: any)=>{
-      console.log("see response",response)
+      // console.log("see response",response)
     })
   }
 
@@ -112,7 +112,7 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
 
   firstStepSubmit(){
     if(this.firstStepForm.valid){
-      console.log(this.firstStepForm.getRawValue())
+      // console.log(this.firstStepForm.getRawValue())
     }
   }
 

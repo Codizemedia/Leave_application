@@ -14,6 +14,7 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
 })
 export class SharedService {
   dialogAction: string = 'Ok';
+  loadSpinner = false;
 
   constructor(
     private snackbarComponent: SnackbarComponent,

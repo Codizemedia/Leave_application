@@ -18,7 +18,6 @@ export const formStatusReducer = createReducer(
   on(
     formStatusActions.successFetchFormStatusACTION,
     (state: FormStatusState, { payload }) => {
-      console.log("see payload", payload)
       return {...state, formStatus: payload };
     }
   ),

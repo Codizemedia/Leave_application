@@ -13,6 +13,7 @@ import {
   NavigationError
 } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
+import { SharedService } from './shared.service';
 
 @Component({
   selector: 'app-spinner',
@@ -26,16 +27,19 @@ import { DOCUMENT } from '@angular/common';
 })
 export class SpinnerComponent implements OnDestroy {
   public isSpinnerVisible = true;
+  
 
   @Input() public backgroundColor = 'rgba(0, 115, 170, 0.69)';
 
   constructor(
+    public sharedService: SharedService,
     private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) {
+    // || (this.sharedService.loadSpinner)
     this.router.events.subscribe(
       event => {
-        if (event instanceof NavigationStart) {
+        if ((event instanceof NavigationStart) || (this.sharedService.loadSpinner)) {
           this.isSpinnerVisible = true;
         } else if (
           event instanceof NavigationEnd ||

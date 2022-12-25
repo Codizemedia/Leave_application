@@ -17,7 +17,6 @@ export const userDetailsReducer = createReducer(
   on(
     userDetailActions.successFetchUserDetailsACTION,
     (state: UserDetailsState, { payload }) => {
-      console.log("see payload", payload)
       return {...state, userDetails: payload };
     }
   ),

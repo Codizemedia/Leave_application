@@ -16,6 +16,11 @@ import {
   choicesD } from '../../shared/form-questions';
 import { FormStatus } from 'src/app/models/form-status.model';
 import { selectFormStatus } from '../store/form-status/form-status.selectors';
+import { UserDetailsService } from 'src/app/services/user-details.service';
+import { SpinnerComponent } from 'src/app/shared/spinner.component';
+import { SharedService } from 'src/app/shared/shared.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 
 @Component({
@@ -25,7 +30,6 @@ import { selectFormStatus } from '../store/form-status/form-status.selectors';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  // leaveApplicationForm: FormGroup = Object.create(null);
   requestForm: FormGroup = Object.create(null);
   choices1 = choicesA;
   choices2 = choicesB;
@@ -53,15 +57,27 @@ export class DashboardComponent implements OnInit, OnDestroy {
   openStep: string = "0";
   requestStatus: string = "requesting"
   @ViewChild('pdfTable') pdfTable!: ElementRef;
+  dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
+  displayedColumns = [ 'name', 'email', 'actions'];
  
   constructor(
     private router: Router, 
     private store: Store,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private userDetailsService: UserDetailsService,
+    private spinnerComponent: SpinnerComponent,
+    private sharedService: SharedService,
+    breakpointObserver: BreakpointObserver
   ) { 
     window.onbeforeunload = function () {
       window.scrollTo(0, 0);
     }
+
+    breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
+      this.displayedColumns = result.matches ?
+          [ 'name', 'email', 'actions'] :
+          [ 'name', 'email', 'actions'];
+  });
   }
   ngOnDestroy(): void {
     this.formSubscription.unsubscribe();
@@ -70,7 +86,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.requestStatus = "not-accepted"
+    this.sharedService.loadSpinner = true
+
+    console.log("see dashboard", this.userDetailsService.userDetails)
+
+
+
     this.formSubscription = this.store.select(selectFormData).subscribe((response)=>{
       const data = response.selectedFormData;
       if(data != undefined){
@@ -89,9 +110,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this .userDetailsSubscription = this.store.select(selectUserDetails).subscribe((response)=>{
       if(response.userDetails != undefined){
-        console.log("--", response.userDetails)
         this.userName = response.userDetails[0].name
-        switch(response.userDetails[0].userRole){
+        switch(this.userDetailsService.userDetails.userRole){
           case "applicant":
             this.applicantRole = true;
             break;
@@ -112,9 +132,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     })
 
     this.formStatusSubscription = this.store.select(selectFormStatus).subscribe((response)=>{
-      console.log("see response == formstatus ==",response.formStatus)
       if(response.formStatus != undefined){
-        console.log("suppose to execute",response.formStatus)
         if(response.formStatus.length != 0){
           this.requestStatus = response.formStatus.status;
         }
@@ -135,10 +153,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   downloadAsPDF(){
     let DATA: any = document.getElementById('pdfTable');
     html2canvas(DATA).then((canvas) => {
-    console.log("see canvaas", canvas)
       let fileWidth = 208;
       let fileHeight = ((canvas.height * fileWidth) / canvas.width) - 50 ;
-      console.log("file height", fileHeight)
       const FILEURI = canvas.toDataURL('image/png');
       let PDF = new jsPDF('p', 'mm', 'a4');
       let position = 0;
@@ -166,11 +182,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
       // this.openStep = "1";
 
       this.formStatusSubscription = this.store.select(selectFormStatus).subscribe((response)=>{
-        console.log("see response == formstatus ==",response)
-        console.log("request status", this.requestStatus)
         if(response.formStatus != undefined){
-          console.log("suppose to execute")
           this.requestStatus = response.formStatus.status;
+
+          
         }
       })
     }else{
@@ -181,3 +196,32 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.requestStatus = "requesting";
   }
 }
+
+export interface Element {
+  name: string;
+  email: number;
+  actions: string;
+}
+
+const ELEMENT_DATA: Element[] = [
+  { name: 'Hydrogen', email: 1.0079, actions: 'H' },
+  { name: 'Helium', email: 4.0026, actions: 'He' },
+  { name: 'Lithium', email: 6.941, actions: 'Li' },
+  { name: 'Beryllium', email: 9.0122, actions: 'Be' },
+  { name: 'Boron', email: 10.811, actions: 'B' },
+  { name: 'Carbon', email: 12.0107,actions: 'C' },
+  { name: 'Nitrogen', email: 14.0067,actions: 'N' },
+  { name: 'Oxygen', email: 15.9994,actions: 'O' },
+  { name: 'Fluorine', email: 18.9984,actions: 'F' },
+  { name: 'Neon', email: 20.1797,actions: 'Ne' },
+  { name: 'Sodium', email: 22.9897,actions: 'Na' },
+  { name: 'Magnesium', email: 24.305, actions: 'Mg' },
+  { name: 'Aluminum', email: 26.9815,actions: 'Al' },
+  { name: 'Silicon', email: 28.0855,actions: 'Si' },
+  { name: 'Phosphorus', email: 30.9738,actions: 'P' },
+  { name: 'Sulfur', email: 32.065, actions: 'S' },
+  { name: 'Chlorine', email: 35.453, actions: 'Cl' },
+  { name: 'Argon', email: 39.948, actions: 'Ar' },
+  { name: 'Potassium', email: 39.0983,actions: 'K' },
+  { name: 'Calcium', email: 40.078, actions: 'Ca' },
+];
