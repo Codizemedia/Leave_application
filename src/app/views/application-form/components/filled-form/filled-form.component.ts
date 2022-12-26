@@ -114,19 +114,18 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       case 'signature1':
       this.signatureApplicant = base64ImageData;
       formDataMap.set("applicantSignature", this.signatureApplicant)
-      this.store.dispatch(formDataActions.requestAddFormDataACTION({payload: this.mapToObject()}))
-
-      // this.store.select(selectFormData).subscribe()
-
-
       const applicantStatusData: FormStatus = {
         name: this.formStatus.name,
         email: this.formStatus.email,
         status: "taha-approval",
         uid: this.userDetailService.userDetails.uid,
-        formId: ""
+        formId: "",
+        id: this.formStatus.id!
       } 
-      this.store.dispatch(formStatusActions.requestUpdateFormStatusACTION({id: this.formStatus.id!, payload: applicantStatusData}))
+      this.store.dispatch(formDataActions.requestAddFormDataACTION({payload: this.mapToObject(), formStatus: applicantStatusData}))
+
+      // this.store.select(selectFormData).subscribe()
+      // this.store.dispatch(formStatusActions.requestUpdateFormStatusACTION({id: this.formStatus.id!, payload: applicantStatusData}))
       break;
       case 'signature2':
       this.tahaSignature = base64ImageData;

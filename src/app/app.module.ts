@@ -35,7 +35,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { appReducers } from './reducers/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { appEffects } from './effects/effects';
-import { FormForApprovalComponent } from './views/dashboard/components/form-for-approval/form-for-approval.component';
+// import { FormForApprovalComponent } from './views/dashboard/components/form-for-approval/form-for-approval.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
 
 
@@ -60,7 +60,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppBreadcrumbComponent,
     AppBlankComponent,
     DashboardComponent,
-    FormForApprovalComponent,
   ],
   imports: [
     BrowserModule,

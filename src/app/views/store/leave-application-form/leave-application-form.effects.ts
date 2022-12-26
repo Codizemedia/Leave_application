@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
-import * as formDataActions from './leave-application-form.actions'
+import * as formDataActions from './leave-application-form.actions';
+import * as formStatusActions from '../form-status/form-status.actions';
+import { FormStatus } from 'src/app/models/form-status.model';
 
 
 
@@ -12,7 +14,8 @@ import * as formDataActions from './leave-application-form.actions'
 export class LeaveApplicationFormEffects {
   constructor(
     private actions$: Actions,
-    private fireStore: AngularFirestore) {}
+    private fireStore: AngularFirestore,
+    private store: Store) {}
 
     fetchFormDataEFFECT$: Observable<Action> = createEffect(() =>
       this.actions$.pipe(
@@ -25,8 +28,8 @@ export class LeaveApplicationFormEffects {
               switchMap((response) => {
                 return [formDataActions.successFetchFormDataACTION({
                     payload: response,
-                  })];
-              
+                  })
+                ];
               }),
               catchError((error: Error) => {
                 console.log('Fetch Error: ', error);
@@ -61,7 +64,18 @@ export class LeaveApplicationFormEffects {
           return this.fireStore
             .collection('form_data')
             .add(data.payload)
-            .then(() => {
+            .then((response) => {
+              console.log("see response", response)
+              console.log("see add resposne", data)
+              const applicantStatusData: FormStatus = {
+                name: data.formStatus.name,
+                email: data.formStatus.email,
+                status: "taha-approval",
+                uid: localStorage.getItem("uid")!,
+                formId: "",
+                id: data.formStatus.id!
+              } 
+              this.store.dispatch(formStatusActions.requestUpdateFormStatusACTION({id: data.formStatus.id!, payload: data.formStatus}))
               return formDataActions.successAddFormDataACTION();
             })
             .catch((error) => {
