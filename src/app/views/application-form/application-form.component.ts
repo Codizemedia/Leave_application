@@ -101,6 +101,9 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
     this.filledUpFormData.set("redondoSignature", "")
     this.filledUpFormData.set("indiraSignature", "")
     this.formData =  this.filledUpFormData;
+
+
+
     
     this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: emptyForm}))
     
@@ -130,4 +133,6 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
     console.log("seee", this.formData)
     this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: this.filledUpFormData}))
   }
+
+  
 }
