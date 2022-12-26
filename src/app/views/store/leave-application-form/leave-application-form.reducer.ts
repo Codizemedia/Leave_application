@@ -16,7 +16,7 @@ export const formDataReducer = createReducer(
   on(
     formDataActions.successFetchFormDataACTION,
     (state: FormDataState, { payload }) => {
-      return {...state, formDtaa: payload };
+      return {...state, formData: payload };
     }
   ),
 

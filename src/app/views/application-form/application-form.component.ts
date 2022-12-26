@@ -133,6 +133,12 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: emptyForm}))
 
+    this.store.dispatch(formDataActions.requestFetchFormDataACTION())
+
+    this.store.select(selectFormData).subscribe((response)=>{
+      console.log("see data", response)
+    })
+
     this.formSubscription = this.store.select(selectUserDetails).subscribe((response: any)=>{
       console.log("resssssssss", response)
       if(response.userDetails!= undefined){

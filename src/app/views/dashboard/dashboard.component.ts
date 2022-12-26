@@ -228,7 +228,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         name: statusData.name,
         email: statusData.email,
         status: "pending",
-        uid: this.userDetailsService.userDetails.uid
+        uid: this.userDetailsService.userDetails.uid,
+        formId: ""
       }
 
       if(this.requestStatus == "requesting"){
@@ -260,7 +261,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         const formAccepted = {
           name: formStatus.name,
           email: formStatus.email,
-          status: "accepted"
+          status: "accepted",
+          formId: formStatus.formId
         }
         this.store.dispatch(fromStatusActions.requestUpdateFormStatusACTION({id: formStatus.id!, payload: formAccepted}))
         break;
@@ -268,7 +270,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         const formDeclined = {
           name: formStatus.name,
           email: formStatus.email,
-          status: "declined"
+          status: "declined",
+          formId: formStatus.formId
         }
         this.store.dispatch(fromStatusActions.requestUpdateFormStatusACTION({id: formStatus.id!, payload: formDeclined}))
         break;

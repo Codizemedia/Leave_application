@@ -14,5 +14,7 @@ export class UserDetailsService {
     userRole:"",
   }
 
+  selectedForm: any = "";
+
   constructor() { }
 }

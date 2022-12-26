@@ -168,7 +168,8 @@ export class FormForApprovalComponent implements OnInit, OnDestroy {
       name: this.formStatus.name,
       email: this.formStatus.email,
       status: "taha-approval",
-      uid: this.userDetailService.userDetails.uid
+      uid: this.userDetailService.userDetails.uid,
+      formId: ""
     }
      
     this.store.dispatch(formDataActions.requestAddFormDataACTION({payload: filledFormData}))

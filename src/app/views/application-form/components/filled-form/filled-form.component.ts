@@ -44,6 +44,8 @@ export class FilledFormComponent implements OnInit, OnDestroy {
   formStatus!: FormStatus;
   formSubscription!:Subscription; 
   formStatusSubscription!: Subscription;
+  formDataSubscription!: Subscription;
+  userRole: string = ""
  
 
   constructor(
@@ -62,8 +64,9 @@ export class FilledFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.formSubscription = this.store.select(selectUserDetails).subscribe((response: any)=>{
-      console.log("resssssssss", response)
+      // console.log("resssssssss", response)
       if(response.userDetails!= undefined){
+        this.userRole = response.userDetails[0].userRole;
         switch(response.userDetails[0].userRole){
           case "applicant":
             this.hasSignatureAccessApplicant = true;
@@ -91,6 +94,9 @@ export class FilledFormComponent implements OnInit, OnDestroy {
         
       }
     })
+    this.formDataSubscription = this.store.select(selectFormData).subscribe((response)=>{
+      console.log("look for form target", response)
+    })
   }
 
   signaturePadOptions: Object = {
@@ -108,21 +114,67 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       case 'signature1':
       this.signatureApplicant = base64ImageData;
       formDataMap.set("applicantSignature", this.signatureApplicant)
+      this.store.dispatch(formDataActions.requestAddFormDataACTION({payload: this.mapToObject()}))
+
+      // this.store.select(selectFormData).subscribe()
+
+
+      const applicantStatusData: FormStatus = {
+        name: this.formStatus.name,
+        email: this.formStatus.email,
+        status: "taha-approval",
+        uid: this.userDetailService.userDetails.uid,
+        formId: ""
+      } 
+      this.store.dispatch(formStatusActions.requestUpdateFormStatusACTION({id: this.formStatus.id!, payload: applicantStatusData}))
       break;
       case 'signature2':
       this.tahaSignature = base64ImageData;
       formDataMap.set("tahaSignature", this.tahaSignature)
+      const tahaStatusData: FormStatus = {
+        name: this.formStatus.name,
+        email: this.formStatus.email,
+        status: "redondo-approval",
+        uid: this.userDetailService.userDetails.uid,
+        formId: ""
+      } 
+      this.store.dispatch(formStatusActions.requestUpdateFormStatusACTION({id: this.formStatus.id!, payload: tahaStatusData}))
       break;
       case 'signature3':
       this.redondoSignature= base64ImageData;
       formDataMap.set("redondoSignature", this.redondoSignature)
+      const redondoStatusData: FormStatus = {
+        name: this.formStatus.name,
+        email: this.formStatus.email,
+        status: "indira-approval",
+        uid: this.userDetailService.userDetails.uid,
+        formId: ""
+      } 
+      this.store.dispatch(formStatusActions.requestUpdateFormStatusACTION({id: this.formStatus.id!, payload: redondoStatusData}))
       break;
       case 'signature4':
       this.indiraSignature = base64ImageData;
       formDataMap.set("indiraSignature", this.indiraSignature)
+      const indiraStatusData: FormStatus = {
+        name: this.formStatus.name,
+        email: this.formStatus.email,
+        status: "done",
+        uid: this.userDetailService.userDetails.uid,
+        formId: ""
+      } 
+      this.store.dispatch(formStatusActions.requestUpdateFormStatusACTION({id: this.formStatus.id!, payload: indiraStatusData}))
       break;
     }
 
+    
+
+  
+
+    this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: this.formData}))
+  }
+
+  
+  mapToObject():Object{
     const filledFormData = {
       officeOrDepartment: this.formData.get("officeOrDepartment"),
       lastName: this.formData.get("lastName"), 
@@ -168,29 +220,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       uid: localStorage.getItem("uid")
     }
 
-    const formStatusData: FormStatus = {
-      name: this.formStatus.name,
-      email: this.formStatus.email,
-      status: "taha-approval",
-      uid: this.userDetailService.userDetails.uid
-    }
-     
-    this.store.dispatch(formDataActions.requestAddFormDataACTION({payload: filledFormData}))
-    this.store.dispatch(formStatusActions.requestUpdateFormStatusACTION({id: this.formStatus.id!, payload: formStatusData}))
-    this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: this.formData}))
+    return filledFormData;
   }
-
   
-
-  // display(){
-  //   console.log("see form data",this.formData)
-  //   console.log("other data ==== ", this.formData.get("officeOrDepartment"))
-  //   // this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: }))
-  //   // this.store.select(selectFormData).subscribe((response: any)=>{
-  //   //   console.log("see reponse", response)
-  //   // })
-  //   let formDataMap = this.formData
-  //   formDataMap.set("signatureApplicant", this.signatureApplicant)
-  //   console.log("see type === ", typeof(this.formData))
-  // }
 }
