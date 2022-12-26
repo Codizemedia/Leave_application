@@ -278,13 +278,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  processApproval(){
-    // this.applicantRole = false ;
-    // this.tahaRole = false ;
-    // this.redondoRole = false ;
-    // this.indiraRole = false;
-    // this.isShowApprovalForm = true;
-   this.router.navigate(['/application-form'])
+  processApproval(formStatus: any){
+    console.log("see element", formStatus)
+ 
+    // this.store.select(selectFormData).subscribe((response)=>{
+    //   this.router.navigate(['/application-form'])
+    // })
+   
   }
 }
 
