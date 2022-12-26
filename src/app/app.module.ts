@@ -35,6 +35,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { appReducers } from './reducers/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { appEffects } from './effects/effects';
+import { FormForApprovalComponent } from './views/dashboard/components/form-for-approval/form-for-approval.component';
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -58,6 +60,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppBreadcrumbComponent,
     AppBlankComponent,
     DashboardComponent,
+    FormForApprovalComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +73,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpClientModule,
     AuthenticationModule,
     SharedModule,
-    // SignaturePadModule,
+    SignaturePadModule,
     // AngularSignaturePadModule,
     RouterModule.forRoot(AppRoutes),
     AngularFirestoreModule,

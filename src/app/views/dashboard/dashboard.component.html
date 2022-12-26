@@ -98,6 +98,15 @@ style="
     </mat-card>
   </div>
 
+  <!-- form for approval proccess -->
+  <div *ngIf="isShowApprovalForm">
+    <mat-card>
+      <mat-card-content>
+       <app-form-for-approval [formData]="formData"></app-form-for-approval>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
   <!-- Form Status -->
   <div 
   *ngIf="applicantRole || tahaRole || redondoRole || indiraRole " 
@@ -158,9 +167,14 @@ style="
                 <!-- <button mat-raised-button color="primary" >Send Request</button> -->
                 <div [align]="'center'">
                   <!-- <h3> Leave Application Requests</h3><br> -->
-                  <div *ngIf="formRequests.legnth == 0"></div>
+                  <div *ngIf="tahaRole && tahaForms.length == 0">
+                    <mat-label>No Leave Application Form</mat-label>
+                  </div>
+                  <div *ngIf="applicantRole">
+                    <mat-label>Your request for approval is pending, Please wait for approval</mat-label>
+                  </div>
                   <div
-                  *ngIf="formRequests.legnth != 0" 
+                  *ngIf="tahaRole && tahaForms.length != 0" 
                   class="responsive-table" 
                   style="min-width: 500px; max-height: 600px;" >
                     <table mat-table [dataSource]="dataSource" >
@@ -181,20 +195,14 @@ style="
                             *matHeaderCellDef 
                             [align]="'center'"> <div style="display: flex; justify-content: center;">Actions</div> </th>
                             <td mat-cell *matCellDef="let element" [align]="'center'">
-                              <div *ngIf="element.status == 'approved'">Approved</div>
-                              <div *ngIf="element.status == 'disapproved'">Disapproved</div>
-                              <div *ngIf="element.status == 'pending'">
+                              <div *ngIf="element.status == 'taha-approved'">Approved</div>
+                              <div *ngIf="element.status == 'taha-disapproved'">Disapproved</div>
+                              <div *ngIf="element.status == 'taha-approval'">
                                 <button 
                                 type="button"
                                 mat-raised-button 
                                 color="primary"
-                                (click)="decideFormRequest('accepted', element)">Accept</button>
-                                &nbsp;&nbsp;
-                                <button 
-                                type="button"
-                                mat-raised-button 
-                                color="warn"
-                                (click)="decideFormRequest('declined', element)">Decline</button> 
+                                (click)="processApproval()">Sign Form</button>
                               </div>
                             </td>
                         </ng-container>
@@ -208,13 +216,103 @@ style="
             <mat-step>
               <ng-template matStepLabel>Request Approval to Ma'am Redondo</ng-template><br>
               <div [align]="'left'">
-                <button mat-raised-button color="primary" >Send Request</button>
+                <div [align]="'center'">
+                  <!-- <h3> Leave Application Requests</h3><br> -->
+                  <div *ngIf="redondoRole && redondoForms.length == 0">
+                    <mat-label>No Leave Application Form</mat-label>
+                  </div>
+                  <div *ngIf="applicantRole">
+                    <mat-label>Your request for approval is pending, Please wait for approval</mat-label>
+                  </div>
+                  <div
+                  *ngIf="redondoRole && redondoForms.length != 0" 
+                  class="responsive-table" 
+                  style="min-width: 500px; max-height: 600px;" >
+                    <table mat-table [dataSource]="dataSource" >
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> <div style="display: flex; justify-content: center;">Name</div> </th>
+                            <td mat-cell *matCellDef="let element" [align]="'center'"> {{element.name}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="email" >
+                            <th 
+                            mat-header-cell 
+                            *matHeaderCellDef 
+                            [align]="'center'"> <div style="display: flex; justify-content: center;">Email</div> </th>
+                            <td mat-cell *matCellDef="let element" [align]="'center'" > {{element.email}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="status" >
+                            <th 
+                            mat-header-cell 
+                            *matHeaderCellDef 
+                            [align]="'center'"> <div style="display: flex; justify-content: center;">Actions</div> </th>
+                            <td mat-cell *matCellDef="let element" [align]="'center'">
+                              <div *ngIf="element.status == 'redondo-approved'">Approved</div>
+                              <div *ngIf="element.status == 'redondo-disapproved'">Disapproved</div>
+                              <div *ngIf="element.status == 'redondo-approval'">
+                                <button 
+                                type="button"
+                                mat-raised-button 
+                                color="primary"
+                                (click)="processApproval()">Sign Form</button>
+                              </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                  </div>
+                </div>
               </div>
             </mat-step>
             <mat-step>
               <ng-template matStepLabel>Request Approval to Ma'am Indira</ng-template><br>
               <div [align]="'left'">
-                <button mat-raised-button color="primary" >Send Request</button>
+                <div [align]="'center'">
+                  <!-- <h3> Leave Application Requests</h3><br> -->
+                  <div *ngIf="indiraRole && indiraForms.length == 0">
+                    <mat-label>No Leave Application Form</mat-label>
+                  </div>
+                  <div *ngIf="applicantRole">
+                    <mat-label>Your request for approval is pending, Please wait for approval</mat-label>
+                  </div>
+                  <div
+                  *ngIf="indiraRole && indiraForms.length != 0" 
+                  class="responsive-table" 
+                  style="min-width: 500px; max-height: 600px;" >
+                    <table mat-table [dataSource]="dataSource" >
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> <div style="display: flex; justify-content: center;">Name</div> </th>
+                            <td mat-cell *matCellDef="let element" [align]="'center'"> {{element.name}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="email" >
+                            <th 
+                            mat-header-cell 
+                            *matHeaderCellDef 
+                            [align]="'center'"> <div style="display: flex; justify-content: center;">Email</div> </th>
+                            <td mat-cell *matCellDef="let element" [align]="'center'" > {{element.email}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="status" >
+                            <th 
+                            mat-header-cell 
+                            *matHeaderCellDef 
+                            [align]="'center'"> <div style="display: flex; justify-content: center;">Actions</div> </th>
+                            <td mat-cell *matCellDef="let element" [align]="'center'">
+                              <div *ngIf="element.status == 'redondo-approved'">Approved</div>
+                              <div *ngIf="element.status == 'redondo-disapproved'">Disapproved</div>
+                              <div *ngIf="element.status == 'redondo-approval'">
+                                <button 
+                                type="button"
+                                mat-raised-button 
+                                color="primary"
+                                (click)="processApproval()">Sign Form</button>
+                              </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                  </div>
+                </div>
               </div>
             </mat-step>
             <mat-step>

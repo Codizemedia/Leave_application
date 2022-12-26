@@ -14,6 +14,7 @@ import { emptyForm } from '../dashboard/empty-form';
 import { selectFormData } from '../store/leave-application-form/leave-application-form.selectors';
 import { Subscription } from 'rxjs';
 import { selectUserDetails } from '../store/user-details/user-details.selectors';
+import { UserDetailsService } from 'src/app/services/user-details.service';
  
 
 @Component({
@@ -31,16 +32,44 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
   choices3 = choicesC
   choices4 = choicesD
   formData!: Object;
-  // formSubscription!: Subscription;
+  formSubscription!: Subscription;
   filledUpFormData:Map<string, string> = new Map<string, string>()
   userDetails: any = {};
+  applicantAccess:boolean = false;
+  tahaAccess:boolean = false;
+  redondoAccess:boolean = false;
+  indiraAccess:boolean = false;
+  openStep:string = "0";
+  isShowStepper:boolean = false;
+
 
   constructor(
     private _formBuilder: FormBuilder,
     private router: Router,
-    private store: Store) { }
+    private store: Store,
+    private userDetailService: UserDetailsService) { 
+      // console.log("seeeeeeeeee",this.userDetailService.userDetails)
+      // switch(this.userDetailService.userDetails.userRole){
+      //   case "applicant":
+      //     this.applicantAccess = true;
+      //     break;
+      //   case "admin-taha":
+      //     this.openStep = "2"
+      //     this.tahaAccess = true;
+      //     break;
+      //   case "admin-redondo":
+      //     this.openStep = "2"  
+      //     this.redondoAccess = true;
+      //     break;
+      //   case "admin-indira":
+      //     this.openStep = "2"
+      //     this.indiraAccess = true;
+      //     break;
+      // }
+      // this.isShowStepper = true
+    }
   ngOnDestroy(): void {
-    // this.formSubscription.unsubscribe();
+    this.formSubscription.unsubscribe();
   }
 
   ngOnInit() {
@@ -102,11 +131,31 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
     this.filledUpFormData.set("indiraSignature", "")
     this.formData =  this.filledUpFormData;
 
-
-
-    
     this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: emptyForm}))
-    
+
+    this.formSubscription = this.store.select(selectUserDetails).subscribe((response: any)=>{
+      console.log("resssssssss", response)
+      if(response.userDetails!= undefined){
+        switch(response.userDetails[0].userRole){
+          case "applicant":
+            this.applicantAccess = true;
+            break;
+          case "admin-taha":
+            this.openStep = "2"
+            this.tahaAccess = true;
+            break;
+          case "admin-redondo":
+            this.openStep = "2"  
+            this.redondoAccess = true;
+            break;
+          case "admin-indira":
+            this.openStep = "2"
+            this.indiraAccess = true;
+            break;
+        }
+        this.isShowStepper = true
+      }
+    })
   }
 
   submitForm(){
@@ -133,6 +182,8 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
     console.log("seee", this.formData)
     this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: this.filledUpFormData}))
   }
+
+  
 
   
 }

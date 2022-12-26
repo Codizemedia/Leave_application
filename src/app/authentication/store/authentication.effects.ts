@@ -42,7 +42,10 @@ export class AuthEffects {
       }),
       catchError((error) => {
         console.log("error", error)
-        this.sharedService.openSnackBar(error.message);
+        // setTimeout(() => {
+        //   location.reload()
+        // }, 1000);
+        this.sharedService.openSnackBar(error.message + "PLEASE RELOAD THE PAGE");
         return of(authActions.authFailure(error));
       })
     )
@@ -74,6 +77,9 @@ export class AuthEffects {
           });
       }),
       catchError((error) => {
+        // setTimeout(() => {
+        //   location.reload()
+        // }, 1000);
         this.sharedService.openSnackBar(error.message);
         return of(authActions.authFailure(error));
       })

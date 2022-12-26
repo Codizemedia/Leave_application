@@ -30,6 +30,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
+  @ViewChild('pdfTable') pdfTable!: ElementRef;
   requestForm: FormGroup = Object.create(null);
   choices1 = choicesA;
   choices2 = choicesB;
@@ -54,12 +55,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   tahaRole: boolean = false;
   redondoRole: boolean = false;
   indiraRole: boolean = false;
+  isShowApprovalForm: boolean = false;
   openStep: string = "0";
-  requestStatus: string = "requesting"
-  formRequests: any[] = []
-  @ViewChild('pdfTable') pdfTable!: ElementRef;
-  dataSource = new MatTableDataSource<any>(this.formRequests);
+  requestStatus: string = "requesting";
+  formRequests: any[] = [];
+  tahaForms: any[] = [];
+  redondoForms: any[] = [];
+  indiraForms: any[] = [];
   displayedColumns = [ 'name', 'email', 'status'];
+  dataSource = new MatTableDataSource<any>(this.formRequests);
  
   constructor(
     private router: Router, 
@@ -87,10 +91,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
-    console.log("see dashboard", this.userDetailsService.userDetails)
-
-
 
     this.formSubscription = this.store.select(selectFormData).subscribe((response)=>{
       const data = response.selectedFormData;
@@ -137,13 +137,39 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.formStatusSubscription = this.store.select(selectFormStatus).subscribe((response)=>{
       if(response.formStatus != undefined){
         if(response.formStatus.length != 0){
-          this.dataSource = new MatTableDataSource<any>(response.formStatus);
-          console.log("see always response", response)
+          
           const currentUserForm = response.formStatus.filter((data:any)=>{
               return data.uid == this.userDetailsService.userDetails.uid
           })
-          console.log("see curent user form", currentUserForm)
-          if(currentUserForm.length != 0){
+          switch(this.userDetailsService.userDetails.userRole){
+            case "applicant":
+              this.dataSource = new MatTableDataSource<any>(response.formStatus);
+              break;
+            case "admin":
+              this.dataSource = new MatTableDataSource<any>(response.formStatus);
+              break;
+            case "admin-taha":
+              this.tahaForms = response.formStatus.filter((data:any)=>{
+                return data.status == "taha-approval"
+              })
+              this.dataSource = new MatTableDataSource<any>(this.tahaForms);
+              break;
+            case "admin-redondo":
+              this.redondoForms = response.formStatus.filter((data:any)=>{
+                return data.status == "redondo-approval"
+              })
+              
+              this.dataSource = new MatTableDataSource<any>(this.redondoForms);
+              console.log("see redondo forms", this.dataSource)
+              break;
+            case "admin-indira":
+              this.indiraForms = response.formStatus.filter((data:any)=>{
+                return data.status == "indira-approval"
+              })
+              this.dataSource = new MatTableDataSource<any>(this.indiraForms);
+              break;
+          }
+          if(currentUserForm.length != 0 && this.applicantRole){
             switch(currentUserForm[0].status){
               case "pending":
                 this.requestStatus = "pending";
@@ -155,6 +181,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 this.requestStatus = "declined";
                 break;
               case "taha-approval":
+                console.log("this switch block executed")
                 this.openStep = "2"
                 break;
               case "redondo-approval":
@@ -171,7 +198,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
       }
     })
-
   }
 
   formAction(){
@@ -247,7 +273,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.store.dispatch(fromStatusActions.requestUpdateFormStatusACTION({id: formStatus.id!, payload: formDeclined}))
         break;
     }
+  }
 
+  processApproval(){
+    // this.applicantRole = false ;
+    // this.tahaRole = false ;
+    // this.redondoRole = false ;
+    // this.indiraRole = false;
+    // this.isShowApprovalForm = true;
+   this.router.navigate(['/application-form'])
   }
 }
 

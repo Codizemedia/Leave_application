@@ -79,6 +79,7 @@ export class FormStatusEffects {
       this.actions$.pipe(
         ofType(fromStatusActions.requestUpdateFormStatusACTION),
         switchMap((data) => {
+          console.log("see update data", data)
           return this.fireStore
             .collection('form_status')
             .doc(data.id)

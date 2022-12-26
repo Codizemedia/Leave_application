@@ -1,10 +1,10 @@
 
 <div fxLayout="row" fxLayoutWrap="wrap" >
-    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+    <div *ngIf="isShowStepper" fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
         <mat-card >
-            <mat-card-content >
-              <mat-card-title>APPLICATION FOR LEAVE</mat-card-title>
-              <mat-horizontal-stepper [linear]="isLinear">
+            <mat-card-content>
+              <mat-card-title>APPLICATION FOR LEAVE{{openStep}}</mat-card-title>
+              <mat-horizontal-stepper [linear]="isLinear" #stepper selectedIndex="{{openStep}}">
                 <mat-step [stepControl]="firstStepForm">
                   <form [formGroup]="firstStepForm">
                     <ng-template matStepLabel>First step</ng-template>
@@ -234,7 +234,8 @@
                   <ng-template matStepLabel>Done</ng-template>
                   <app-filled-form  [formData]="formData"></app-filled-form>
                   <div class="align-right">
-                    <button 
+                    <button
+                    *ngIf="!tahaAccess && !redondoAccess && !indiraAccess" 
                     mat-raised-button 
                     matStepperPrevious
                     class="button-layout button-style">

@@ -1,0 +1,463 @@
+<mat-card>
+  <mat-card-content>
+    <!-- <button (click)="display()">DISPLAY</button> -->
+    <div  [align]="'center'">
+      <div fxLayoutAlign="center center" fxLayout="column"> 
+          <div fxLayout="row" style="height: 100px; width: 700px;" [align]="'center'">
+            <div>
+              <img src="assets/images/msu-logo.png" 
+              width="100"
+              height="100"/>
+            </div>
+            <div fxLayout="column" [align]="'center'" style="margin-left: 50px;">
+              <div style="font-size: 20px;">Republic of the Philippines</div>
+              <div style="font-size: 20px;">MASU-LANAO DEL NORTE AGRICULTURAL COLLEGE</div>
+              <div style="font-size: 18px;">Ramain, Sultan Naga Dimaporo, Lanao del Norte</div>
+              <h3><strong>APPLICATION FOR LEAVE</strong> </h3>
+            </div>
+          </div><br><br>
+        <table class=" border" style="width:700px;">
+          <tbody>
+            <tr class="border">
+              <td class="p-10" [align]="'center'">
+                <tr>1. OFFICE/DEPARTMENT</tr> 
+                <tr>{{formData.get("officeOrDepartment")}}</tr>
+              </td>
+              <td class="p-10" [align]="'center'">2. NAME: </td>
+              <td class="width-16 p-10" [align]="'center'">
+                <tr>(Last)</tr>
+                <tr>{{formData.get("lastName")}}</tr>
+              </td>
+              <td class="width-16 p-10" [align]="'center'">
+                <tr>(First)</tr>
+                <tr>{{formData.get("firstName")}}</tr>
+              </td>
+              <td class="width-16 p-10" [align]="'center'">
+                <tr>(Middle)</tr>
+                <tr>{{formData.get("middleName")}}</tr>
+              </td>
+            </tr>
+            <tr class="border">
+              <td class="p-10" colspan="1" [align]="'center'">
+                <tr>3. DATE OF FILING </tr>
+                <tr> <u>{{formData.get("dateOfFilling")}}</u></tr>
+              </td>
+              <td class="p-10" colspan="2" [align]="'center'">
+                <tr>4. POSITION: </tr>
+                <tr><u>{{formData.get("position")}}</u></tr>
+              </td>
+              <td class="p-10" colspan="2" [align]="'center'">
+                <tr>5. SALARY: </tr>
+                <tr><u>{{formData.get("salary")}}</u></tr>
+              </td>
+            </tr>
+            <tr class="border">
+              <td class="p-10" colspan="5" [align]="'center'">6. DETAILS OF APPLICATION</td>
+            </tr>
+            <tr class="border width-50">
+              <td class="left-content border p-10" colspan="2">
+                <mat-label class="p-l-10" style="white-space: nowrap; padding-right: 80px;">6. A. TYPE OF LEAVE TO BE AVAILED OF </mat-label>
+                <div 
+                class="left-content p-l-10"
+                *ngFor="let choice of choices1;
+                let i=index"
+                [ngSwitch]="choice.type">
+                  <tr *ngSwitchCase="'checkbox'">
+                    <label>
+                      <!-- <input *ngIf="choice.value" type="checkbox" disabled="disabled" checked style="accent-color:black">  -->
+                      <mat-icon *ngIf="formData.get(choice.name)">check</mat-icon>
+                      <input *ngIf="!formData.get(choice.name)" type="checkbox" disabled="disabled"> 
+                      {{choice.description}}
+                    </label>
+                  </tr>
+                  <tr *ngSwitchCase="'space'">
+                    <br>
+                  </tr>
+                  <tr *ngSwitchCase="'underline-label'">
+                    <mat-label><u>{{choice.description}}</u></mat-label>
+                  </tr>
+                  <tr *ngSwitchCase="'label'">
+                    <mat-label>{{choice.description}}</mat-label>
+                  </tr>
+                </div>
+              </td>
+              <td class="left-content border width-50 p-5" [align]="'start'" colspan="3">
+                <mat-label class=" p-l-10">6. B. DETAILS OF LEAVE </mat-label><br><br>
+                <div 
+                class=" p-l-10"
+                *ngFor="let choice of choices2;
+                let i=index"
+                [ngSwitch]="choice.type">
+                <tr *ngSwitchCase="'checkbox'">
+                  <label>
+                    <mat-icon *ngIf="formData.get(choice.name)">check</mat-icon>
+                    <input *ngIf="!formData.get(choice.name)" type="checkbox" disabled="disabled"> 
+                    {{choice.description}}
+                  </label>
+                </tr>
+                <tr *ngSwitchCase="'checkbox-input'">
+                  <div 
+                  fxFlex.gt-sm="40" 
+                  fxFlex="100" 
+                  fxLayout="row"
+                  fxLayout.gt-sm="row"
+                  fxLayout.gt-xs="column"
+                  fxLayout.gt-md="row"
+                  fxLayout.gt-lg="row"
+                  fxLayout.lt-sm="column"
+                  fxLayoutAlign="left"
+                  style="width: 100%;">
+                    <label style="white-space: nowrap">
+                        <mat-icon *ngIf="formData.get(choice.name)">check</mat-icon>
+                        <input 
+                        *ngIf="!formData.get(choice.name)"
+                        type="checkbox" 
+                        [value]="false" 
+                        disabled="disabled">
+                        {{choice.description}}
+                    </label>
+                    <input 
+                    [value]="formData.get(choice.input)"
+                    class="input m-l-10" 
+                    name="input" 
+                    type="text" >
+                    <!-- <u *ngIf="formData.get(choice.input) != ''">{{formData.get(choice.input)}}</u> -->
+                  </div>
+                  </tr>
+                  <tr *ngSwitchCase="'italic-label-input'">
+                    <div 
+                    fxFlex.gt-sm="40" 
+                    fxFlex="100" 
+                    fxLayout="row"
+                    fxLayout.gt-sm="row"
+                    fxLayout.gt-xs="column"
+                    fxLayout.gt-md="row"
+                    fxLayout.gt-lg="row"
+                    fxLayout.lt-sm="column"
+                    fxLayoutAlign="left"
+                    class="width-100">
+                      <label style="white-space: nowrap">
+                        <i>{{choice.description}}</i>
+                      </label>
+                      <input 
+                      class="input m-l-10" 
+                      name="input" 
+                      type="text"
+                      [value]="formData.get(choice.input)">
+                    </div>
+                  </tr>
+                  <tr *ngSwitchCase="'space'"> <br/> </tr>
+                  <tr *ngSwitchCase="'label'">
+                    <mat-label>{{choice.description}}</mat-label>
+                  </tr>
+                  <tr *ngSwitchCase="'italic-label'"> 
+                    <i>{{choice.description}}</i>
+                  </tr>
+                </div>
+                
+                <br>
+              </td>
+            </tr>
+            <tr>
+              <td class="left-content border p-10" colspan="2">
+                <div 
+                class="left-content p-l-10"
+                *ngFor="let choice of choices3;
+                let i=index"
+                [ngSwitch]="choice.type">
+                  <tr *ngSwitchCase="'space'">
+                    <br>
+                  </tr>
+                  <tr *ngSwitchCase="'underline-label'">
+                    <mat-label><u>{{choice.description}}</u></mat-label>
+                  </tr>
+                  <tr *ngSwitchCase="'label'">
+                    <mat-label>{{choice.description}}</mat-label>
+                  </tr>
+                  <tr *ngSwitchCase="'input'">
+                    <input 
+                    class="input width-100" 
+                    type="text" 
+                    name="input" 
+                    [value]="formData.get(choice.input)">
+                  </tr>
+                </div><br>
+              </td>
+              <td class="left-content border width-50 p-10" colspan="3">
+                <div 
+                class=" p-l-10"
+                [align]="'start'"
+                *ngFor="let choice of choices4;
+                let i=index"
+                [ngSwitch]="choice.type">
+                  <tr *ngSwitchCase="'checkbox'">
+                    <label>
+                      <mat-icon *ngIf="formData.get(choice.name)">check</mat-icon>
+                      <input *ngIf="!formData.get(choice.name)" type="checkbox" disabled="disabled"> 
+                      {{choice.description}}
+                    </label>
+                  </tr>
+                  <tr *ngSwitchCase="'space'"> <br/> </tr>
+                  <tr *ngSwitchCase="'label'">
+                    <mat-label>{{choice.description}}</mat-label>
+                  </tr>
+                </div>
+                <br>
+              <div [align]="'center'" >
+                <tr>
+                  <td [align]="'center'">
+                    <div *ngIf="!signatureApplicant && hasSignatureAccessApplicant">
+                      <signature-pad 
+                      #signature1
+                      format="base64" 
+                      dotSize="1"
+                      [options]="signaturePadOptions" 
+                      doneButtonText="Show Image">
+                      </signature-pad>
+                      <div>
+                        <button 
+                          mat-button type="button" 
+                          (click)="signature1.clear()">
+                            Clear
+                          </button>
+                          <button 
+                          mat-button 
+                          type="button" 
+                          (click)="showImage('signature1', signature1)">
+                            Submit
+                        </button>
+                      </div>
+                    </div>
+                    <img [src]="signatureApplicant" *ngIf="signatureApplicant && hasSignatureAccessApplicant" />
+                    <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessApplicant" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input 
+                    class="input" 
+                    style="width: 300px;" 
+                    type="text" 
+                    disabled="disabled"> 
+                  </td>
+                </tr>
+                <tr>
+                  <td [align]="'center'">
+                    (Signature of Applicant)
+                  </td>
+                </tr>
+              </div>
+              </td>
+            </tr>
+            <tr class="border">
+              <td class="p-10" colspan="5" [align]="'center'">7. DETAILS OF ACTION ON APPLICATION</td>
+            </tr>
+            <tr>
+              <td class="p-10 border" colspan="2">
+                <tr>
+                  <td [align]="'left'"> 7. A. CERTIFICATION OF LEAVE CREDITS </td>
+                </tr>
+                <tr>
+                  <td [align]="'center'">
+                    As of 
+                    <input 
+                    class="input" 
+                    style="width: 300px;" 
+                    type="text" 
+                    disabled="disabled"> 
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <table class="border m-10 m-l-10 m-r-10">
+                      <tr>
+                        <td class="border"></td>
+                        <td class="border">Vacation Leave</td>
+                        <td class="border">Sick Leave</td>
+                      </tr>
+                      <tr>
+                        <td class="border">Total Earned Leave Application</td>
+                        <td class="border"></td>
+                        <td class="border"></td>
+                      </tr>
+                      <tr>
+                        <td class="border">Balance</td>
+                        <td class="border"></td>
+                        <td class="border"></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr >
+                  <td [align]="'center'">
+                      <div *ngIf="!tahaSignature && hasSignatureAccessTaha">
+                        <signature-pad 
+                        #signature2
+                        format="base64" 
+                        dotSize="1"
+                        [options]="signaturePadOptions" 
+                        doneButtonText="Show Image">
+                        </signature-pad>
+                        <div>
+                          <button 
+                            mat-button type="button" 
+                            (click)="signature2.clear()">
+                              Clear
+                            </button>
+                            <button 
+                            mat-button 
+                            type="button" 
+                            (click)="showImage('signature2', signature2)">
+                              Submit
+                          </button>
+                        </div>
+                      </div>
+                      <img [src]="tahaSignature" *ngIf="tahaSignature && hasSignatureAccessTaha" />
+                      <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessTaha" />
+                  </td>
+                </tr>
+                <tr>
+                  <td [align]="'center'"><u>TAHA M. MOHAMAD MPA CSP</u></td>
+                </tr>
+                <tr>
+                  <td [align]="'center'">(Authorized Officer)</td>
+                </tr>
+              </td>
+
+              <td class="p-10 border" colspan="3">
+                <tr>
+                  <td  [align]="'left'"> 7. B. RECOMENDATION</td>
+                </tr><br>
+                <tr>
+                  <td [align]="'left'">
+                    <label>
+                      <input type="checkbox" disabled="disabled"> 
+                      For Approval
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td [align]="'left'">
+                    <label>
+                      <input type="checkbox" disabled="disabled"> 
+                      For disapproval due to
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <textarea style="width:300px; height: 80px;" disabled="disabled"></textarea>
+                  </td><br>
+                </tr>
+                <div [align]="'center'">
+                  <tr>
+                    <td [align]="'center'">
+                      <div *ngIf="!redondoSignature && hasSignatureAccessRedondo">
+                        <signature-pad 
+                        #signature3
+                        format="base64" 
+                        dotSize="1"
+                        [options]="signaturePadOptions" 
+                        doneButtonText="Show Image">
+                        </signature-pad>
+                        <div>
+                          <button 
+                            mat-button type="button" 
+                            (click)="signature3.clear()">
+                              Clear
+                            </button>
+                            <button 
+                            mat-button 
+                            type="button" 
+                            (click)="showImage('signature3', signature3)">
+                              Submit
+                          </button>
+                        </div>
+                      </div>
+                      <img [src]="redondoSignature" *ngIf="redondoSignature && hasSignatureAccessRedondo" />
+                      <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessRedondo" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><u>EUZA E. REDONDO PhD.</u></td>
+                  </tr>
+                  <tr>
+                    <td>(Authorized Officer)</td>
+                  </tr>
+                </div>
+              </td>
+              
+            </tr>
+            <tr >
+              <td [align]="'left'" class=" p-10" colspan="2">
+                <tr>APPROVED FOR:</tr>
+                <tr>
+                  <td><input name="input" class="input" type="text"></td>
+                  <td>days with pay</td>
+                </tr>
+                <tr>
+                  <td><input name="input" class="input" type="text"></td>
+                  <td>days without pay</td>
+                </tr>
+                <tr>
+                  <td><input name="input" class="input" type="text"></td>
+                  <td>others (specify)</td>
+                </tr>
+              </td>
+              <td [align]="'left'" class=" p-10" colspan="3">
+                <tr>DISAPPROVED DUE TO:</tr>
+                <tr>
+                  <td><input name="input" class="input" type="text"></td>
+                </tr>
+                <tr>
+                  <td><input name="input" class="input" type="text"></td>
+                </tr>
+                <tr>
+                  <td><input name="input" class="input" type="text"></td>
+                </tr>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="5" [align]="'center'">
+                <tr>
+                  <td [align]="'center'">
+                    <div *ngIf="!indiraSignature && hasSignatureAccessIndira">
+                      <signature-pad 
+                      #signature4
+                      format="base64" 
+                      dotSize="1"
+                      [options]="signaturePadOptions" 
+                      doneButtonText="Show Image">
+                      </signature-pad>
+                      <div>
+                        <button 
+                          mat-button type="button" 
+                          (click)="signature4.clear()">
+                            Clear
+                        </button>
+                        <button 
+                          mat-button 
+                          type="button" 
+                          (click)="showImage('signature4', signature4)">
+                            Submit
+                        </button>
+                      </div>
+                    </div>
+                    <img [src]="indiraSignature" *ngIf="indiraSignature && hasSignatureAccessIndira" />
+                    <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessIndira" />
+                  </td>
+                </tr>
+                <tr>
+                  <td><u>DR. INDIRA B. DIMAPORO-TAWANTAWAN, Ai-Hadja</u></td>
+                </tr>
+                <tr>
+                  <td>(Authorized Officer)</td>
+                </tr>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

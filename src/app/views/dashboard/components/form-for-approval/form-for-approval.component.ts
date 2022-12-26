@@ -1,26 +1,21 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { FormStatus } from 'src/app/models/form-status.model';
+import { UserDetailsService } from 'src/app/services/user-details.service';
+import { choicesA, choicesB, choicesC, choicesD } from 'src/app/shared/form-questions';
+import { selectFormStatus } from 'src/app/views/store/form-status/form-status.selectors';
+import { selectUserDetails } from 'src/app/views/store/user-details/user-details.selectors';
 import * as formDataActions from '../../../store/leave-application-form/leave-application-form.actions';
 import * as formStatusActions from '../../../store/form-status/form-status.actions';
-import { 
-  choicesA, 
-  choicesB,
-  choicesC,
-  choicesD } from '../../../../shared/form-questions';
-import { selectFormData } from 'src/app/views/store/leave-application-form/leave-application-form.selectors';
-import { UserDetailsService } from 'src/app/services/user-details.service';
-import { Subscription } from 'rxjs';
-import { selectUserDetails } from 'src/app/views/store/user-details/user-details.selectors';
-import { selectFormStatus } from 'src/app/views/store/form-status/form-status.selectors';
-import { FormStatus } from 'src/app/models/form-status.model';
 
 @Component({
-  selector: 'app-filled-form',
-  templateUrl: './filled-form.component.html',
-  styleUrls: ['./filled-form.component.scss']
+  selector: 'app-form-for-approval',
+  templateUrl: './form-for-approval.component.html',
+  styleUrls: ['./form-for-approval.component.scss']
 })
-export class FilledFormComponent implements OnInit, OnDestroy {
+export class FormForApprovalComponent implements OnInit, OnDestroy {
 
   @Input('formData') formData: any = {};
   noSinatureAccess:string = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAABkCAYAAAA8AQ3AAAAAAXNSR0IArs4c6QAAAvxJREFUeF7t1MEJADAMA7Fm/4HzbKFbHCgTGDl4dvceR4AAgYDAGKxASyISIPAFDJZHIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoCAwfIDBAhkBAxWpipBCRAwWH6AAIGMgMHKVCUoAQIGyw8QIJARMFiZqgQlQMBg+QECBDICBitTlaAECBgsP0CAQEbAYGWqEpQAAYPlBwgQyAgYrExVghIgYLD8AAECGQGDlalKUAIEDJYfIEAgI2CwMlUJSoDAA9HwhYQ81I0ZAAAAAElFTkSuQmCC";
@@ -44,20 +39,15 @@ export class FilledFormComponent implements OnInit, OnDestroy {
   formStatus!: FormStatus;
   formSubscription!:Subscription; 
   formStatusSubscription!: Subscription;
- 
 
   constructor(
     private formBuilder: FormBuilder,
     private store: Store,
     private userDetailService: UserDetailsService,
-    ) {
+  ) { 
     this.signatureForm1 = this.formBuilder.group({
-     signature: new FormControl([''])
-    });
-  }
-  ngOnDestroy(): void {
-    this.formSubscription.unsubscribe()
-    this.formStatusSubscription.unsubscribe()
+      signature: new FormControl([''])
+     });
   }
 
   ngOnInit(): void {
@@ -75,7 +65,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
             this.hasSignatureAccessRedondo = true;
             break;
           case "admin-indira":
-            this.hasSignatureAccessIndira = true;
+            this.hasSignatureAccessTaha = true;
             break;
         }
       }
@@ -91,6 +81,11 @@ export class FilledFormComponent implements OnInit, OnDestroy {
         
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.formSubscription.unsubscribe()
+    this.formStatusSubscription.unsubscribe()
   }
 
   signaturePadOptions: Object = {
@@ -122,6 +117,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       formDataMap.set("indiraSignature", this.indiraSignature)
       break;
     }
+
 
     const filledFormData = {
       officeOrDepartment: this.formData.get("officeOrDepartment"),
@@ -180,17 +176,4 @@ export class FilledFormComponent implements OnInit, OnDestroy {
     this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: this.formData}))
   }
 
-  
-
-  // display(){
-  //   console.log("see form data",this.formData)
-  //   console.log("other data ==== ", this.formData.get("officeOrDepartment"))
-  //   // this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: }))
-  //   // this.store.select(selectFormData).subscribe((response: any)=>{
-  //   //   console.log("see reponse", response)
-  //   // })
-  //   let formDataMap = this.formData
-  //   formDataMap.set("signatureApplicant", this.signatureApplicant)
-  //   console.log("see type === ", typeof(this.formData))
-  // }
 }

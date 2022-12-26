@@ -19,6 +19,7 @@ export class UserDetailsResolverService implements Resolve<FormData>{
     route: ActivatedRouteSnapshot, 
     state: RouterStateSnapshot)
     : Observable<FormData> {
+      console.log("resolving ======")
       return this.store.select(selectUserDetails).pipe(
         first(),
         switchMap((response) => {
