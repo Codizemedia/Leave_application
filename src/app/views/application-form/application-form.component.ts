@@ -131,17 +131,16 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
     this.filledUpFormData.set("indiraSignature", "")
     this.formData =  this.filledUpFormData;
 
-    this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: emptyForm}))
-
     this.store.dispatch(formDataActions.requestFetchFormDataACTION())
 
     this.store.select(selectFormData).subscribe((response)=>{
-      console.log("see data", response)
+      // console.log("see data", response)
     })
 
     this.formSubscription = this.store.select(selectUserDetails).subscribe((response: any)=>{
-      console.log("resssssssss", response)
+      // console.log("resssssssss", response)
       if(response.userDetails!= undefined){
+        this.userDetailService.userDetails = response.userDetails
         switch(response.userDetails[0].userRole){
           case "applicant":
             this.applicantAccess = true;
@@ -162,6 +161,10 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
         this.isShowStepper = true
       }
     })
+    if(this.applicantAccess){
+       this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: emptyForm}))
+    }
+    
   }
 
   submitForm(){
@@ -185,7 +188,7 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
     });
 
     this.formData = this.filledUpFormData as Object;
-    console.log("seee", this.formData)
+    // console.log("seee", this.formData)
     this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: this.filledUpFormData}))
   }
 

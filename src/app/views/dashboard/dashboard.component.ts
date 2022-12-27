@@ -277,11 +277,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   processApproval(formStatus: any){
-    console.log("see element", formStatus)
- 
-    // this.store.select(selectFormData).subscribe((response)=>{
-    //   this.router.navigate(['/application-form'])
-    // })
+    // console.log("see element", formStatus)
+
+    this.store.select(selectFormData).subscribe((response)=>{
+
+      const userForm = response.formData.filter((form:any)=>{
+        return form.id == formStatus.formId
+      })
+      this.userDetailsService.selectedForm = userForm[0];
+      this.router.navigate(['/application-form'])
+    })
    
   }
 }

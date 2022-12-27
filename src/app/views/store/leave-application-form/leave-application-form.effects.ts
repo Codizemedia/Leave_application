@@ -65,17 +65,15 @@ export class LeaveApplicationFormEffects {
             .collection('form_data')
             .add(data.payload)
             .then((response) => {
-              console.log("see response", response)
-              console.log("see add resposne", data)
               const applicantStatusData: FormStatus = {
                 name: data.formStatus.name,
                 email: data.formStatus.email,
                 status: "taha-approval",
                 uid: localStorage.getItem("uid")!,
-                formId: "",
+                formId: response.id,
                 id: data.formStatus.id!
               } 
-              this.store.dispatch(formStatusActions.requestUpdateFormStatusACTION({id: data.formStatus.id!, payload: data.formStatus}))
+              this.store.dispatch(formStatusActions.requestUpdateFormStatusACTION({id: data.formStatus.id!, payload: applicantStatusData}))
               return formDataActions.successAddFormDataACTION();
             })
             .catch((error) => {

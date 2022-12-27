@@ -6,7 +6,7 @@ import * as formDataActions from './leave-application-form.actions'
 export const leaveApplicationFormFeatureKey = 'formData';
 
 export const initialState: FormDataState = {
-  formData: {},
+  formData: undefined,
   selectedFormData: undefined
 };
 

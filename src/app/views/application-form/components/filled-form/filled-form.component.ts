@@ -63,6 +63,9 @@ export class FilledFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const detail:any = this.userDetailService.userDetails;
+    console.log("=== see", this.formData)
+    console.log("daaaaaaata", detail[0].userRole)
     this.formSubscription = this.store.select(selectUserDetails).subscribe((response: any)=>{
       // console.log("resssssssss", response)
       if(response.userDetails!= undefined){
@@ -86,17 +89,17 @@ export class FilledFormComponent implements OnInit, OnDestroy {
     this.formStatusSubscription = this.store.select(selectFormStatus).subscribe((response)=>{
       if(response.formStatus != undefined){
         const currentFormStatus =  response.formStatus.filter((form:any)=>{
-          console.log( form.uid, "==" ,localStorage.getItem("uid"))
+          // console.log( form.uid, "==" ,localStorage.getItem("uid"))
           return  form.uid == localStorage.getItem("uid")
         })
-        console.log("look for", currentFormStatus)
+        // console.log("look for", currentFormStatus)
         this.formStatus = currentFormStatus[0];
-        
       }
     })
-    this.formDataSubscription = this.store.select(selectFormData).subscribe((response)=>{
-      console.log("look for form target", response)
-    })
+
+    // this.formDataSubscription = this.store.select(selectFormData).subscribe((response)=>{
+    //   // console.log("look for form target", response)
+    // })
   }
 
   signaturePadOptions: Object = {

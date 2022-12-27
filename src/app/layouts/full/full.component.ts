@@ -61,7 +61,7 @@ export class FullComponent implements OnDestroy {
     this.mobileQuery.addListener(this._mobileQueryListener);
 
     this .userDetailsSubscription = this.store.select(selectUserDetails).subscribe((response)=>{
-      console.log("see header logs", response)
+      // console.log("see header logs", response)
       if(response.userDetails != undefined){
         this.userName = response.userDetails[0].name
       }

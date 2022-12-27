@@ -24,6 +24,7 @@ export class UserDetailsResolverService implements Resolve<FormData>{
         first(),
         switchMap((response) => {
           if (response.userDetails == undefined) {
+            
             this.store.dispatch(userDetailActions.requestFetchUserDetailsACTION());
           }
           return of(response);

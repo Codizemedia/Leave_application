@@ -21,9 +21,9 @@ export class FormDataResolverService implements Resolve<FormData>{
       return this.store.select(selectFormData).pipe(
         first(),
         switchMap((response) => {
-          // if (response..length == 0) {
-          //   this.store.dispatch(categoryActions.requestFetchCategoriesACTION());
-          // }
+          if (response.formData == undefined) {
+            this.store.dispatch(formDataActions.requestFetchFormDataACTION());
+          }
           return of(response);
         })
       );
