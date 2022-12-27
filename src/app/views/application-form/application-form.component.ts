@@ -34,7 +34,7 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
   formData!: Object;
   formSubscription!: Subscription;
   filledUpFormData:Map<string, string> = new Map<string, string>()
-  userDetails: any = {};
+  // userDetails: any = {};
   applicantAccess:boolean = false;
   tahaAccess:boolean = false;
   redondoAccess:boolean = false;
@@ -73,6 +73,7 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
     this.firstStepForm = this._formBuilder.group({
       officeOrDepartment: ['MSU-LNAC', Validators.required,  ],
       lastName: ['', Validators.required],
@@ -115,28 +116,6 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
       requested: [false,],
     });
 
-    const firstFormMap = new Map(Object.entries(this.firstStepForm.value))
-    const secondFormMap = new Map(Object.entries(this.secondStepForm.value))
-   
-    firstFormMap.forEach((value:any, key:any) =>{
-      this.filledUpFormData.set(key, value)
-    });
-    secondFormMap.forEach((value:any, key:any) =>{
-      this.filledUpFormData.set(key, value)
-    });
-
-    this.filledUpFormData.set("applicantSignature", "")
-    this.filledUpFormData.set("tahaSignature", "")
-    this.filledUpFormData.set("redondoSignature", "")
-    this.filledUpFormData.set("indiraSignature", "")
-    this.formData =  this.filledUpFormData;
-
-    this.store.dispatch(formDataActions.requestFetchFormDataACTION())
-
-    this.store.select(selectFormData).subscribe((response)=>{
-      // console.log("see data", response)
-    })
-
     this.formSubscription = this.store.select(selectUserDetails).subscribe((response: any)=>{
       // console.log("resssssssss", response)
       if(response.userDetails!= undefined){
@@ -144,23 +123,70 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
         switch(response.userDetails[0].userRole){
           case "applicant":
             this.applicantAccess = true;
+            
+            const firstFormMap = new Map(Object.entries(this.firstStepForm.value))
+            const secondFormMap = new Map(Object.entries(this.secondStepForm.value))
+          
+            firstFormMap.forEach((value:any, key:any) =>{
+              this.filledUpFormData.set(key, value)
+            });
+            secondFormMap.forEach((value:any, key:any) =>{
+              this.filledUpFormData.set(key, value)
+            });
+
+            this.filledUpFormData.set("applicantSignature", "")
+            this.filledUpFormData.set("tahaSignature", "")
+            this.filledUpFormData.set("redondoSignature", "")
+            this.filledUpFormData.set("indiraSignature", "")
+
+            this.formData =  this.filledUpFormData;
+
+            this.store.dispatch(formDataActions.requestFetchFormDataACTION())
             break;
           case "admin-taha":
             this.openStep = "2"
             this.tahaAccess = true;
+            let tahaMap: Map<string, string> = new Map<string, string>() 
+            const tahaData = new Map(Object.entries(this.userDetailService.selectedForm)) 
+            tahaData.forEach((value:any,key:any)=>{
+              tahaMap.set(key, value)
+            })
+            console.log("====", tahaMap)
+            this.formData = tahaMap;
             break;
           case "admin-redondo":
             this.openStep = "2"  
             this.redondoAccess = true;
+            let redondoMap: Map<string, string> = new Map<string, string>() 
+            const redondoData = new Map(Object.entries(this.userDetailService.selectedForm)) 
+            redondoData.forEach((value:any,key:any)=>{
+              redondoMap.set(key, value)
+            })
+            console.log("====", redondoMap)
+            this.formData = redondoMap;
             break;
           case "admin-indira":
             this.openStep = "2"
             this.indiraAccess = true;
+            let indiraMap: Map<string, string> = new Map<string, string>() 
+            const indiraData = new Map(Object.entries(this.userDetailService.selectedForm)) 
+            indiraData.forEach((value:any,key:any)=>{
+              indiraMap.set(key, value)
+            })
+            console.log("====", indiraMap)
+            this.formData = indiraMap;
             break;
         }
         this.isShowStepper = true
       }
     })
+
+
+    this.store.select(selectFormData).subscribe((response)=>{
+      // console.log("see data", response)
+    })
+
+
     if(this.applicantAccess){
        this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: emptyForm}))
     }
@@ -169,6 +195,7 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
 
   submitForm(){
     this.router.navigate(['/dashboard'])
+    // location.reload()
   }
 
   firstStepSubmit(){

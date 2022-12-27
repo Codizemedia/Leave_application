@@ -228,8 +228,8 @@
                         </button>
                       </div>
                     </div>
-                    <img [src]="signatureApplicant" *ngIf="signatureApplicant && hasSignatureAccessApplicant" />
-                    <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessApplicant" />
+                    <img [src]="signatureApplicant" *ngIf="signatureApplicant" style="height: 100px; width: 200px;"/>
+                    <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessApplicant && !signatureApplicant" />
                   </td>
                 </tr>
                 <tr>
@@ -312,8 +312,8 @@
                           </button>
                         </div>
                       </div>
-                      <img [src]="tahaSignature" *ngIf="tahaSignature && hasSignatureAccessTaha" />
-                      <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessTaha" />
+                      <img [src]="tahaSignature" *ngIf="tahaSignature" style="height: 100px; width: 200px;" />
+                      <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessTaha && !tahaSignature" />
                   </td>
                 </tr>
                 <tr>

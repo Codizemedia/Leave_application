@@ -139,8 +139,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         if(response.formStatus.length != 0){
           
           const currentUserForm = response.formStatus.filter((data:any)=>{
-              return data.uid == this.userDetailsService.userDetails.uid
+            console.log("uid", data.uid + "==" + localStorage.getItem("uid"))
+              return data.uid == localStorage.getItem("uid")
           })
+
+          console.log("=====", currentUserForm)
           switch(this.userDetailsService.userDetails.userRole){
             case "applicant":
               this.dataSource = new MatTableDataSource<any>(response.formStatus);
@@ -169,7 +172,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
               this.dataSource = new MatTableDataSource<any>(this.indiraForms);
               break;
           }
+          console.log("see log", currentUserForm)
           if(currentUserForm.length != 0 && this.applicantRole){
+            
             switch(currentUserForm[0].status){
               case "pending":
                 this.requestStatus = "pending";

@@ -11,7 +11,7 @@ import { FormStatusResolverService } from './resolvers/form-status-resolver.serv
 export const AppRoutes: Routes = [
     {
         path: '',
-        redirectTo: '/authentication',
+        redirectTo: '/application-form',
         pathMatch: 'full',
         // component: DashboardComponent
     },
@@ -27,13 +27,13 @@ export const AppRoutes: Routes = [
        
     },
     {
-        path: '',
+        path: 'application-form',
         component: FullComponent,
         resolve: [UserDetailsResolverService, FormStatusResolverService],
         children: [
             {
                 canActivate: [AuthGuard],
-                path: 'application-form',
+                path: '',
                 resolve: [UserDetailsResolverService],
                 loadChildren: () => import('./views/application-form/starter.module').then(m => m.StarterModule)
             },
