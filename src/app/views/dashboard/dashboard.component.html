@@ -98,18 +98,9 @@ style="
     </mat-card>
   </div>
 
-  <!-- form for approval proccess -->
-  <div *ngIf="isShowApprovalForm">
-    <mat-card>
-      <mat-card-content>
-       <!-- <app-form-for-approval [formData]="formData"></app-form-for-approval> -->
-      </mat-card-content>
-    </mat-card>
-  </div>
-
   <!-- Form Status -->
   <div 
-  *ngIf="applicantRole || tahaRole || redondoRole || indiraRole " 
+  *ngIf="(applicantRole || tahaRole || redondoRole || indiraRole)&& (!isShowForm) " 
   class="login-register-box"
   style="margin-top: 15vh;">
     <mat-card class="m-t-10">

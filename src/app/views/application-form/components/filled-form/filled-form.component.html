@@ -374,8 +374,8 @@
                           </button>
                         </div>
                       </div>
-                      <img [src]="redondoSignature" *ngIf="redondoSignature && hasSignatureAccessRedondo" />
-                      <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessRedondo" />
+                      <img [src]="redondoSignature" *ngIf="redondoSignature" style="height: 100px; width: 200px;" />
+                      <img [src]="noSinatureAccess" *ngIf="!hasSignatureAccessRedondo && !redondoSignature" />
                     </td>
                   </tr>
                   <tr>

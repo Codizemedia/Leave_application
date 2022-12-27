@@ -77,12 +77,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     window.onbeforeunload = function () {
       window.scrollTo(0, 0);
     }
-
     breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
       this.displayedColumns = result.matches ?
           [ 'name', 'email', 'status'] :
           [ 'name', 'email', 'status'];
-  });
+    });
+    this.requestForm = this._formBuilder.group({
+      name: ['', Validators.required],
+      email: ['', Validators.required],
+    });
   }
   ngOnDestroy(): void {
     this.formSubscription.unsubscribe();
@@ -93,20 +96,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.formSubscription = this.store.select(selectFormData).subscribe((response)=>{
-      const data = response.selectedFormData;
-      if(data != undefined){
-        this.formData = data;
-        this.applicantSignature = data.get("applicantSignature") != "" ? data.get("applicantSignature"): this.noSinatureAccess;
-        this.tahaSignature = data.get("tahaSignature") != "" ? data.get("tahaSignature"): this.noSinatureAccess;
-        this.redondoSignature = data.get("redondoSignature") != "" ? data.get("redondoSignature"): this.noSinatureAccess;
-        this.indiraSignature = data.get("indiraSignature") != "" ? data.get("indiraSignature"): this.noSinatureAccess;
+      const selectedData = response.selectedForm;
+      const data:any[] = response.formData
+      if(data != undefined ){
+        this.formData = new Map(Object.entries(data[0]));
+        this.applicantSignature = this.formData.get("applicantSignature") != "" ? this.formData.get("applicantSignature")!: this.noSinatureAccess;
+        this.tahaSignature = this.formData.get("tahaSignature") != "" ? this.formData.get("tahaSignature")!: this.noSinatureAccess;
+        this.redondoSignature = this.formData.get("redondoSignature") != "" ? this.formData.get("redondoSignature")!: this.noSinatureAccess;
+        this.indiraSignature = this.formData.get("indiraSignature") != "" ? this.formData.get("indiraSignature")!: this.noSinatureAccess;
+      }
+      if(selectedData != undefined){
+        this.applicantSignature = selectedData.get("applicantSignature") != "" ? selectedData.get("applicantSignature"): this.noSinatureAccess;
+        this.tahaSignature = selectedData.get("tahaSignature") != "" ? selectedData.get("tahaSignature"): this.noSinatureAccess;
+        this.redondoSignature = selectedData.get("redondoSignature") != "" ? selectedData.get("redondoSignature"): this.noSinatureAccess;
+        this.indiraSignature = selectedData.get("indiraSignature") != "" ? selectedData.get("indiraSignature"): this.noSinatureAccess;
       }
     })
-
-    this.requestForm = this._formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', Validators.required],
-    });
 
     this .userDetailsSubscription = this.store.select(selectUserDetails).subscribe((response)=>{
       if(response.userDetails != undefined){
@@ -137,13 +142,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.formStatusSubscription = this.store.select(selectFormStatus).subscribe((response)=>{
       if(response.formStatus != undefined){
         if(response.formStatus.length != 0){
-          
           const currentUserForm = response.formStatus.filter((data:any)=>{
             console.log("uid", data.uid + "==" + localStorage.getItem("uid"))
               return data.uid == localStorage.getItem("uid")
           })
-
-          console.log("=====", currentUserForm)
           switch(this.userDetailsService.userDetails.userRole){
             case "applicant":
               this.dataSource = new MatTableDataSource<any>(response.formStatus);
@@ -197,6 +199,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 break;
               case "done":
                 this.openStep = "5"
+                
                 break;
             }
           }
