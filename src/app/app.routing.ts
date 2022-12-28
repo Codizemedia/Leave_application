@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { FullComponent } from './layouts/full/full.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ErrorComponent } from './error/error.component';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { DashboardComponent } from './views/application-form/dashboard/dashboard.component';
 import { AppBlankComponent } from './layouts/blank/blank.component';
 import { FormDataResolverService } from './resolvers/form-data-resolver.service';
 import { UserDetailsResolverService } from './resolvers/user-details-resolver.service';
@@ -11,23 +11,23 @@ import { FormStatusResolverService } from './resolvers/form-status-resolver.serv
 export const AppRoutes: Routes = [
     {
         path: '',
-        redirectTo: '/application-form',
+        redirectTo: 'authentication',
         pathMatch: 'full',
         // component: DashboardComponent
     },
-    {
-        path: 'dashboard',
-        canActivate: [AuthGuard],
-        resolve: [
-            FormDataResolverService, 
-            UserDetailsResolverService,
-            FormStatusResolverService
-        ],
-        component: DashboardComponent
+    // {
+    //     path: 'dashboard',
+    //     canActivate: [AuthGuard],
+    //     resolve: [
+    //         FormDataResolverService, 
+    //         UserDetailsResolverService,
+    //         FormStatusResolverService
+    //     ],
+    //     component: DashboardComponent
        
-    },
+    // },
     {
-        path: 'application-form',
+        path: 'application',
         component: FullComponent,
         resolve: [UserDetailsResolverService, FormStatusResolverService],
         children: [

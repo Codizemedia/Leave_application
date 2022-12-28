@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
     //     this.router.navigate(['/dashboards/dashboard1']);
     //   }
     // }).unsubscribe;
-    console.log("doing ")
+    // console.log("doing ")
 
     const accountCredentials = {
       email: this.form.value.email, 

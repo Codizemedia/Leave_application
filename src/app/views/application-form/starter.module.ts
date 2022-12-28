@@ -8,6 +8,7 @@ import { StarterRoutes } from './starter.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilledFormComponent } from './components/filled-form/filled-form.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
+import { DashboardComponent } from './dashboard/dashboard.component';
 // import { BrowserModule } from '@angular/platform-browser';
 // import { SignaturePadModule } from '@ng-plus/signature-pad';
 // import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
@@ -19,7 +20,6 @@ import { SignaturePadModule } from 'angular2-signaturepad';
     CommonModule,
     DemoMaterialModule,
     FlexLayoutModule,
-    // BrowserModule,
     SignaturePadModule,
     // SignaturePadModule,
     // AngularSignaturePadModule,
@@ -29,6 +29,8 @@ import { SignaturePadModule } from 'angular2-signaturepad';
   ],
   declarations: [
     ApplicationFormComponent, 
-    FilledFormComponent]
+    FilledFormComponent,
+    DashboardComponent,
+  ]
 })
 export class StarterModule {}

@@ -1,4 +1,4 @@
-<mat-toolbar 
+<!-- <mat-toolbar 
 *ngIf="!isShowForm" 
 color="primary" 
 class="topbar telative"
@@ -21,7 +21,8 @@ style="position: sticky; top:0; z-index: 1000;">
     <p style="font-size: medium;">{{userName}}</p>&nbsp;&nbsp;&nbsp;
     <app-header></app-header>
   </div>
-</mat-toolbar>
+</mat-toolbar> -->
+
 <div 
 class="dashboard-layout"
 style="
@@ -33,9 +34,6 @@ style="
   background-size: cover;
   justify-content: center;
   ">
-
-
-
   <!-- Admin accepts or decline application request approval  -->
   <div 
   *ngIf="adminRole "
@@ -110,6 +108,7 @@ style="
             <h3> Leave Application Status</h3>
           </div>
           <mat-vertical-stepper [linear]="isLinear" #stepper selectedIndex="{{openStep}}">
+            
             <mat-step>
                 <ng-template matStepLabel>Request for Leave Application Form</ng-template><br>
                 <div *ngIf="requestStatus == 'declined'" [align]="'left'">
@@ -123,7 +122,7 @@ style="
                     </button>
                 </div>
                 <div *ngIf="requestStatus == 'requesting'" [align]="'left'">
-                  <form [formGroup]="requestForm" (ngSubmit)="sendReuqest()">
+                 <form [formGroup]="requestForm" (ngSubmit)="sendReuqest()"  #formDirective="ngForm">
                     <mat-form-field appearance="fill">
                       <mat-label>Name</mat-label>
                       <input matInput formControlName="name">
@@ -315,6 +314,11 @@ style="
                 mat-raised-button
                 color="primary" 
                 (click)="showForm(true)">Show Form</button>
+                &nbsp;&nbsp;&nbsp;
+                <button 
+                mat-raised-button
+                color="primary" 
+                (click)="requestAnotherForm()">Request Another Form</button>
               </div>
             </mat-step>
           </mat-vertical-stepper>

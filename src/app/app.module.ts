@@ -26,7 +26,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { AppBlankComponent } from './layouts/blank/blank.component';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { StoreModule } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
@@ -59,7 +58,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppSidebarComponent,
     AppBreadcrumbComponent,
     AppBlankComponent,
-    DashboardComponent,
   ],
   imports: [
     BrowserModule,

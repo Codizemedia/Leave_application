@@ -1,7 +1,7 @@
 
 <div class="main-container" [dir]="dir"
   [ngClass]="{'minisidebar': minisidebar, 'boxed': boxed, 'danger': danger, 'blue': blue, 'green': green, 'dark': dark }">
-  <mat-toolbar color="primary" class="topbar telative">
+  <mat-toolbar color="primary" class="topbar telative" style="height: 50px !important;">
     <div class="navbar-header"
     style="background-color: white; 
     padding-top: 5px;
@@ -9,15 +9,15 @@
     padding-left: 20px;
     padding-right:5px; 
     border-radius: 5px;
-    margin: 10px;" >
-      <a class="navbar-brand" href="/dashboard">
+    margin: 3px 10px 3px 10px" >
+      <a class="navbar-brand" href="/application/dashboard">
         <!-- <b>
           <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo">
           <img src="assets/images/logo-light-icon.png" alt="homepage" class="light-logo">
         </b> -->
         <span fxShow="false" fxShow.gt-xs>
           <img src="assets/images/leave-application.png" alt="homepage" class="dark-logo">
-          <img src="assets/images/leave-logo.png" class="light-logo" alt="homepage" style="height: 30px; width:190px">
+          <img src="assets/images/leave-logo.png" class="light-logo" alt="homepage" style="height: 25px; width:190px">
         </span>
       </a>
     </div>
@@ -80,8 +80,8 @@
       </div>
     </mat-sidenav> -->
     <mat-sidenav-content class="page-wrapper" [ngClass]="status ? 'minitoggle' : ''">
-      <app-breadcrumb></app-breadcrumb>
-      <div class="page-content">
+      <!-- <app-breadcrumb></app-breadcrumb> -->
+      <div class="">
         <router-outlet>
           <app-spinner></app-spinner>
         </router-outlet>

@@ -36,7 +36,7 @@ export class AuthEffects {
               signedIn: true,
               uid: res.user?.uid,
             };
-            this.routes.navigate(['/dashboard']);
+            this.routes.navigate(['/application/dashboard']);
             return authActions.successAuthLogin({ payload: signInDetails });
           });
       }),
@@ -72,7 +72,7 @@ export class AuthEffects {
               uid: res.user!.uid,
             }
             this.store.dispatch(userDetailActions.requestAddUserDetailsACTION({payload: userDetails}))
-            this.routes.navigate(['/dashboard']);
+            this.routes.navigate(['/application/dashboard']);
             return authActions.successAuthRegister({ payload: signInDetails });
           });
       }),
@@ -95,7 +95,7 @@ export class AuthEffects {
           .then((res) => {
             // localStorage.setItem('uid', res.user!.uid);
             console.log("see reset password response", res)
-            this.routes.navigate(['/dashboard']);
+            this.routes.navigate(['/authentication/login']);
             return authActions.successAuthResetPassword({ payload: res });
           });
       }),

@@ -1,21 +1,21 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Router} from '@angular/router';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { emptyForm } from './empty-form';
 import { Store } from '@ngrx/store';
-import { selectFormData } from '../store/leave-application-form/leave-application-form.selectors';
-import { Subscription } from 'rxjs';
-import { selectUserDetails } from '../store/user-details/user-details.selectors';
-import * as fromStatusActions from '../store/form-status/form-status.actions';
+import { selectFormData } from '../../store/leave-application-form/leave-application-form.selectors';
+import { from, Subscription } from 'rxjs';
+import { selectUserDetails } from '../../store/user-details/user-details.selectors';
+import * as fromStatusActions from '../../store/form-status/form-status.actions';
 import { 
   choicesA, 
   choicesB,
   choicesC,
-  choicesD } from '../../shared/form-questions';
+  choicesD } from '../../../shared/form-questions';
 import { FormStatus } from 'src/app/models/form-status.model';
-import { selectFormStatus } from '../store/form-status/form-status.selectors';
+import { selectFormStatus } from '../../store/form-status/form-status.selectors';
 import { UserDetailsService } from 'src/app/services/user-details.service';
 import { SpinnerComponent } from 'src/app/shared/spinner.component';
 import { SharedService } from 'src/app/shared/shared.service';
@@ -83,8 +83,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
           [ 'name', 'email', 'status'];
     });
     this.requestForm = this._formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', Validators.required],
+      name: ['',],
+      email: [''],
     });
   }
   ngOnDestroy(): void {
@@ -209,7 +209,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   formAction(){
-    this.router.navigate(['/application-form'])
+    this.router.navigate(['/application/form'])
   }
 
   showForm(isShow: boolean){
@@ -230,7 +230,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   sendReuqest(){
-    if(this.requestForm.valid){
+    console.log("sssss")
+    if(this.requestForm.value.name != "" && this.requestForm.value.email != ""){
       const statusData = this.requestForm.value;
       const formStatusData: FormStatus = {
         name: statusData.name,
@@ -239,7 +240,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         uid: this.userDetailsService.userDetails.uid,
         formId: ""
       }
-
+      console.log("excec")
       if(this.requestStatus == "requesting"){
         this.store.dispatch(fromStatusActions.requestAddFormStatusACTION({payload: formStatusData}))
         alert("Leave Application Request Sent!")
@@ -254,6 +255,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       //   }
       // })
     }else{
+      console.log("elsellslele")
       alert("Invalid name or email")
     }
   }
@@ -293,9 +295,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
         return form.id == formStatus.formId
       })
       this.userDetailsService.selectedForm = userForm[0];
-      this.router.navigate(['/application-form'])
+      this.router.navigate(['/application/form'])
     })
-   
+  }
+
+  requestAnotherForm(){
+    this.openStep = "0";
+    
   }
 }
 

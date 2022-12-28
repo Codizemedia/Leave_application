@@ -83,7 +83,11 @@
 <!-- Profile - style you can find in header.scss -->
 <!-- ============================================================== -->
 <button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-10">
-    <img src="assets/images/users/default-avatar.jpg" alt="user" class="profile-pic"> </button>
+    <img 
+    src="assets/images/users/default-avatar.jpg" 
+    alt="user" 
+    class="profile-pic"
+    style="height: 30px; width:30px;"> </button>
 <mat-menu #profile="matMenu" class="mymegamenu">
     <!-- <button mat-menu-item>
         <mat-icon>settings</mat-icon> Settings

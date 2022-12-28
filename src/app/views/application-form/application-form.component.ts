@@ -10,7 +10,7 @@ import {
   choicesB,
   choicesC,
   choicesD } from '../../shared/form-questions';
-import { emptyForm } from '../dashboard/empty-form';
+import { emptyForm } from './dashboard/empty-form';
 import { selectFormData } from '../store/leave-application-form/leave-application-form.selectors';
 import { Subscription } from 'rxjs';
 import { selectUserDetails } from '../store/user-details/user-details.selectors';
@@ -194,7 +194,7 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
   }
 
   submitForm(){
-    this.router.navigate(['/dashboard'])
+    this.router.navigate(['/application/dashboard'])
     // location.reload()
   }
 
