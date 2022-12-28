@@ -9,40 +9,27 @@ import { UserDetailsResolverService } from './resolvers/user-details-resolver.se
 import { FormStatusResolverService } from './resolvers/form-status-resolver.service';
 
 export const AppRoutes: Routes = [
+
     {
         path: '',
-        redirectTo: 'authentication',
-        pathMatch: 'full',
-        // component: DashboardComponent
-    },
-    // {
-    //     path: 'dashboard',
-    //     canActivate: [AuthGuard],
-    //     resolve: [
-    //         FormDataResolverService, 
-    //         UserDetailsResolverService,
-    //         FormStatusResolverService
-    //     ],
-    //     component: DashboardComponent
-       
-    // },
-    {
-        path: 'application',
         component: FullComponent,
-        resolve: [UserDetailsResolverService, FormStatusResolverService],
+        canActivate: [AuthGuard],
         children: [
             {
-                canActivate: [AuthGuard],
                 path: '',
-                resolve: [UserDetailsResolverService],
+                redirectTo: 'application',
+                pathMatch: 'prefix',
+            },
+            {
+                path: 'application',
+                resolve: [UserDetailsResolverService, FormStatusResolverService],
                 loadChildren: () => import('./views/application-form/starter.module').then(m => m.StarterModule)
             },
         ]
     },
     {
         path: 'authentication',
-        loadChildren:
-            () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
+        loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
     },
     {
         path: '**',

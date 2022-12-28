@@ -1,6 +1,5 @@
 <mat-card>
   <mat-card-content>
-    <!-- <button (click)="display()">DISPLAY</button> -->
     <div  [align]="'center'">
       <div fxLayoutAlign="center center" fxLayout="column"> 
           <div fxLayout="row" style="height: 100px; width: 700px;" [align]="'center'">
@@ -64,7 +63,6 @@
                 [ngSwitch]="choice.type">
                   <tr *ngSwitchCase="'checkbox'">
                     <label>
-                      <!-- <input *ngIf="choice.value" type="checkbox" disabled="disabled" checked style="accent-color:black">  -->
                       <mat-icon *ngIf="formData.get(choice.name)">check</mat-icon>
                       <input *ngIf="!formData.get(choice.name)" type="checkbox" disabled="disabled"> 
                       {{choice.description}}
@@ -121,7 +119,6 @@
                     class="input m-l-10" 
                     name="input" 
                     type="text" >
-                    <!-- <u *ngIf="formData.get(choice.input) != ''">{{formData.get(choice.input)}}</u> -->
                   </div>
                   </tr>
                   <tr *ngSwitchCase="'italic-label-input'">
@@ -154,7 +151,6 @@
                     <i>{{choice.description}}</i>
                   </tr>
                 </div>
-                
                 <br>
               </td>
             </tr>
@@ -323,7 +319,6 @@
                   <td [align]="'center'">(Authorized Officer)</td>
                 </tr>
               </td>
-
               <td class="p-10 border" colspan="3">
                 <tr>
                   <td  [align]="'left'"> 7. B. RECOMENDATION</td>
@@ -386,7 +381,6 @@
                   </tr>
                 </div>
               </td>
-              
             </tr>
             <tr >
               <td [align]="'left'" class=" p-10" colspan="2">
@@ -406,7 +400,8 @@
               </td>
               <td [align]="'left'" class=" p-10" colspan="3">
                 <tr>DISAPPROVED DUE TO:</tr>
-                <tr>
+                <textarea style="width:300px; height: 80px;" disabled="disabled"></textarea>
+                <!-- <tr>
                   <td><input name="input" class="input" type="text"></td>
                 </tr>
                 <tr>
@@ -414,7 +409,7 @@
                 </tr>
                 <tr>
                   <td><input name="input" class="input" type="text"></td>
-                </tr>
+                </tr> -->
               </td>
             </tr>
             <tr>

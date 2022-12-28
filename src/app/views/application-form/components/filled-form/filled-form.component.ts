@@ -3,17 +3,17 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store';
 import * as formDataActions from '../../../store/leave-application-form/leave-application-form.actions';
 import * as formStatusActions from '../../../store/form-status/form-status.actions';
-import { 
-  choicesA, 
-  choicesB,
-  choicesC,
-  choicesD } from '../../../../shared/form-questions';
 import { selectFormData } from 'src/app/views/store/leave-application-form/leave-application-form.selectors';
 import { UserDetailsService } from 'src/app/services/user-details.service';
 import { Subscription } from 'rxjs';
 import { selectUserDetails } from 'src/app/views/store/user-details/user-details.selectors';
 import { selectFormStatus } from 'src/app/views/store/form-status/form-status.selectors';
 import { FormStatus } from 'src/app/models/form-status.model';
+import { 
+  choicesA, 
+  choicesB,
+  choicesC,
+  choicesD } from '../../../../shared/form-questions';
 
 @Component({
   selector: 'app-filled-form',
@@ -31,6 +31,9 @@ export class FilledFormComponent implements OnInit, OnDestroy {
   signatureForm1!: FormGroup;
   signatureForm2!: FormGroup;
   signatureForm3!: FormGroup;
+  tahaForm!: FormGroup;
+  redondoForm!: FormGroup;
+  indiraForm!: FormGroup;
   choices1 = choicesA;
   choices2 = choicesB;
   choices3 = choicesC;
@@ -46,16 +49,17 @@ export class FilledFormComponent implements OnInit, OnDestroy {
   formStatusSubscription!: Subscription;
   formDataSubscription!: Subscription;
   userRole: string = ""
- 
 
   constructor(
     private formBuilder: FormBuilder,
     private store: Store,
     private userDetailService: UserDetailsService,
+    private _formBuilder: FormBuilder,
     ) {
     this.signatureForm1 = this.formBuilder.group({
      signature: new FormControl([''])
     });
+    this.adminForms();
   }
   ngOnDestroy(): void {
     this.formSubscription.unsubscribe()
@@ -64,10 +68,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const detail:any = this.userDetailService.userDetails;
-    // console.log("=== see", this.formData)
-    // console.log("daaaaaaata", detail[0].userRole)
     this.formSubscription = this.store.select(selectUserDetails).subscribe((response: any)=>{
-      // console.log("resssssssss", response)
       if(response.userDetails!= undefined){
         this.userRole = response.userDetails[0].userRole;
         switch(response.userDetails[0].userRole){
@@ -95,7 +96,6 @@ export class FilledFormComponent implements OnInit, OnDestroy {
     this.formStatusSubscription = this.store.select(selectFormStatus).subscribe((response)=>{
       if(response.formStatus != undefined){
         const currentFormStatus =  response.formStatus.filter((form:any)=>{
-          // console.log( form.uid, "==" ,localStorage.getItem("uid"))
           if(this.hasSignatureAccessApplicant){
             return  form.uid == localStorage.getItem("uid")
           }else{
@@ -103,16 +103,32 @@ export class FilledFormComponent implements OnInit, OnDestroy {
             console.log("compare diff", form.formId, "==", this.formData.get("id"))
             return  form.formId == this.formData.get("id")
           }
-          
         })
         console.log("look for", currentFormStatus)
         this.formStatus = currentFormStatus[0];
       }
     })
+  }
 
-    // this.formDataSubscription = this.store.select(selectFormData).subscribe((response)=>{
-    //   // console.log("look for form target", response)
-    // })
+  adminForms(){
+    this.tahaForm = this._formBuilder.group({
+      asOf: ['',],
+      vacationLeaveEarned: [''],
+      vacationLeaveBalance: [''],
+      sickLeaveEarned: [''],
+      sickLeaveBalance: [''],
+    });
+    this.redondoForm = this._formBuilder.group({
+      forApproval: [''],
+      forDisapproval: [''],
+      forDisappovalInput: ['']
+    })
+    this.indiraForm = this._formBuilder.group({
+      daysWithPay: [''],
+      daysWithoutPay: [''],
+      others: [''],
+      disapprovedDueTo: ['']
+    })
   }
 
   signaturePadOptions: Object = {
@@ -138,9 +154,11 @@ export class FilledFormComponent implements OnInit, OnDestroy {
         formId: "",
         id: this.formStatus.id!
       } 
-      this.store.dispatch(formDataActions.requestAddFormDataACTION({payload: this.mapToObject(), formStatus: applicantStatusData}))
-      // this.store.select(selectFormData).subscribe()
-      // this.store.dispatch(formStatusActions.requestUpdateFormStatusACTION({id: this.formStatus.id!, payload: applicantStatusData}))
+      this.store.dispatch(
+        formDataActions.requestAddFormDataACTION(
+          {payload: this.mapToObject(), formStatus: applicantStatusData}
+        )
+      )
       break;
       case 'signature2':
       this.tahaSignature = base64ImageData;
@@ -149,11 +167,18 @@ export class FilledFormComponent implements OnInit, OnDestroy {
         name: this.formStatus.name,
         email: this.formStatus.email,
         status: "redondo-approval",
-        // uid: localStorage.getItem("uid")!,
         formId: this.formStatus.formId
       } 
-      this.store.dispatch(formStatusActions.requestUpdateFormStatusACTION({id: this.formStatus.id!, payload: tahaStatusData}))
-      this.store.dispatch(formDataActions.requestUpdateFormDataACTION({id: this.formData.get("id"), payload: this.mapToObject()}))
+      this.store.dispatch(
+        formStatusActions.requestUpdateFormStatusACTION(
+          {id: this.formStatus.id!, payload: tahaStatusData}
+        )
+      )
+      this.store.dispatch(
+        formDataActions.requestUpdateFormDataACTION(
+          {id: this.formData.get("id"), payload: this.mapToObject()}
+        )
+      )
       break;
       case 'signature3':
       this.redondoSignature= base64ImageData;
@@ -162,12 +187,18 @@ export class FilledFormComponent implements OnInit, OnDestroy {
         name: this.formStatus.name,
         email: this.formStatus.email,
         status: "indira-approval",
-        // uid: localStorage.getItem("uid")!,
         formId: this.formStatus.formId
       } 
-      console.log("=====", this.formStatus)
-      this.store.dispatch(formStatusActions.requestUpdateFormStatusACTION({id: this.formStatus.id!, payload: redondoStatusData}))
-      this.store.dispatch(formDataActions.requestUpdateFormDataACTION({id: this.formData.get("id"), payload: this.mapToObject()}))
+      this.store.dispatch(
+        formStatusActions.requestUpdateFormStatusACTION(
+          {id: this.formStatus.id!, payload: redondoStatusData}
+        )
+      )
+      this.store.dispatch(
+        formDataActions.requestUpdateFormDataACTION(
+          {id: this.formData.get("id"), payload: this.mapToObject()}
+        )
+      )
       break;
       case 'signature4':
       this.indiraSignature = base64ImageData;
@@ -176,11 +207,18 @@ export class FilledFormComponent implements OnInit, OnDestroy {
         name: this.formStatus.name,
         email: this.formStatus.email,
         status: "done",
-        // uid: localStorage.getItem("uid")!,
         formId: this.formStatus.formId
       } 
-      this.store.dispatch(formStatusActions.requestUpdateFormStatusACTION({id: this.formStatus.id!, payload: indiraStatusData}))
-      this.store.dispatch(formDataActions.requestUpdateFormDataACTION({id: this.formData.get("id"), payload: this.mapToObject()}))
+      this.store.dispatch(
+        formStatusActions.requestUpdateFormStatusACTION(
+          {id: this.formStatus.id!, payload: indiraStatusData}
+        )
+      )
+      this.store.dispatch(
+        formDataActions.requestUpdateFormDataACTION(
+          {id: this.formData.get("id"), payload: this.mapToObject()}
+        )
+      )
       break;
     }
     this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: this.formData}))
@@ -232,7 +270,6 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       indiraSignature: this.formData.get("indiraSignature"),
       uid: localStorage.getItem("uid")
     }
-
     return filledFormData;
   }
   

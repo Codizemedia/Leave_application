@@ -1,27 +1,3 @@
-<!-- <mat-toolbar 
-*ngIf="!isShowForm" 
-color="primary" 
-class="topbar telative"
-style="position: sticky; top:0; z-index: 1000;">
-  <div class="navbar-header"
-  style="background-color: white; 
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 15px;
-  padding-right:5px; 
-  border-radius: 5px;
-  margin: 10px;" >
-    <a class="navbar-brand" href="/dashboard">
-      <span fxShow="false" fxShow.gt-xs>
-        <img src="assets/images/leave-logo.png" class="light-logo" alt="homepage" style="height: 30px; width:190px">
-      </span>
-    </a>
-  </div>
-  <div [align]="'right'" style="width: 100vw; display: flex; justify-content: right; align-items: center;">
-    <p style="font-size: medium;">{{userName}}</p>&nbsp;&nbsp;&nbsp;
-    <app-header></app-header>
-  </div>
-</mat-toolbar> -->
 
 <div 
 class="dashboard-layout"
@@ -42,7 +18,6 @@ style="
   [align]="'center'">
     <mat-card  class="m-t-10">
       <mat-card-content>
-        <!-- <app-filled-form  [formData]="formData"></app-filled-form> -->
         <div >
           <div [align]="'center'">
             <h3> Leave Application Requests</h3><br>
@@ -154,9 +129,7 @@ style="
             <mat-step >
               <ng-template matStepLabel>Request Approval to sir Taha</ng-template><br>
               <div [align]="'left'">
-                <!-- <button mat-raised-button color="primary" >Send Request</button> -->
                 <div [align]="'center'">
-                  <!-- <h3> Leave Application Requests</h3><br> -->
                   <div *ngIf="tahaRole && tahaForms.length == 0">
                     <mat-label>No Leave Application Form</mat-label>
                   </div>
@@ -207,7 +180,6 @@ style="
               <ng-template matStepLabel>Request Approval to Ma'am Redondo</ng-template><br>
               <div [align]="'left'">
                 <div [align]="'center'">
-                  <!-- <h3> Leave Application Requests</h3><br> -->
                   <div *ngIf="redondoRole && redondoForms.length == 0">
                     <mat-label>No Leave Application Form</mat-label>
                   </div>
@@ -258,7 +230,6 @@ style="
               <ng-template matStepLabel>Request Approval to Ma'am Indira</ng-template><br>
               <div [align]="'left'">
                 <div [align]="'center'">
-                  <!-- <h3> Leave Application Requests</h3><br> -->
                   <div *ngIf="indiraRole && indiraForms.length == 0">
                     <mat-label>No Leave Application Form</mat-label>
                   </div>
@@ -373,8 +344,6 @@ style="
             </div><br>
             <table class="border table-layout" style="width:500px;">
               <tbody>
-                <!-- <form [formGroup]="leaveApplicationForm"> -->
-                  <!-- {{formData.get("")}} -->
                     <tr class="border">
                       <td class="p-10" [align]="'center'">
                         <u>1. OFFICE/DEPARTMENT MSU-LNAC</u>
@@ -451,7 +420,6 @@ style="
                           <label>
                             <mat-icon *ngIf="formData.get(choice.name)">check</mat-icon>
                             <input *ngIf="!formData.get(choice.name)" type="checkbox" disabled="disabled"> 
-                            <!-- <input type="checkbox" disabled="disabled">  -->
                             {{choice.description}}
                           </label>
                         </tr>
@@ -547,7 +515,6 @@ style="
                             <label>
                               <mat-icon *ngIf="formData.get(choice.name)">check</mat-icon>
                               <input *ngIf="!formData.get(choice.name)" type="checkbox" disabled="disabled"> 
-                              <!-- <input type="checkbox" disabled="disabled">  -->
                               {{choice.description}}
                             </label>
                           </tr>
@@ -687,15 +654,18 @@ style="
                       </td>
                       <td [align]="'left'" class=" p-10" colspan="3">
                         <tr>DISAPPROVED DUE TO:</tr>
-                        <tr>
-                          <td><input name="input" class="input" type="text"></td>
-                        </tr>
-                        <tr>
-                          <td><input name="input" class="input" type="text"></td>
-                        </tr>
-                        <tr>
-                          <td><input name="input" class="input" type="text"></td>
-                        </tr>
+                        <!-- <textarea 
+                        *ngIf="hasSignatureAccessIndira" 
+                        style="width:300px; height: 80px;">
+                        </textarea> -->
+                         <mat-form-field class="example-full-width">
+    <mat-label>Leave a comment</mat-label>
+    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+  </mat-form-field>
+                        <!-- <textarea 
+                        placeholder="somethifn"
+                        style="width:300px; height: 80px;" 
+                        ></textarea> -->
                       </td>
                     </tr>
                     <tr>
@@ -716,7 +686,6 @@ style="
                         </tr>
                       </td>
                     </tr>
-                  <!-- </form> -->
               </tbody>
             </table>
            </div>
@@ -725,11 +694,6 @@ style="
       </mat-card-content>
     </mat-card>
   </div>
-  <!-- <div>
-    <router-outlet>
-      <app-spinner></app-spinner>
-    </router-outlet>
-  </div> -->
 </div>
 
 

@@ -70,7 +70,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private store: Store,
     private _formBuilder: FormBuilder,
     private userDetailsService: UserDetailsService,
-    private spinnerComponent: SpinnerComponent,
     private sharedService: SharedService,
     breakpointObserver: BreakpointObserver
   ) { 
@@ -240,20 +239,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
         uid: this.userDetailsService.userDetails.uid,
         formId: ""
       }
-      console.log("excec")
       if(this.requestStatus == "requesting"){
         this.store.dispatch(fromStatusActions.requestAddFormStatusACTION({payload: formStatusData}))
         alert("Leave Application Request Sent!")
       }else{
         alert("Leave Application Request is Already in Process!")
       }
-
-      // this.formStatusSubscription = this.store.select(selectFormStatus).subscribe((response)=>{
-      //   if(response.formStatus != undefined){
-      //     console.log("see requests", response.formStatus)
-      //     // this.formRequests = response.formStatus.status;
-      //   }
-      // })
     }else{
       console.log("elsellslele")
       alert("Invalid name or email")
@@ -287,10 +278,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   processApproval(formStatus: any){
-    // console.log("see element", formStatus)
-
     this.store.select(selectFormData).subscribe((response)=>{
-
       const userForm = response.formData.filter((form:any)=>{
         return form.id == formStatus.formId
       })
@@ -298,10 +286,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.router.navigate(['/application/form'])
     })
   }
-
   requestAnotherForm(){
     this.openStep = "0";
-    
   }
 }
 

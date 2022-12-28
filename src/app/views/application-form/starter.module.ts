@@ -9,10 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilledFormComponent } from './components/filled-form/filled-form.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { DashboardComponent } from './dashboard/dashboard.component';
-// import { BrowserModule } from '@angular/platform-browser';
-// import { SignaturePadModule } from '@ng-plus/signature-pad';
-// import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
-
 
 
 @NgModule({
@@ -21,8 +17,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     DemoMaterialModule,
     FlexLayoutModule,
     SignaturePadModule,
-    // SignaturePadModule,
-    // AngularSignaturePadModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(StarterRoutes)

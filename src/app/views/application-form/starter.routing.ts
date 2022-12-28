@@ -12,29 +12,29 @@ export const StarterRoutes: Routes = [
     path: 'form',
     component: ApplicationFormComponent,
     data: {
-        title: 'Leave Application Form',
-        urls: [
-          { title: 'Dashboard', url: 'form' },
-          { title: 'Leave Application Form' }
-        ]
-      }
+      title: 'Leave Application Form',
+      urls: [
+        { title: 'Dashboard', url: 'form' },
+        { title: 'Leave Application Form' }
+      ]
+    }
   },
   {
-        path: 'dashboard',
-        canActivate: [AuthGuard],
-        resolve: [
-            FormDataResolverService, 
-            UserDetailsResolverService,
-            FormStatusResolverService
-        ],
-        component: DashboardComponent,
-        data: {
-        title: 'Dashboard',
-        urls: [
-          { title: 'Dashboard', url: 'dashboard' },
-          // { title: 'Dashboard' }
-        ]
-      }
+    path: 'dashboard',
+    canActivate: [AuthGuard],
+    resolve: [
+        FormDataResolverService, 
+        UserDetailsResolverService,
+        FormStatusResolverService
+    ],
+    component: DashboardComponent,
+    data: {
+    title: 'Dashboard',
+    urls: [
+      { title: 'Dashboard', url: 'dashboard' },
+      // { title: 'Dashboard' }
+      ]
+    }
        
     },
 ];

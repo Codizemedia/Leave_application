@@ -113,11 +113,6 @@
                                 <br *ngSwitchCase="'space'">
                                 <mat-label *ngSwitchCase="'label'">{{choice.description}}</mat-label>
                                 <mat-label *ngSwitchCase="'underline-label'"><u>TLB (Termianl Leave Benefits)</u></mat-label>
-                                <!-- <input  
-                                *ngSwitchCase="'input'" 
-                                class="input full-width" 
-                                type="text"
-                                formControlName="{{choice.input}}"> -->
                             </div>
                             <div  
                             *ngFor="let choice of choices3; 
@@ -133,7 +128,6 @@
                           </div>
                           <div fxFlex="100" class="p-10">
                             <mat-label>6. B. DETAILS OF LEAVE </mat-label><br><br>
-                            <!-- <form action=""> -->
                               <div 
                               *ngFor="let choice of choices2; 
                               let i=index"
@@ -210,7 +204,6 @@
                                   {{choice.description}}
                                 </label>
                               </div>
-                            <!-- </form> -->
                           </div>
                       </div>
                     </div>
