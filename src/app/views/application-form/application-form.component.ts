@@ -25,7 +25,9 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
   isLinear = false;
   firstStepForm: FormGroup = Object.create(null);
   secondStepForm: FormGroup = Object.create(null);
-  thirdFormGroup: FormGroup = Object.create(null);
+  tahaForm: FormGroup = Object.create(null);
+  redondoForm: FormGroup = Object.create(null);
+  indiraForm: FormGroup = Object.create(null);
   choices1 = choicesA
   choices2 = choicesB
   choices3 = choicesC
@@ -93,6 +95,25 @@ export class ApplicationFormComponent implements OnInit, OnDestroy {
       notRequested: [false,],
       requested: [false,],
     });
+
+     this.tahaForm = this._formBuilder.group({
+      asOf: ['',],
+      vacationLeaveEarned: [''],
+      vacationLeaveBalance: [''],
+      sickLeaveEarned: [''],
+      sickLeaveBalance: [''],
+    });
+    this.redondoForm = this._formBuilder.group({
+      forApproval: [''],
+      forDisapproval: [''],
+      forDisappovalInput: ['']
+    })
+    this.indiraForm = this._formBuilder.group({
+      daysWithPay: [''],
+      daysWithoutPay: [''],
+      others: [''],
+      disapprovedDueTo: ['']
+    })
 
     this.formSubscription = this.store.select(selectUserDetails).subscribe((response: any)=>{
       if(response.userDetails!= undefined){

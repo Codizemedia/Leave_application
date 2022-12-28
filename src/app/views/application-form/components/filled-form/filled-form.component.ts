@@ -52,6 +52,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
   formStatusSubscription!: Subscription;
   formDataSubscription!: Subscription;
   userRole: string = ""
+  formDataMap: Map<string, string> = new Map<string, string>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -102,12 +103,9 @@ export class FilledFormComponent implements OnInit, OnDestroy {
           if(this.hasSignatureAccessApplicant){
             return  form.uid == localStorage.getItem("uid")
           }else{
-            console.log("see form", form)
-            console.log("compare diff", form.formId, "==", this.formData.get("id"))
             return  form.formId == this.formData.get("id")
           }
         })
-        console.log("look for", currentFormStatus)
         this.formStatus = currentFormStatus[0];
       }
     })
@@ -143,12 +141,11 @@ export class FilledFormComponent implements OnInit, OnDestroy {
   showImage(action: string, signature: any) {
     
     const base64ImageData = signature.toDataURL();
-    let formDataMap = this.formData
 
     switch(action){
       case 'signature1':
       this.signatureApplicant = base64ImageData;
-      formDataMap.set("applicantSignature", this.signatureApplicant)
+      this.formData.set("applicantSignature", this.signatureApplicant)
       const applicantStatusData: FormStatus = {
         name: this.formStatus.name,
         email: this.formStatus.email,
@@ -157,6 +154,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
         formId: "",
         id: this.formStatus.id!
       } 
+      console.log("excesss", this.mapToObject())
       this.store.dispatch(
         formDataActions.requestAddFormDataACTION(
           {payload: this.mapToObject(), formStatus: applicantStatusData}
@@ -165,7 +163,14 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       break;
       case 'signature2':
       this.tahaSignature = base64ImageData;
-      formDataMap.set("tahaSignature", this.tahaSignature)
+      const tahaValue = this.tahaForm.value;
+      console.log('tahaValue', tahaValue)
+      this.formData.set("tahaSignature", this.tahaSignature)
+      this.formDataMap.set("asOf", tahaValue.asOf)
+      this.formDataMap.set("vacationLeaveEarned", tahaValue.vacationLeaveEarned)
+      this.formDataMap.set("vacationLeaveBalance", tahaValue.vacationLeaveBalance)
+      this.formDataMap.set("sickLeaveEarned", tahaValue.sickLeaveEarned)
+      this.formDataMap.set("sickLeaveBalance", tahaValue.sickLeaveBalance)
       this.submitTaha = true;
       const tahaStatusData: FormStatus = {
         name: this.formStatus.name,
@@ -186,7 +191,11 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       break;
       case 'signature3':
       this.redondoSignature= base64ImageData;
-      formDataMap.set("redondoSignature", this.redondoSignature)
+      const redondoValue = this.redondoForm.value;
+      this.formData.set("redondoSignature", this.redondoSignature)
+      this.formDataMap.set("forApproval", redondoValue.forApproval)
+      this.formDataMap.set("forDisapproval", redondoValue.forDisapproval)
+      this.formDataMap.set("forDisappovalInput", redondoValue.forDisappovalInput)
       this.submitRedondo = true;
       const redondoStatusData: FormStatus = {
         name: this.formStatus.name,
@@ -207,7 +216,12 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       break;
       case 'signature4':
       this.indiraSignature = base64ImageData;
-      formDataMap.set("indiraSignature", this.indiraSignature)
+      const indiraValue = this.indiraForm.value;
+      this.formData.set("indiraSignature", this.indiraSignature)
+      this.formDataMap.set("daysWithPay", indiraValue.daysWithPay)
+      this.formDataMap.set("daysWithoutPay", indiraValue.daysWithoutPay)
+      this.formDataMap.set("others", indiraValue.others)
+      this.formDataMap.set("disapprovedDueTo", indiraValue.disapprovedDueTo)
       this.submitIndira = true;
       const indiraStatusData: FormStatus = {
         name: this.formStatus.name,
@@ -232,6 +246,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
 
   
   mapToObject():any{
+    console.log("%%%%5", this.formDataMap)
     const filledFormData = {
       officeOrDepartment: this.formData.get("officeOrDepartment"),
       lastName: this.formData.get("lastName"), 
@@ -271,18 +286,18 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       notRequested: this.formData.get("notRequested"),
       requested: this.formData.get("requested"),
 
-      forApproval: this.formData.get("forApproval"),
-      forDisapproval: this.formData.get("forDisapproval"),
-      forDisappovalInput: this.formData.get("forDisappovalInput"),
-      asOf: this.formData.get("asOf"),
-      vacationLeaveEarned: this.formData.get("vacationLeaveEarned"),
-      vacationLeaveBalance: this.formData.get("vacationLeaveBalance"),
-      sickLeaveEarned: this.formData.get("sickLeaveEarned"),
-      sickLeaveBalance: this.formData.get("sickLeaveBalance"),
-      daysWithPay: this.formData.get("daysWithPay"),
-      daysWithoutPay: this.formData.get("daysWithoutPay"),
-      others: this.formData.get("others"),
-      disapprovedDueTo: this.formData.get("disapprovedDueTo"),
+      forApproval: this.formDataMap.get("forApproval"),
+      forDisapproval: this.formDataMap.get("forDisapproval"),
+      forDisappovalInput: this.formDataMap.get("forDisappovalInput"),
+      asOf: this.formDataMap.get("asOf"),
+      vacationLeaveEarned: this.formDataMap.get("vacationLeaveEarned"),
+      vacationLeaveBalance: this.formDataMap.get("vacationLeaveBalance"),
+      sickLeaveEarned: this.formDataMap.get("sickLeaveEarned"),
+      sickLeaveBalance: this.formDataMap.get("sickLeaveBalance"),
+      daysWithPay: this.formDataMap.get("daysWithPay"),
+      daysWithoutPay: this.formDataMap.get("daysWithoutPay"),
+      others: this.formDataMap.get("others"),
+      disapprovedDueTo: this.formDataMap.get("disapprovedDueTo"),
 
       applicantSignature: this.formData.get("applicantSignature"),
       tahaSignature: this.formData.get("tahaSignature"),
