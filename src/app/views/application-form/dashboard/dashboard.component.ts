@@ -97,7 +97,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.formSubscription = this.store.select(selectFormData).subscribe((response)=>{
       const selectedData = response.selectedForm;
       const data:any[] = response.formData
-      if(data != undefined ){
+      if(data != undefined && data.length != 0){
         this.formData = new Map(Object.entries(data[0]));
         this.applicantSignature = this.formData.get("applicantSignature") != "" ? this.formData.get("applicantSignature")!: this.noSinatureAccess;
         this.tahaSignature = this.formData.get("tahaSignature") != "" ? this.formData.get("tahaSignature")!: this.noSinatureAccess;

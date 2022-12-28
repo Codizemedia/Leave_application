@@ -254,13 +254,23 @@
                   <td [align]="'left'"> 7. A. CERTIFICATION OF LEAVE CREDITS </td>
                 </tr>
                 <tr>
-                  <td [align]="'center'">
-                    As of 
-                    <input 
-                    class="input" 
-                    style="width: 300px;" 
-                    type="text" 
-                    disabled="disabled"> 
+                    <td [align]="'center'">
+                      <form [formGroup]="tahaForm">
+                        As of 
+                        <input 
+                        *ngIf="!submitTaha && hasSignatureAccessTaha"
+                        formControlName="asOf"
+                        class="input" 
+                        style="width: 300px;" 
+                        type="text" > 
+                        <input 
+                        *ngIf="submitTaha || !hasSignatureAccessTaha"
+                        formControlName="asOf"
+                        class="input" 
+                        style="width: 300px;" 
+                        type="text" 
+                        disabled="disabled">
+                    </form> 
                   </td>
                 </tr>
                 <tr>
@@ -273,13 +283,77 @@
                       </tr>
                       <tr>
                         <td class="border">Total Earned Leave Application</td>
-                        <td class="border"></td>
-                        <td class="border"></td>
+                        <td class="border" [align]="'center'">
+                           <form [formGroup]="tahaForm">
+                              <input 
+                              *ngIf="!submitTaha && hasSignatureAccessTaha"
+                              formControlName="vacationLeaveEarned"
+                              class="input" 
+                              style="width: 50px; height: 15px; margin: 0px;" 
+                              type="text" > 
+                              <input 
+                              *ngIf="submitTaha || !hasSignatureAccessTaha"
+                              formControlName="vacationLeaveEarned"
+                              class="input" 
+                              style="width: 50px; height: 15px; margin: 0px;" 
+                              type="text" 
+                              disabled="disabled">
+                          </form> 
+                        </td>
+                        <td class="border" [align]="'center'">
+                          <form [formGroup]="tahaForm">
+                            <input 
+                            *ngIf="!submitTaha && hasSignatureAccessTaha"
+                            formControlName="sickLeaveEarned"
+                            class="input" 
+                            style="width: 50px; height: 15px; margin: 0px;" 
+                            type="text" > 
+                            <input 
+                            *ngIf="submitTaha || !hasSignatureAccessTaha"
+                            formControlName="sickLeaveEarned"
+                            class="input" 
+                            style="width: 50px; height: 15px; margin: 0px;" 
+                            type="text" 
+                            disabled="disabled">
+                          </form> 
+                        </td>
                       </tr>
                       <tr>
                         <td class="border">Balance</td>
-                        <td class="border"></td>
-                        <td class="border"></td>
+                        <td class="border" [align]="'center'">
+                          <form [formGroup]="tahaForm">
+                            <input 
+                            *ngIf="!submitTaha && hasSignatureAccessTaha"
+                            formControlName="vacationLeaveBalance"
+                            class="input" 
+                            style="width: 50px; height: 15px; margin: 0px;" 
+                            type="text" > 
+                            <input 
+                            *ngIf="submitTaha || !hasSignatureAccessTaha"
+                            formControlName="vacationLeaveBalance"
+                            class="input" 
+                            style="width: 50px; height: 15px; margin: 0px;" 
+                            type="text" 
+                            disabled="disabled">
+                          </form> 
+                        </td>
+                        <td class="border" [align]="'center'">
+                          <form [formGroup]="tahaForm">
+                            <input 
+                            *ngIf="!submitTaha && hasSignatureAccessTaha"
+                            formControlName="sickLeaveBalance"
+                            class="input" 
+                            style="width: 50px; height: 15px; margin: 0px;" 
+                            type="text" > 
+                            <input 
+                            *ngIf="submitTaha || !hasSignatureAccessTaha"
+                            formControlName="sickLeaveBalance"
+                            class="input" 
+                            style="width: 50px; height: 15px; margin: 0px;" 
+                            type="text" 
+                            disabled="disabled">
+                          </form> 
+                        </td>
                       </tr>
                     </table>
                   </td>
@@ -325,23 +399,55 @@
                 </tr><br>
                 <tr>
                   <td [align]="'left'">
-                    <label>
-                      <input type="checkbox" disabled="disabled"> 
-                      For Approval
-                    </label>
+                   <form [formGroup]="redondoForm">
+                      <label>
+                        <mat-icon *ngIf="redondoForm.value.forApproval && submitRedondo">check</mat-icon>
+                        <input 
+                        *ngIf="!submitRedondo && hasSignatureAccessRedondo" 
+                        type="checkbox"
+                        formControlName="forApproval">
+                        <input 
+                        *ngIf="submitRedondo  && redondoForm.value.forDisapproval == false" 
+                        type="checkbox" 
+                        disabled="disabled"> 
+                        For Approval
+                      </label>
+                   </form>
                   </td>
                 </tr>
                 <tr>
                   <td [align]="'left'">
-                    <label>
-                      <input type="checkbox" disabled="disabled"> 
-                      For disapproval due to
-                    </label>
+                    <form [formGroup]="redondoForm">
+                       <label>
+                        <mat-icon *ngIf="redondoForm.value.forDisapproval && submitRedondo">check</mat-icon>
+                        <input 
+                        *ngIf="!submitRedondo && hasSignatureAccessRedondo" 
+                        type="checkbox"
+                        formControlName="forDisapproval">
+                        <input *ngIf="submitRedondo && redondoForm.value.forDisapproval == false" 
+                        type="checkbox" 
+                        disabled="disabled">  
+                        For disapproval due to
+                      </label>
+                    </form>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <textarea style="width:300px; height: 80px;" disabled="disabled"></textarea>
+                    <!-- <textarea style="width:300px; height: 80px;" disabled="disabled"></textarea> -->
+                     <form [formGroup]="redondoForm">
+                        <textarea 
+                        *ngIf="!submitRedondo && hasSignatureAccessRedondo" 
+                        style="width:300px; height: 80px;"
+                        formControlName="forDisappovalInput" >
+                        </textarea>
+                        <textarea 
+                        *ngIf="submitRedondo || !hasSignatureAccessRedondo" 
+                        style="width:300px; height: 80px;"
+                        formControlName="forDisappovalInput"  
+                        disabled="disabled">
+                        </textarea>
+                    </form>
                   </td><br>
                 </tr>
                 <div [align]="'center'">
@@ -383,34 +489,80 @@
               </td>
             </tr>
             <tr >
-              <td [align]="'left'" class=" p-10" colspan="2">
+                <td [align]="'left'" class=" p-10" colspan="2">
                 <tr>APPROVED FOR:</tr>
                 <tr>
-                  <td><input name="input" class="input" type="text"></td>
+                  <td>
+                     <form [formGroup]="indiraForm">
+                      <input
+                      *ngIf="!submitIndira && hasSignatureAccessIndira"
+                      class="input"
+                      formControlName="daysWithPay" 
+                      type="text">
+                      <input 
+                      *ngIf="submitIndira  || !hasSignatureAccessIndira"
+                      name="input" 
+                      class="input"
+                      formControlName="daysWithPay" 
+                      type="text">
+                     </form>
+                  </td>
                   <td>days with pay</td>
                 </tr>
                 <tr>
-                  <td><input name="input" class="input" type="text"></td>
+                  <td>
+                    <form [formGroup]="indiraForm">
+                       <input
+                       *ngIf="!submitIndira && hasSignatureAccessIndira"
+                        class="input" 
+                        type="text"
+                        formControlName="daysWithoutPay" >
+                      <input 
+                       *ngIf="submitIndira || !hasSignatureAccessIndira"
+                        name="input" 
+                        class="input" 
+                        type="text"
+                        formControlName="daysWithoutPay" >
+                    </form>
+                  </td>
                   <td>days without pay</td>
                 </tr>
                 <tr>
-                  <td><input name="input" class="input" type="text"></td>
+                  <td>
+                    <form [formGroup]="indiraForm">
+                      <input 
+                        *ngIf="!submitIndira && hasSignatureAccessIndira"
+                        class="input" 
+                        type="text"
+                        formControlName="others">
+                      <input 
+                      *ngIf="submitIndira || !hasSignatureAccessIndira"
+                      name="input" 
+                      class="input" 
+                      type="text"
+                      formControlName="others">
+                    </form>
+                  </td>
                   <td>others (specify)</td>
                 </tr>
               </td>
               <td [align]="'left'" class=" p-10" colspan="3">
                 <tr>DISAPPROVED DUE TO:</tr>
-                <textarea style="width:300px; height: 80px;" disabled="disabled"></textarea>
-                <!-- <tr>
-                  <td><input name="input" class="input" type="text"></td>
-                </tr>
-                <tr>
-                  <td><input name="input" class="input" type="text"></td>
-                </tr>
-                <tr>
-                  <td><input name="input" class="input" type="text"></td>
-                </tr> -->
+                <form [formGroup]="indiraForm">
+                  <textarea 
+                  *ngIf="!submitIndira && hasSignatureAccessIndira" 
+                  style="width:300px; height: 80px;"
+                  formControlName="disapprovedDueTo" >
+                  </textarea>
+                  <textarea 
+                  *ngIf="submitIndira || !hasSignatureAccessIndira" 
+                  style="width:300px; height: 80px;"
+                  formControlName="disapprovedDueTo"  
+                  disabled="disabled">
+                  </textarea>
+               </form>
               </td>
+             
             </tr>
             <tr>
               <td colspan="5" [align]="'center'">

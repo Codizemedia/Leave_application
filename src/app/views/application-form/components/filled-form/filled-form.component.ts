@@ -28,6 +28,9 @@ export class FilledFormComponent implements OnInit, OnDestroy {
   hasSignatureAccessTaha:boolean = false;
   hasSignatureAccessRedondo:boolean = false;
   hasSignatureAccessIndira:boolean = false;
+  submitTaha:boolean = false;
+  submitRedondo: boolean = false;
+  submitIndira:boolean = false; 
   signatureForm1!: FormGroup;
   signatureForm2!: FormGroup;
   signatureForm3!: FormGroup;
@@ -163,6 +166,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       case 'signature2':
       this.tahaSignature = base64ImageData;
       formDataMap.set("tahaSignature", this.tahaSignature)
+      this.submitTaha = true;
       const tahaStatusData: FormStatus = {
         name: this.formStatus.name,
         email: this.formStatus.email,
@@ -183,6 +187,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       case 'signature3':
       this.redondoSignature= base64ImageData;
       formDataMap.set("redondoSignature", this.redondoSignature)
+      this.submitRedondo = true;
       const redondoStatusData: FormStatus = {
         name: this.formStatus.name,
         email: this.formStatus.email,
@@ -203,6 +208,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       case 'signature4':
       this.indiraSignature = base64ImageData;
       formDataMap.set("indiraSignature", this.indiraSignature)
+      this.submitIndira = true;
       const indiraStatusData: FormStatus = {
         name: this.formStatus.name,
         email: this.formStatus.email,
