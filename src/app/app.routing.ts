@@ -7,6 +7,7 @@ import { AppBlankComponent } from './layouts/blank/blank.component';
 import { FormDataResolverService } from './resolvers/form-data-resolver.service';
 import { UserDetailsResolverService } from './resolvers/user-details-resolver.service';
 import { FormStatusResolverService } from './resolvers/form-status-resolver.service';
+import { ApplicationFormComponent } from './views/application-form/application-form.component';
 
 export const AppRoutes: Routes = [
 
@@ -15,21 +16,23 @@ export const AppRoutes: Routes = [
         component: FullComponent,
         canActivate: [AuthGuard],
         children: [
-            {
-                path: '',
-                redirectTo: 'application',
-                pathMatch: 'prefix',
-            },
+           
             {
                 path: 'application',
                 resolve: [UserDetailsResolverService, FormStatusResolverService],
                 loadChildren: () => import('./views/application-form/starter.module').then(m => m.StarterModule)
             },
+            
         ]
     },
     {
         path: 'authentication',
         loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
+    },
+    {
+        path: '',
+        redirectTo: '/authentication',
+        pathMatch: 'full',
     },
     {
         path: '**',
