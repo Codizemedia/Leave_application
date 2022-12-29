@@ -9,6 +9,7 @@ import { selectFormData } from '../../store/leave-application-form/leave-applica
 import { from, Subscription } from 'rxjs';
 import { selectUserDetails } from '../../store/user-details/user-details.selectors';
 import * as fromStatusActions from '../../store/form-status/form-status.actions';
+import * as formDataActions from '../../store/leave-application-form/leave-application-form.actions';
 import { 
   choicesA, 
   choicesB,
@@ -64,6 +65,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   indiraForms: any[] = [];
   displayedColumns = [ 'name', 'email', 'status'];
   dataSource = new MatTableDataSource<any>(this.formRequests);
+  currentFormStatus!: FormStatus;
  
   constructor(
     private router: Router, 
@@ -198,7 +200,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 break;
               case "done":
                 this.openStep = "5"
-                
+                this.currentFormStatus = currentUserForm[0];
                 break;
             }
           }
@@ -229,8 +231,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   sendReuqest(){
-    console.log("sssss")
     if(this.requestForm.value.name != "" && this.requestForm.value.email != ""){
+
+
+      this.store.dispatch(formDataActions.requestDeleteFormDataACTION({payload: this.formData.get("id")!}))
+      this.store.dispatch(fromStatusActions.requestDeleteFormStatusACTION({payload: this.currentFormStatus.id!}))
+
       const statusData = this.requestForm.value;
       const formStatusData: FormStatus = {
         name: statusData.name,

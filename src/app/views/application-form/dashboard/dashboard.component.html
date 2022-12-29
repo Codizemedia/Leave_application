@@ -645,9 +645,7 @@ style="
                         </tr>
                         <tr>
                           <td>
-                            <textarea style="width:300px; height: 80px;" disabled="disabled">
-                               {{formData.get('forDisappovalInput')}}
-                            </textarea>
+                            <textarea style="width:300px; height: 80px;" disabled="disabled">{{formData.get('forDisappovalInput').trim()}}</textarea>
                           </td><br>
                         </tr>
                         <div [align]="'center'">
@@ -689,9 +687,7 @@ style="
                         <tr>DISAPPROVED DUE TO:</tr>
                         <textarea 
                         disabled="disabled"
-                        style="width:300px; height: 80px;">
-                          {{formData.get('disapprovedDueTo')}}
-                        </textarea>
+                        style="width:300px; height: 80px;">{{formData.get('disapprovedDueTo')}}</textarea>
                       </td>
                     </tr>
                     <tr>

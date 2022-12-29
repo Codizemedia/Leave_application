@@ -401,13 +401,13 @@
                   <td [align]="'left'">
                    <form [formGroup]="redondoForm">
                       <label>
-                        <mat-icon *ngIf="redondoForm.value.forApproval && submitRedondo">check</mat-icon>
+                        <mat-icon *ngIf="(redondoForm.value.forApproval && submitRedondo) || redondoForm.value.forApproval == true && !hasSignatureAccessRedondo">check</mat-icon>
                         <input 
                         *ngIf="!submitRedondo && hasSignatureAccessRedondo" 
                         type="checkbox"
                         formControlName="forApproval">
                         <input 
-                        *ngIf="submitRedondo  && redondoForm.value.forDisapproval == false" 
+                        *ngIf="(submitRedondo  && redondoForm.value.forDisapproval == false) || redondoForm.value.forApproval == false && !hasSignatureAccessRedondo" 
                         type="checkbox" 
                         disabled="disabled"> 
                         For Approval
@@ -419,12 +419,12 @@
                   <td [align]="'left'">
                     <form [formGroup]="redondoForm">
                        <label>
-                        <mat-icon *ngIf="redondoForm.value.forDisapproval && submitRedondo">check</mat-icon>
+                        <mat-icon *ngIf="(redondoForm.value.forDisapproval && submitRedondo) || redondoForm.value.forDisapproval == true && !hasSignatureAccessRedondo">check</mat-icon>
                         <input 
                         *ngIf="!submitRedondo && hasSignatureAccessRedondo" 
                         type="checkbox"
                         formControlName="forDisapproval">
-                        <input *ngIf="submitRedondo && redondoForm.value.forDisapproval == false" 
+                        <input *ngIf="(submitRedondo && redondoForm.value.forDisapproval == false) || redondoForm.value.forDiapproval == false && !hasSignatureAccessRedondo" 
                         type="checkbox" 
                         disabled="disabled">  
                         For disapproval due to
