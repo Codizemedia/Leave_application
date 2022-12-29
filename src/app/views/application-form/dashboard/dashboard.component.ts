@@ -233,10 +233,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   sendReuqest(){
     if(this.requestForm.value.name != "" && this.requestForm.value.email != ""){
 
-
-      this.store.dispatch(formDataActions.requestDeleteFormDataACTION({payload: this.formData.get("id")!}))
-      this.store.dispatch(fromStatusActions.requestDeleteFormStatusACTION({payload: this.currentFormStatus.id!}))
-
+      if(this.formData.get("id") != undefined &&  this.currentFormStatus.id != undefined){
+        this.store.dispatch(formDataActions.requestDeleteFormDataACTION({payload: this.formData.get("id")!}))
+        this.store.dispatch(fromStatusActions.requestDeleteFormStatusACTION({payload: this.currentFormStatus.id!}))
+      }
       const statusData = this.requestForm.value;
       const formStatusData: FormStatus = {
         name: statusData.name,
