@@ -63,7 +63,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
     this.signatureForm1 = this.formBuilder.group({
      signature: new FormControl([''])
     });
-    this.adminForms();
+   
   }
   ngOnDestroy(): void {
     this.formSubscription.unsubscribe()
@@ -109,26 +109,28 @@ export class FilledFormComponent implements OnInit, OnDestroy {
         this.formStatus = currentFormStatus[0];
       }
     })
+     this.adminForms();
   }
 
   adminForms(){
+    console.log("form dataaaa", this.formData)
     this.tahaForm = this._formBuilder.group({
-      asOf: ['',],
-      vacationLeaveEarned: [''],
-      vacationLeaveBalance: [''],
-      sickLeaveEarned: [''],
-      sickLeaveBalance: [''],
+      asOf: [this.formData.get("asOf")??""],
+      vacationLeaveEarned: [this.formData.get("vacationLeaveEarned")??""],
+      vacationLeaveBalance: [this.formData.get("vacationLeaveBalance")??""],
+      sickLeaveEarned: [this.formData.get("sickLeaveEarned")??""],
+      sickLeaveBalance: [this.formData.get("sickLeaveBalance")??""],
     });
     this.redondoForm = this._formBuilder.group({
-      forApproval: [''],
-      forDisapproval: [''],
-      forDisappovalInput: ['']
+      forApproval: [this.formData.get("forApproval")??""],
+      forDisapproval: [this.formData.get("forDisapproval")??""],
+      forDisappovalInput: [this.formData.get("forDisappovalInput")??""],
     })
     this.indiraForm = this._formBuilder.group({
-      daysWithPay: [''],
-      daysWithoutPay: [''],
-      others: [''],
-      disapprovedDueTo: ['']
+      daysWithPay: [this.formData.get("daysWithPay")??""],
+      daysWithoutPay: [this.formData.get("daysWithoutPay")??""],
+      others: [this.formData.get("others")??""],
+      disapprovedDueTo: [this.formData.get("disapprovedDueTo")??""],
     })
   }
 
@@ -286,18 +288,18 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       notRequested: this.formData.get("notRequested"),
       requested: this.formData.get("requested"),
 
-      forApproval: this.formDataMap.get("forApproval"),
-      forDisapproval: this.formDataMap.get("forDisapproval"),
-      forDisappovalInput: this.formDataMap.get("forDisappovalInput"),
-      asOf: this.formDataMap.get("asOf"),
-      vacationLeaveEarned: this.formDataMap.get("vacationLeaveEarned"),
-      vacationLeaveBalance: this.formDataMap.get("vacationLeaveBalance"),
-      sickLeaveEarned: this.formDataMap.get("sickLeaveEarned"),
-      sickLeaveBalance: this.formDataMap.get("sickLeaveBalance"),
-      daysWithPay: this.formDataMap.get("daysWithPay"),
-      daysWithoutPay: this.formDataMap.get("daysWithoutPay"),
-      others: this.formDataMap.get("others"),
-      disapprovedDueTo: this.formDataMap.get("disapprovedDueTo"),
+      forApproval: this.formDataMap.get("forApproval")?? this.formData.get("forApproval")?? "",
+      forDisapproval: this.formDataMap.get("forDisapproval")?? this.formData.get("forDisapproval")?? "",
+      forDisappovalInput: this.formDataMap.get("forDisappovalInput")?? this.formData.get("forDisappovalInput")?? "",
+      asOf: this.formDataMap.get("asOf")?? this.formData.get("asOf")?? "",
+      vacationLeaveEarned: this.formDataMap.get("vacationLeaveEarned")?? this.formData.get("vacationLeaveEarned")?? "",
+      vacationLeaveBalance: this.formDataMap.get("vacationLeaveBalance")?? this.formData.get("vacationLeaveBalance")?? "",
+      sickLeaveEarned: this.formDataMap.get("sickLeaveEarned")?? this.formData.get("sickLeaveEarned")?? "",
+      sickLeaveBalance: this.formDataMap.get("sickLeaveBalance")?? this.formData.get("sickLeaveBalance")?? "",
+      daysWithPay: this.formDataMap.get("daysWithPay")?? this.formData.get("daysWithPay")?? "",
+      daysWithoutPay: this.formDataMap.get("daysWithoutPay")?? this.formData.get("daysWithoutPay")?? "",
+      others: this.formDataMap.get("others")?? this.formData.get("others")?? "",
+      disapprovedDueTo: this.formDataMap.get("disapprovedDueTo")?? this.formData.get("disapprovedDueTo")?? "",
 
       applicantSignature: this.formData.get("applicantSignature"),
       tahaSignature: this.formData.get("tahaSignature"),
