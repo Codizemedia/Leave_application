@@ -216,20 +216,14 @@
                           (click)="signature1.clear()">
                             Clear
                           </button>
+                          <input style="display: none" type="file" (change)="onFileSelect($event, 'applicant')" #hiddenfileinput>
+                          <button mat-button (click)="hiddenfileinput.click()">Uplaod</button>
                           <button 
                           mat-button 
                           type="button" 
                           (click)="showImage('signature1', signature1)">
                             Submit
-                        </button>
-                         <!-- <input 
-                          mat-button 
-                          type="file" 
-                          name="Button"
-                          style="display: none;"
-                          (click)="uploadSignature($event)"> -->
-                          <input style="display: none" type="file" (change)="onFileSelect($event)" #hiddenfileinput>
-                          <button mat-button (click)="hiddenfileinput.click()">Uplaod</button>
+                          </button>
                           
                       </div>
                     </div>
@@ -383,6 +377,8 @@
                             (click)="signature2.clear()">
                               Clear
                             </button>
+                            <input style="display: none" type="file" (change)="onFileSelect($event, 'taha')" #hiddenfileinput>
+                            <button mat-button (click)="hiddenfileinput.click()">Uplaod</button>
                             <button 
                             mat-button 
                             type="button" 
@@ -476,6 +472,8 @@
                             (click)="signature3.clear()">
                               Clear
                             </button>
+                            <input style="display: none" type="file" (change)="onFileSelect($event, 'redondo')" #hiddenfileinput>
+                            <button mat-button (click)="hiddenfileinput.click()">Uplaod</button>
                             <button 
                             mat-button 
                             type="button" 
@@ -591,6 +589,8 @@
                           (click)="signature4.clear()">
                             Clear
                         </button>
+                        <input style="display: none" type="file" (change)="onFileSelect($event, 'indira')" #hiddenfileinput>
+                        <button mat-button (click)="hiddenfileinput.click()">Uplaod</button>
                         <button 
                           mat-button 
                           type="button" 

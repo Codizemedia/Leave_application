@@ -141,9 +141,9 @@ export class FilledFormComponent implements OnInit, OnDestroy {
     'canvasHeight': 100,
     'backgroundColor': 'rgb(247,247,247)',
   };
-  showImage(action: string, signature: any) {
-    
-    const base64ImageData = signature.toDataURL();
+  showImage(action: string, signature: any, select = false ) {
+
+    const base64ImageData = select? signature: signature.toDataURL();
 
     switch(action){
       case 'signature1':
@@ -260,9 +260,35 @@ export class FilledFormComponent implements OnInit, OnDestroy {
     // };
   }
 
-   onFileSelect(event: { target: { files: any[]; }; }) {
-    this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile.name);
+   onFileSelect(event: { target: { files: any[]; }; }, action: string) {
+    let file = event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    // reader.onload = function () {
+    //   // console.log(reader.result);
+    //   return reader.result
+    // };
+    console.log("onload", reader.onload)
+    // switch(action){
+    //   case 'applicant':
+    //     // this.signatureApplicant = reader.result!.toString();
+    //     this.showImage("signature1", reader.onload.toString().trim(), true)
+    //     break;
+    //   case 'taha':
+    //     this.showImage("signature2", reader.onload.toString().trim(), true)
+    //     break;
+    //   case 'redondo':
+    //     this.showImage("signature3", reader.onload.toString().trim(), true)
+    //     break;
+    //   case 'indira':
+    //     this.showImage("signature4", reader.onload.toString().trim(), true)
+    //     break;
+    // }
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+
+
   }
 
   
