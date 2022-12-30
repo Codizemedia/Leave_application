@@ -53,6 +53,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
   formDataSubscription!: Subscription;
   userRole: string = ""
   formDataMap: Map<string, string> = new Map<string, string>();
+  selectedFile!: File;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -247,16 +248,21 @@ export class FilledFormComponent implements OnInit, OnDestroy {
   }
 
   uploadSignature(event: any){
-    let me = this;
-    let file = event.target.files[0];
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-      console.log(reader.result);
-    };
-    reader.onerror = function (error) {
-      console.log('Error: ', error);
-    };
+    // let me = this;
+    // let file = event.target.files[0];
+    // let reader = new FileReader();
+    // reader.readAsDataURL(file);
+    // reader.onload = function () {
+    //   console.log(reader.result);
+    // };
+    // reader.onerror = function (error) {
+    //   console.log('Error: ', error);
+    // };
+  }
+
+   onFileSelect(event: { target: { files: any[]; }; }) {
+    this.selectedFile = event.target.files[0];
+    console.log(this.selectedFile.name);
   }
 
   

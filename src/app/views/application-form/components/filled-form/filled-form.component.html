@@ -222,6 +222,15 @@
                           (click)="showImage('signature1', signature1)">
                             Submit
                         </button>
+                         <!-- <input 
+                          mat-button 
+                          type="file" 
+                          name="Button"
+                          style="display: none;"
+                          (click)="uploadSignature($event)"> -->
+                          <input style="display: none" type="file" (change)="onFileSelect($event)" #hiddenfileinput>
+                          <button mat-button (click)="hiddenfileinput.click()">Uplaod</button>
+                          
                       </div>
                     </div>
                     <img [src]="signatureApplicant" *ngIf="signatureApplicant" style="height: 100px; width: 200px;"/>
