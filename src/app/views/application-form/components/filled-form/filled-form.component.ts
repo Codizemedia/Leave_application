@@ -246,6 +246,19 @@ export class FilledFormComponent implements OnInit, OnDestroy {
     this.store.dispatch(formDataActions.requestSelectFormDataACTION({payload: this.formData}))
   }
 
+  uploadSignature(event: any){
+    let me = this;
+    let file = event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      console.log(reader.result);
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+  }
+
   
   mapToObject():any{
     console.log("%%%%5", this.formDataMap)
