@@ -36,6 +36,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { appEffects } from './effects/effects';
 // import { FormForApprovalComponent } from './views/dashboard/components/form-for-approval/form-for-approval.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
+import { StarterModule } from './views/application-form/starter.module';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -60,6 +61,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppBlankComponent,
   ],
   imports: [
+    StarterModule,
     BrowserModule,
     BrowserAnimationsModule,
     DemoMaterialModule,
@@ -72,7 +74,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SharedModule,
     SignaturePadModule,
     // AngularSignaturePadModule,
-    RouterModule.forRoot(AppRoutes),
+    RouterModule.forRoot(AppRoutes, 
+      // { enableTracing: true }
+    ),
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -85,8 +89,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         deps: [HttpClient]
       }
     }),
-
   ],
+  exports: [RouterModule],
   providers: [
     AuthGuard,
     SpinnerComponent,

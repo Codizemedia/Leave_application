@@ -13,9 +13,14 @@ export const AppRoutes: Routes = [
 
     {
         path: '',
-        component: FullComponent,
         canActivate: [AuthGuard],
+        component: FullComponent,
         children: [
+            {
+                path: '',
+                redirectTo: '/authentication',
+                pathMatch: 'full',
+            },
            
             {
                 path: 'application',
@@ -23,19 +28,15 @@ export const AppRoutes: Routes = [
                 loadChildren: () => import('./views/application-form/starter.module').then(m => m.StarterModule)
             },
             
-        ]
+        ],
     },
     {
         path: 'authentication',
         loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule)
     },
     {
-        path: '',
-        redirectTo: '/authentication',
-        pathMatch: 'full',
-    },
-    {
         path: '**',
+        // canActivate: [AuthGuard],
         component: ErrorComponent,
     }
 ];

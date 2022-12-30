@@ -25,6 +25,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ApplicationFormComponent, 
     FilledFormComponent,
     DashboardComponent,
-  ]
+  ],
+  exports: [RouterModule]
 })
 export class StarterModule {}

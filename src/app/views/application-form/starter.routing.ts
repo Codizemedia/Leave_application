@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from 'src/app/guards/auth.guard';
+// import { AuthGuard } from 'src/app/guards/auth.guard';
 import { FormDataResolverService } from 'src/app/resolvers/form-data-resolver.service';
 import { FormStatusResolverService } from 'src/app/resolvers/form-status-resolver.service';
 import { UserDetailsResolverService } from 'src/app/resolvers/user-details-resolver.service';
@@ -21,7 +21,7 @@ export const StarterRoutes: Routes = [
   },
   {
     path: 'dashboard',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     resolve: [
         FormDataResolverService, 
         UserDetailsResolverService,
