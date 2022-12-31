@@ -74,9 +74,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SharedModule,
     SignaturePadModule,
     // AngularSignaturePadModule,
-    RouterModule.forRoot(AppRoutes, 
-      // { enableTracing: true }
-    ),
+  
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -89,6 +87,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         deps: [HttpClient]
       }
     }),
+    RouterModule.forRoot(AppRoutes, 
+      // { enableTracing: true }
+    ),
   ],
   exports: [RouterModule],
   providers: [

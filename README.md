@@ -1,6 +1,31 @@
+
+
+
+
+
 # Project
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.0-next.1.
+
+
+
+```
+email: applicant@gmail.com
+pass: admin123
+
+email: admintest@gmail.com
+pass: admin123
+
+email: taha@gmail.com
+pass: admin123
+
+email: redondo@gmail.com
+pass: admin123
+
+email: indira@gmail.com
+pass: admin123
+
+```
 
 ## Development server
 

@@ -54,6 +54,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
   userRole: string = ""
   formDataMap: Map<string, string> = new Map<string, string>();
   selectedFile!: File;
+  image: string = "";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -261,29 +262,32 @@ export class FilledFormComponent implements OnInit, OnDestroy {
   }
 
    onFileSelect(event: { target: { files: any[]; }; }, action: string) {
+    let me = this;
     let file = event.target.files[0];
     let reader = new FileReader();
+    let bas64Image = "";
     reader.readAsDataURL(file);
-    // reader.onload = function () {
-    //   // console.log(reader.result);
-    //   return reader.result
-    // };
-    console.log("onload", reader.onload)
-    // switch(action){
-    //   case 'applicant':
-    //     // this.signatureApplicant = reader.result!.toString();
-    //     this.showImage("signature1", reader.onload.toString().trim(), true)
-    //     break;
-    //   case 'taha':
-    //     this.showImage("signature2", reader.onload.toString().trim(), true)
-    //     break;
-    //   case 'redondo':
-    //     this.showImage("signature3", reader.onload.toString().trim(), true)
-    //     break;
-    //   case 'indira':
-    //     this.showImage("signature4", reader.onload.toString().trim(), true)
-    //     break;
-    // }
+    reader.onload =  ()=> {
+      this.image = reader.result?.toString()!;
+      // console.log(reader.result?.toString() )
+      console.log(bas64Image)
+      switch(action){
+        case 'applicant':
+          this.showImage("signature1", this.image, true)
+          break;
+        case 'taha':
+          this.showImage("signature2", this.image, true)
+          break;
+        case 'redondo':
+          this.showImage("signature3", this.image, true)
+          break;
+        case 'indira':
+          this.showImage("signature4", this.image, true)
+          break;
+      }
+    };
+   
+   
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };

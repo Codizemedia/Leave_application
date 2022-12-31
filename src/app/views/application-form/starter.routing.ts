@@ -9,6 +9,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const StarterRoutes: Routes = [
   {
+    path: "",
+    redirectTo: '/application/dashboard',
+    pathMatch: 'full',
+  },
+  {
     path: 'form',
     component: ApplicationFormComponent,
     data: {
