@@ -6,22 +6,21 @@ import html2canvas from 'html2canvas';
 import { emptyForm } from './empty-form';
 import { Store } from '@ngrx/store';
 import { selectFormData } from '../../store/leave-application-form/leave-application-form.selectors';
-import { from, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { selectUserDetails } from '../../store/user-details/user-details.selectors';
 import * as fromStatusActions from '../../store/form-status/form-status.actions';
 import * as formDataActions from '../../store/leave-application-form/leave-application-form.actions';
+import { FormStatus } from 'src/app/models/form-status.model';
+import { selectFormStatus } from '../../store/form-status/form-status.selectors';
+import { UserDetailsService } from 'src/app/services/user-details.service';
+import { SharedService } from 'src/app/shared/shared.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { 
   choicesA, 
   choicesB,
   choicesC,
   choicesD } from '../../../shared/form-questions';
-import { FormStatus } from 'src/app/models/form-status.model';
-import { selectFormStatus } from '../../store/form-status/form-status.selectors';
-import { UserDetailsService } from 'src/app/services/user-details.service';
-import { SpinnerComponent } from 'src/app/shared/spinner.component';
-import { SharedService } from 'src/app/shared/shared.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { BreakpointObserver } from '@angular/cdk/layout';
 
 
 @Component({
@@ -100,6 +99,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       const selectedData = response.selectedForm;
       const data:any[] = response.formData
       if(data != undefined && data.length != 0){
+        console.log("show")
         this.formData = new Map(Object.entries(data[0]));
         this.applicantSignature = this.formData.get("applicantSignature") != "" ? this.formData.get("applicantSignature")!: this.noSinatureAccess;
         this.tahaSignature = this.formData.get("tahaSignature") != "" ? this.formData.get("tahaSignature")!: this.noSinatureAccess;
@@ -231,11 +231,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   sendReuqest(){
-    if(this.requestForm.value.name != "" && this.requestForm.value.email != ""){
+    if(this.requestForm.value.name != "" && this.requestForm.value.email != "" ){
 
-      if(this.formData.get("id") != undefined &&  this.currentFormStatus.id != undefined){
-        this.store.dispatch(formDataActions.requestDeleteFormDataACTION({payload: this.formData.get("id")!}))
-        this.store.dispatch(fromStatusActions.requestDeleteFormStatusACTION({payload: this.currentFormStatus.id!}))
+     try{
+        if(this.formData.get("id") != undefined &&  this.currentFormStatus.id != undefined){
+          this.store.dispatch(formDataActions.requestDeleteFormDataACTION({payload: this.formData.get("id")!}))
+          this.store.dispatch(fromStatusActions.requestDeleteFormStatusACTION({payload: this.currentFormStatus.id!}))
+        }
+      }catch(e){
+        console.log('see error', e)
+        // alert("something went wrong");
       }
       const statusData = this.requestForm.value;
       const formStatusData: FormStatus = {
@@ -251,6 +256,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }else{
         alert("Leave Application Request is Already in Process!")
       }
+
     }else{
       console.log("elsellslele")
       alert("Invalid name or email")
