@@ -67,7 +67,7 @@ export class RegisterComponent implements OnInit {
     }
 
     const userDetails = {
-      name: "Applicant",
+      name: "Employee",
       userRole: "applicant",
       email: this.form.value.email, 
     }

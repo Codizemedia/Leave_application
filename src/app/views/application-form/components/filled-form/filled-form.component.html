@@ -385,6 +385,12 @@
                             (click)="showImage('signature2', signature2)">
                               Submit
                           </button>
+                          <button 
+                            mat-button 
+                            type="button" 
+                            (click)="showImage('signature2', signature2, false, 'Your request is disapproved by Taha')">
+                              Disapprove
+                          </button>
                         </div>
                       </div>
                       <img [src]="tahaSignature" *ngIf="tahaSignature" style="height: 100px; width: 200px;" />
@@ -479,6 +485,12 @@
                             type="button" 
                             (click)="showImage('signature3', signature3)">
                               Submit
+                          </button>
+                          <button 
+                            mat-button 
+                            type="button" 
+                            (click)="showImage('signature3', signature3, false, 'Your request is disapproved by Redondo')">
+                              Disapprove
                           </button>
                         </div>
                       </div>
@@ -597,6 +609,12 @@
                           (click)="showImage('signature4', signature4)">
                             Submit
                         </button>
+                        <button 
+                        mat-button 
+                        type="button" 
+                        (click)="showImage('signature4', signature4, false, 'Your request is disapproved by Indira')">
+                          Disapprove
+                      </button>
                       </div>
                     </div>
                     <img [src]="indiraSignature" *ngIf="indiraSignature && hasSignatureAccessIndira" />

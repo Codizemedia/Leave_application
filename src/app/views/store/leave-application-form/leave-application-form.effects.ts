@@ -70,6 +70,7 @@ export class LeaveApplicationFormEffects {
                 name: data.formStatus.name,
                 email: data.formStatus.email,
                 status: "taha-approval",
+                number: data.formStatus.number,
                 uid: localStorage.getItem("uid")!,
                 formId: response.id,
                 id: data.formStatus.id!

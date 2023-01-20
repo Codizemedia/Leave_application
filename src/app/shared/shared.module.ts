@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 import { MenuItems } from './menu-items/menu-items';
 import {
   AccordionAnchorDirective,
@@ -16,7 +16,8 @@ import {
   exports: [
     AccordionAnchorDirective,
     AccordionLinkDirective,
-    AccordionDirective
+    AccordionDirective,
+    HttpClientModule
   ],
   providers: [MenuItems]
 })

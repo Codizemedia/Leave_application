@@ -21,6 +21,8 @@ import {
   choicesB,
   choicesC,
   choicesD } from '../../../shared/form-questions';
+import { SendMessageService } from 'src/app/shared/send-message/send-message.service';
+import { Sms } from 'src/app/models/sms.model';
 
 
 @Component({
@@ -72,19 +74,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private _formBuilder: FormBuilder,
     private userDetailsService: UserDetailsService,
     private sharedService: SharedService,
-    breakpointObserver: BreakpointObserver
+    private sendMessageService: SendMessageService,
   ) { 
     window.onbeforeunload = function () {
       window.scrollTo(0, 0);
     }
-    breakpointObserver.observe(['(max-width: 600px)']).subscribe(result => {
-      this.displayedColumns = result.matches ?
-          [ 'name', 'email', 'status'] :
-          [ 'name', 'email', 'status'];
-    });
     this.requestForm = this._formBuilder.group({
       name: ['',],
       email: [''],
+      number: ['+639'],
     });
   }
   ngOnDestroy(): void {
@@ -99,7 +97,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       const selectedData = response.selectedForm;
       const data:any[] = response.formData
       if(data != undefined && data.length != 0){
-        console.log("show")
         this.formData = new Map(Object.entries(data[0]));
         this.applicantSignature = this.formData.get("applicantSignature") != "" ? this.formData.get("applicantSignature")!: this.noSinatureAccess;
         this.tahaSignature = this.formData.get("tahaSignature") != "" ? this.formData.get("tahaSignature")!: this.noSinatureAccess;
@@ -144,7 +141,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       if(response.formStatus != undefined){
         if(response.formStatus.length != 0){
           const currentUserForm = response.formStatus.filter((data:any)=>{
-            console.log("uid", data.uid + "==" + localStorage.getItem("uid"))
+
               return data.uid == localStorage.getItem("uid")
           })
           switch(this.userDetailsService.userDetails.userRole){
@@ -166,7 +163,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
               })
               
               this.dataSource = new MatTableDataSource<any>(this.redondoForms);
-              console.log("see redondo forms", this.dataSource)
+  
               break;
             case "admin-indira":
               this.indiraForms = response.formStatus.filter((data:any)=>{
@@ -175,7 +172,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
               this.dataSource = new MatTableDataSource<any>(this.indiraForms);
               break;
           }
-          console.log("see log", currentUserForm)
           if(currentUserForm.length != 0 && this.applicantRole){
             
             switch(currentUserForm[0].status){
@@ -189,7 +185,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 this.requestStatus = "declined";
                 break;
               case "taha-approval":
-                console.log("this switch block executed")
                 this.openStep = "2"
                 break;
               case "redondo-approval":
@@ -246,6 +241,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       const formStatusData: FormStatus = {
         name: statusData.name,
         email: statusData.email,
+        number: statusData.number,
         status: "pending",
         uid: this.userDetailsService.userDetails.uid,
         formId: ""
@@ -258,7 +254,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
 
     }else{
-      console.log("elsellslele")
       alert("Invalid name or email")
     }
   }
@@ -272,15 +267,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
         const formAccepted = {
           name: formStatus.name,
           email: formStatus.email,
+          number: formStatus.number,
           status: "accepted",
           formId: formStatus.formId
         }
         this.store.dispatch(fromStatusActions.requestUpdateFormStatusACTION({id: formStatus.id!, payload: formAccepted}))
         break;
       case "declined":
+        const message:Sms = {
+          "mobile_number": formStatus.number,
+          "message": "Your request is not accepted",
+          "device": "448cd64520ad3e78",
+          "device_sim": "2"
+        } 
+        this.sendMessageService.sendMessage(message);
         const formDeclined = {
           name: formStatus.name,
           email: formStatus.email,
+          number: formStatus.number,
           status: "declined",
           formId: formStatus.formId
         }

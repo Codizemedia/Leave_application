@@ -14,6 +14,8 @@ import {
   choicesB,
   choicesC,
   choicesD } from '../../../../shared/form-questions';
+import { Sms } from 'src/app/models/sms.model';
+import { SendMessageService } from 'src/app/shared/send-message/send-message.service';
 
 @Component({
   selector: 'app-filled-form',
@@ -61,6 +63,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
     private store: Store,
     private userDetailService: UserDetailsService,
     private _formBuilder: FormBuilder,
+    private sendMessageService: SendMessageService,
     ) {
     this.signatureForm1 = this.formBuilder.group({
      signature: new FormControl([''])
@@ -142,7 +145,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
     'canvasHeight': 100,
     'backgroundColor': 'rgb(247,247,247)',
   };
-  showImage(action: string, signature: any, select = false ) {
+  showImage(action: string, signature: any, select = false, message = "" ) {
 
     const base64ImageData = select? signature: signature.toDataURL();
 
@@ -154,6 +157,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
         name: this.formStatus.name,
         email: this.formStatus.email,
         status: "taha-approval",
+        number: this.formStatus.number,
         uid: this.userDetailService.userDetails.uid,
         formId: "",
         id: this.formStatus.id!
@@ -169,6 +173,9 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       this.tahaSignature = base64ImageData;
       const tahaValue = this.tahaForm.value;
       console.log('tahaValue', tahaValue)
+      if(message != ""){
+        this.sendMessage(message)
+      }
       this.formData.set("tahaSignature", this.tahaSignature)
       this.formDataMap.set("asOf", tahaValue.asOf)
       this.formDataMap.set("vacationLeaveEarned", tahaValue.vacationLeaveEarned)
@@ -180,6 +187,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
         name: this.formStatus.name,
         email: this.formStatus.email,
         status: "redondo-approval",
+        number: this.formStatus.number,
         formId: this.formStatus.formId
       } 
       this.store.dispatch(
@@ -196,6 +204,9 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       case 'signature3':
       this.redondoSignature= base64ImageData;
       const redondoValue = this.redondoForm.value;
+      if(message != ""){
+        this.sendMessage(message)
+      }
       this.formData.set("redondoSignature", this.redondoSignature)
       this.formDataMap.set("forApproval", redondoValue.forApproval)
       this.formDataMap.set("forDisapproval", redondoValue.forDisapproval)
@@ -205,6 +216,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
         name: this.formStatus.name,
         email: this.formStatus.email,
         status: "indira-approval",
+        number: this.formStatus.number,
         formId: this.formStatus.formId
       } 
       this.store.dispatch(
@@ -221,6 +233,9 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       case 'signature4':
       this.indiraSignature = base64ImageData;
       const indiraValue = this.indiraForm.value;
+      if(message != ""){
+        this.sendMessage(message)
+      }
       this.formData.set("indiraSignature", this.indiraSignature)
       this.formDataMap.set("daysWithPay", indiraValue.daysWithPay)
       this.formDataMap.set("daysWithoutPay", indiraValue.daysWithoutPay)
@@ -230,6 +245,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       const indiraStatusData: FormStatus = {
         name: this.formStatus.name,
         email: this.formStatus.email,
+        number: this.formStatus.number,
         status: "done",
         formId: this.formStatus.formId
       } 
@@ -357,6 +373,17 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       uid: localStorage.getItem("uid")
     }
     return filledFormData;
+  }
+
+  sendMessage(message: string){
+    const mess:Sms = {
+      "mobile_number": this.formStatus.number,
+      "message": message,
+      "device": "448cd64520ad3e78",
+      "device_sim": "2"
+    } 
+    this.sendMessageService.sendMessage(mess);
+    alert("Disapproval message was sent to the employee.")
   }
   
 }

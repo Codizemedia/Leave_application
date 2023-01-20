@@ -3,6 +3,7 @@ export interface FormStatus{
     name: string;
     email: string;
     status: string;
+    number: string;
     uid?: string;
     formId: string;
 }

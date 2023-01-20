@@ -44,7 +44,7 @@ style="
                       *matHeaderCellDef 
                       [align]="'center'"> <div style="display: flex; justify-content: center;">Actions</div> </th>
                       <td mat-cell *matCellDef="let element" [align]="'center'">
-                        <div *ngIf="element.status == 'accepted'">Accepted</div>
+                        <div *ngIf="element.status != 'declined'&& element.status != 'pending'">Accepted</div>
                         <div *ngIf="element.status == 'declined'">Declined</div>
                         <div *ngIf="element.status == 'pending'">
                           <button 
@@ -105,6 +105,10 @@ style="
                     <mat-form-field appearance="fill">
                       <mat-label>Email</mat-label>
                       <input matInput formControlName="email">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                      <mat-label>Mobile Number</mat-label>
+                      <input matInput formControlName="number">
                     </mat-form-field>
                     <button 
                     mat-raised-button
