@@ -13,7 +13,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 email: applicant@gmail.com
 pass: admin123
 
-email: admin@@test.com
+email: admin@test.com
 pass: admin123
 
 email: taha@gmail.com
