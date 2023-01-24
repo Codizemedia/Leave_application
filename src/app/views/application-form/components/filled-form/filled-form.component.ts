@@ -369,7 +369,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       tahaSignature: this.formData.get("tahaSignature"),
       redondoSignature: this.formData.get("redondoSignature"),
       indiraSignature: this.formData.get("indiraSignature"),
-      uid: this.formData.get("uid"),
+      uid: this.formData.get("uid") === undefined? localStorage.getItem('uid'): this.formData.get("uid"),
     }
     return filledFormData;
   }

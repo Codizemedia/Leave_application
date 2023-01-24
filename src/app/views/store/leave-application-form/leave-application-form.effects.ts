@@ -26,7 +26,6 @@ export class LeaveApplicationFormEffects {
             .valueChanges({ idField: 'id' })
             .pipe(
               switchMap((response) => {
-                console.log("seee fetch", response)
                 return [formDataActions.successFetchFormDataACTION({
                     payload: response,
                   })

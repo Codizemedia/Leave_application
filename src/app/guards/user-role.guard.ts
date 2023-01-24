@@ -26,7 +26,6 @@ export class UserRoleGuard implements CanActivate {
     console.log('see user role response', response)
    })
     if (localStorage.getItem('uid') != null) {
-      console.log("authenticated")
       // this.routes.navigate(['/'])
       return true;
     } else {

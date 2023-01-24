@@ -31,7 +31,8 @@ export class AuthEffects {
             response.payload.password
           )
           .then((res) => {
-            localStorage.setItem('uid', res.user!.uid);
+            console.log("signin ", res.user!.uid)
+            localStorage.setItem('uid', (res.user!.uid).toString());
             const signInDetails = {
               signedIn: true,
               uid: res.user?.uid,
