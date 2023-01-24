@@ -97,7 +97,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
       const selectedData = response.selectedForm;
       const data:any[] = response.formData
       if(data != undefined && data.length != 0){
-        this.formData = new Map(Object.entries(data[0]));
+        console.log("see response", response)
+        for(let formData of response.formData){
+          console.log("===========")
+          formData.uid === localStorage.getItem("uid")
+          console.log(formData.uid, '===', localStorage.getItem("uid"))
+          if(formData.uid === localStorage.getItem("uid")){
+            this.formData = new Map(Object.entries(response.formData[0]));
+          }
+        }
         this.applicantSignature = this.formData.get("applicantSignature") != "" ? this.formData.get("applicantSignature")!: this.noSinatureAccess;
         this.tahaSignature = this.formData.get("tahaSignature") != "" ? this.formData.get("tahaSignature")!: this.noSinatureAccess;
         this.redondoSignature = this.formData.get("redondoSignature") != "" ? this.formData.get("redondoSignature")!: this.noSinatureAccess;

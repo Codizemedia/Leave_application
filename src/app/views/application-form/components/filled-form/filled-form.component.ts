@@ -302,13 +302,9 @@ export class FilledFormComponent implements OnInit, OnDestroy {
           break;
       }
     };
-   
-   
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
-
-
   }
 
   
