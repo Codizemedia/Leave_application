@@ -104,6 +104,7 @@ export class FormStatusEffects {
             .doc(docID.payload)
             .delete()
             .then(() => {
+              console.log("delete status success")
               return fromStatusActions.successDeleteFormStatusACTION();
             })
             .catch((error) => {

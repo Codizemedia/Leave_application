@@ -114,6 +114,7 @@ export class LeaveApplicationFormEffects {
             .doc(docID.payload)
             .delete()
             .then(() => {
+              console.log("delete formdata success")
               return formDataActions.successDeleteFormDataACTION();
             })
             .catch((error) => {

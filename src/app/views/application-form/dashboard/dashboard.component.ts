@@ -97,11 +97,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
       const selectedData = response.selectedForm;
       const data:any[] = response.formData
       if(data != undefined && data.length != 0){
-        console.log("see response", response)
+        // console.log("see response", response)
         for(let formData of response.formData){
-          console.log("===========")
+          // console.log("===========")
           formData.uid === localStorage.getItem("uid")
-          console.log(formData.uid, '===', localStorage.getItem("uid"))
+          // console.log(formData.uid, '===', localStorage.getItem("uid"))
           if(formData.uid === localStorage.getItem("uid")){
             this.formData = new Map(Object.entries(response.formData[0]));
           }
@@ -235,7 +235,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   sendReuqest(){
     if(this.requestForm.value.name != "" && this.requestForm.value.email != "" ){
-
+      console.log("requestign")
      try{
         if(this.formData.get("id") != undefined &&  this.currentFormStatus.id != undefined){
           this.store.dispatch(formDataActions.requestDeleteFormDataACTION({payload: this.formData.get("id")!}))

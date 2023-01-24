@@ -188,7 +188,8 @@ export class FilledFormComponent implements OnInit, OnDestroy {
         email: this.formStatus.email,
         status: "redondo-approval",
         number: this.formStatus.number,
-        formId: this.formStatus.formId
+        formId: this.formStatus.formId,
+        uid: this.formStatus.uid,
       } 
       this.store.dispatch(
         formStatusActions.requestUpdateFormStatusACTION(
@@ -217,7 +218,8 @@ export class FilledFormComponent implements OnInit, OnDestroy {
         email: this.formStatus.email,
         status: "indira-approval",
         number: this.formStatus.number,
-        formId: this.formStatus.formId
+        formId: this.formStatus.formId,
+        uid: this.formStatus.uid,
       } 
       this.store.dispatch(
         formStatusActions.requestUpdateFormStatusACTION(
@@ -247,7 +249,8 @@ export class FilledFormComponent implements OnInit, OnDestroy {
         email: this.formStatus.email,
         number: this.formStatus.number,
         status: "done",
-        formId: this.formStatus.formId
+        formId: this.formStatus.formId,
+        uid: this.formStatus.uid,
       } 
       this.store.dispatch(
         formStatusActions.requestUpdateFormStatusACTION(
@@ -366,7 +369,7 @@ export class FilledFormComponent implements OnInit, OnDestroy {
       tahaSignature: this.formData.get("tahaSignature"),
       redondoSignature: this.formData.get("redondoSignature"),
       indiraSignature: this.formData.get("indiraSignature"),
-      uid: localStorage.getItem("uid")
+      uid: this.formData.get("uid"),
     }
     return filledFormData;
   }
