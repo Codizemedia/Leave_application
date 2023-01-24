@@ -44,9 +44,13 @@ style="
                       *matHeaderCellDef 
                       [align]="'center'"> <div style="display: flex; justify-content: center;">Actions</div> </th>
                       <td mat-cell *matCellDef="let element" [align]="'center'">
-                        <div *ngIf="element.status != 'declined'&& element.status != 'pending'">Accepted</div>
-                        <div *ngIf="element.status == 'declined'">Declined</div>
-                        <div *ngIf="element.status == 'pending'">
+                        <div *ngIf="element.status === 'accepted'">Accepted</div>
+                        <div *ngIf="element.status === 'taha-approval'">Required Taha Approval</div>
+                        <div *ngIf="element.status === 'redondo-approval'">Required Redondo Approval</div>
+                        <div *ngIf="element.status === 'indira-approval'">Required Indira Approval</div>
+                        <div *ngIf="element.status === 'done'">Completed</div>
+                        <div *ngIf="element.status === 'declined'">Declined</div>
+                        <div *ngIf="element.status ==='pending'">
                           <button 
                           type="button"
                           mat-raised-button 
