@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilledFormComponent } from './components/filled-form/filled-form.component';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -20,12 +21,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     SignaturePadModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSelectModule,
     RouterModule.forChild(StarterRoutes)
   ],
   declarations: [
     ApplicationFormComponent, 
     FilledFormComponent,
-    DashboardComponent,
+    DashboardComponent
   ],
   exports: [RouterModule]
 })

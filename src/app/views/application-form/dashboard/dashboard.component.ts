@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   @ViewChild('pdfTable') pdfTable!: ElementRef;
   requestForm: FormGroup = Object.create(null);
+  filterForm: FormGroup = Object.create(null);
   choices1 = choicesA;
   choices2 = choicesB;
   choices3 = choicesC;
@@ -67,6 +68,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
   displayedColumns = [ 'name', 'email', 'status'];
   dataSource = new MatTableDataSource<any>(this.formRequests);
   currentFormStatus!: FormStatus;
+  statusFilterSelection = [
+    {name: "All", value: "all"},
+    {name: "Approved", value:"accepted"}, 
+    {name: "Disapproved", value:"declined"},
+    {name: "Required Taha Approval", value: "taha-approval"},
+    {name: "Required Redondo Approval", value: "redondo-approval"},
+    {name: "Required Indira Approval", value: "indira-approval"},
+    {name: "Pending", value: "pending"},
+    {name: "Completed", value: "done"}
+
+  ]
  
   constructor(
     private router: Router, 
@@ -83,6 +95,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       name: ['',],
       email: [''],
       number: ['+639'],
+    });
+    this.filterForm = this._formBuilder.group({
+      status: [''],
     });
   }
   ngOnDestroy(): void {
@@ -155,6 +170,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
               break;
             case "admin":
               this.dataSource = new MatTableDataSource<any>(response.formStatus);
+              this.formRequests = response.formStatus;
               break;
             case "admin-taha":
               this.tahaForms = response.formStatus.filter((data:any)=>{
@@ -207,6 +223,57 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
       }
     })
+  }
+
+  filterForms(event: any){
+    console.log("see evcent", event.value)
+    let filteredForm = [];
+    for (let data of this.formRequests ){
+      console.log(data.status, '===', event.value)
+      switch(event.value){
+        case "accepted":
+          if(data.status === event.value){
+           
+            filteredForm.push(data);
+          }
+          break;
+        case "declined":
+           if(data.status === event.value){
+            filteredForm.push(data);
+          }
+          break;
+        case "taha-approval":
+           if(data.status === event.value){
+            filteredForm.push(data);
+          }
+          break;
+        case "redondo-approval":
+           if(data.status === event.value){
+            filteredForm.push(data);
+          }
+          break;
+        case "indira-approval":
+           if(data.status === event.value){
+            filteredForm.push(data);
+          }
+          break;
+        case "pending":
+           if(data.status === event.value){
+            filteredForm.push(data);
+          }
+          break;
+        case "done":
+           if(data.status === event.value){
+            filteredForm.push(data);
+          }
+          break;
+        case "all":
+          filteredForm.push(data);
+          break;           
+      }
+    }
+    console.log("data", filteredForm)
+    this.dataSource =  new MatTableDataSource<any>(filteredForm);
   }
 
   formAction(){

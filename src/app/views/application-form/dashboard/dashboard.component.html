@@ -21,7 +21,21 @@ style="
         <div >
           <div [align]="'center'">
             <h3> Leave Application Requests</h3><br>
-            <div *ngIf="formRequests.legnth == 0"></div>
+            <div *ngIf="formRequests.legnth == 0" class="no-request">
+              No Request 
+            </div>
+            <div *ngIf="formRequests.legnth != 0">
+             <form [formGroup]="filterForm" style="width: 100%;">
+              <mat-form-field appearance="outline">
+                <mat-label>Filter Form Status</mat-label>
+                <mat-select formControlName="status" (selectionChange)="filterForms($event)">
+                  <mat-option *ngFor="let status of statusFilterSelection" [value]="status.value">
+                    {{status.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+             </form>
+            </div>
             <div
             *ngIf="formRequests.legnth != 0" 
             class="responsive-table" 
